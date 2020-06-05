@@ -1,0 +1,123 @@
+{% extends "admin/admin_sidebar.html" %}
+{% block body %}
+
+  
+<!--END Script for add new row for a file--> 
+
+
+<body>
+    <div class="container register-form">
+            <div class="form">
+                <div class="note">
+                    <p>COMPLETED FILES</p>
+                </div>
+
+                <div class="form-content">
+                    <!--Table-->
+                        <div class="container shadow p-3 mb-5 bg-white rounded">
+		
+			<table class="table" id="worktable" style="font-size: 16px;">
+		  <thead>
+		    <tr>
+		      <th scope="col">FileID</th>
+		      <th scope="col">Arrival Time</th>
+		      <th scope="col">Last Dept</th>
+		      <th scope="col">Last Scan Time</th>
+          <th scope="col">Delayed Days</th>
+		   
+		    </tr>
+		  </thead>
+		  <tbody>
+		  
+		  </tbody>
+		</table>
+
+</div>
+                    
+                    
+                </div>
+            </div>
+        </div>
+    
+
+    
+    
+<!-- Model for forward button -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Forwarded To Next Stage</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        
+        <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Confirm</button>
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--end modal for forward button-->
+  		
+<!--<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/bootstrap.css')}}">
+<script async src="{{ url_for('static',filename='js/zxing.js')}}"></script>
+<script src="{{ url_for('static',filename='js/video.js')}}"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/bootstrap.js')}}"></script> -->
+
+</body>
+
+   <script>
+
+   function myFunction() {
+/*  var url=localStorage.getItem("url");*/
+  var xmlhttp = new XMLHttpRequest();
+  var table = document.getElementById("worktable");
+      console.log(table);
+      $.get("{{url_for('get_completed_files')}}",{},
+                
+                function(response){
+                  //check if what response is   
+                    console.log(response);
+                    if(response["status"]==="1"){
+                        var i=0;
+
+                        var delaycnt =response["details"]["completed_files"];
+                         console.log(delaycnt.length);
+                        for(i = 0; i < delaycnt.length; i++){
+                        var row = table.insertRow(1);
+                        var cell1 = row.insertCell(0);
+                        var cell2 = row.insertCell(1);
+                        var cell3 = row.insertCell(2);
+                        var cell4 = row.insertCell(3);
+                        var cell5 = row.insertCell(4);
+      
+                        
+                        cell1.innerHTML = delaycnt[i]['fid'];
+                        cell2.innerHTML = delaycnt[i]["timeCreated"];
+                        cell3.innerHTML = delaycnt[i]["lastDept"];
+                        cell4.innerHTML = delaycnt[i]["lastScanTime"];
+                        cell5.innerHTML = delaycnt[i]["delayedDays"];
+
+                        //loadfiles();
+                      }
+                    }
+                    
+                    //alert(response);
+                
+              },"json");
+  
+}
+  myFunction(); 
+   
+    </script>
+
+{% endblock %}

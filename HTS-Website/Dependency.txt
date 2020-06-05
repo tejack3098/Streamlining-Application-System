@@ -1,0 +1,6 @@
+pip install mysql-connector-python
+pip install mysqlclient
+
+pip install flask-cors
+
+pip install holidays

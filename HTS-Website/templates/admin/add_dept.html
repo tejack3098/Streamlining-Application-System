@@ -1,0 +1,207 @@
+{% extends "admin/admin_sidebar.html" %}
+{% block body %}
+
+    
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item ">
+    <a class="nav-link active" id="dept-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" onclick="loadapplications()" style="text-decoration: none;">Department List</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="add-dept-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" style="text-decoration: none;">Add Department</a>
+  </li>
+
+</ul>
+
+    
+<div class="tab-content" id="myTabContent" style="padding-top: 20px;">
+ <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="dept-tab">
+    <div class="title">
+        <!--<h1 align="center">Applications List</h1>-->
+      </div>
+
+       <div class="container shadow p-3 mb-5 bg-white rounded">
+      <table class="table" id="depttable" style="font-size: 18px;" >
+      <thead >
+        <tr>
+          <th scope="col">Department Name</th>
+          <th scope="col">Department ID</th>
+          <th scope="col">Time Created </th>
+          
+
+        </tr>
+      </thead>
+      <tbody id='workTbdy'>
+       <!-- <tr>
+          <th scope="row">id3u40</th>
+          <td>11:34</td>
+          <td><button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#staticBackdrop">Scan</button></td>
+          <td>--</td>
+        </tr> -->
+      </tbody>
+    </table>
+     </div>
+  
+  </div>
+
+
+   <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="add-dept-tab">
+        
+    <div class="title">
+        <h1 align="center"><!--Add New Application--></h1>
+      </div>
+       
+    <form action="" method="post" style="padding-top: 20px;">
+  	<div class="container register-form">
+            <div class="form">
+                <div class="note">
+                    <p>ADD DEPARTMENT</p>
+                </div>
+
+                <div class="form-content">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="dept_name" placeholder="Enter Department Name" name = "dept_name" value="" onkeyup="enable_add()" required />
+                            </div>
+
+                        </div>
+                       
+                        <div class="col-md-6 text-center">
+                            <input type="text" class="form-control" id="dept_id" placeholder="Enter Department ID" name = "dept_id" value="" onkeyup="enable_add()" required />
+                             
+                          
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                           
+                               <!-- <button class="btnSubmit" type="submit" id="add">Add</button>-->
+                            <button type="submit"class="btn btn-primary disabled" role="button" aria-disabled="true" id="add">Add</button>
+                        </div>
+                       
+                    </div>
+                    <div class="col-md-12 text-center" id="Success">
+                        <!--<p type="text" id="Success" style="color: green"></p>-->  
+                    </div>
+                </div>
+                </div>
+                
+                </div>
+            
+        
+    </form>
+
+
+      
+
+  </div>
+
+
+
+</div>
+
+    <script>
+        
+  /*var url= localStorage.getItem("url");*/   
+           
+  function loadapplications(){
+      var table = document.getElementById("depttable").getElementsByTagName('tbody')[0];
+      table.innerHTML="";
+      
+      console.log("calllled");
+       $.post("{{url_for('get_dept_ids')}}",
+                
+                function(response){
+                  //check if what response is   
+                    console.log(response);
+                   var deptlist = response["dept_ids"];
+                    console.log(deptlist.length);
+                    
+ 
+                    for (i = 0; i < deptlist.length; i++) {
+                        //console.log(currFiles[i]['fid']);
+                        var row = table.insertRow(0);
+                        var cell1 = row.insertCell(0);
+                        var cell2 = row.insertCell(1);
+                        var cell3 = row.insertCell(2);
+                        
+                        
+                        cell1.innerHTML = deptlist[i]['dept_name'];
+                        cell2.innerHTML = deptlist[i]['dept_id'];
+                        cell3.innerHTML = deptlist[i]['timeCreated'];
+            
+                    }
+
+                    
+                    //alert(response);
+                
+              },"json");
+  
+}
+
+function enable_add(){
+            var dept_id = document.getElementById("dept_id").value;
+            var dept_name = document.getElementById("dept_name").value;
+        if(dept_id && dept_name){
+            add.setAttribute("class","btn btn-primary active");
+            add.setAttribute("aria-disabled",false);
+        }
+
+        }
+    loadapplications();
+        
+        
+    
+    </script>
+
+   
+  		
+	<script language="javascript">
+
+        
+        
+        $("#add").on("click",function myfunct(e){
+          if(add.getAttribute("aria-disabled") == "false"){  
+            e.preventDefault();
+            var dept_id = document.getElementById("dept_id");
+            var dept_name = document.getElementById("dept_name");
+            //var Success = document.getElementById("document.getElementById("demo").innerHTML").value;
+            console.log(dept_id);
+            $.post("{{url_for('add_dept')}}",{dept_id:dept_id.value,dept_name:dept_name.value},
+                
+                function(response){
+        
+                    console.log(response);
+                    if(response["status"]==="1"){
+                       // console.log(table);
+                        //alert("Successfully Added")
+                        document.getElementById("Success").innerHTML = '<p type="text" id="Success" style="color: green;  padding: 35px 70px;">Successfully Added!</p> ';
+                        dept_id.value="";
+                        dept_name.value="";
+                        //window.location.reload();
+                    
+                    }
+                     else if(response["status"]==="2"){
+                         
+                         document.getElementById("Success").innerHTML = '<p type="text" id="Success" style="color: red; padding: 35px 70px;" >Department ID Already Exists!</p> ';
+                        
+                    }
+                    else{
+                        document.getElementById("Success").innerHTML = '<p type="text" id="Success" style="color: red; padding: 35px 70px;" >Oops, Some Error Occured!</p> ';
+                        
+                    }
+                    add.setAttribute("class","btn btn-primary disabled");
+                    add.setAttribute("aria-disabled",true);
+                    //alert(response);
+                
+              },"json"); 
+           } 
+        });
+         
+    
+    </script>
+
+
+
+{% endblock %}
+

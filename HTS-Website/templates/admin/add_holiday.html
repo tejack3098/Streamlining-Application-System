@@ -1,0 +1,191 @@
+{% extends "admin/admin_sidebar.html" %}
+{% block body %}
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    
+</head>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Add Holiday Description</h5>
+        
+      </div>
+      <div class="modal-body">
+            <textarea id="descriptionText" placeholder="Description" style="width: 100%"></textarea>
+         
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal" id="descriptionDone">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--end modal for Notification-->
+
+<a href="#" class="btn btn-primary a-btn-slide-text" id="edit">
+    <span><strong>Edit</strong></span>    
+    <span><img src="{{url_for('static',filename='img/edit_button.png')}}" style="padding: 2px;height: 19px; width: 19px; margin-left: 3px;"></span>
+                    
+</a>
+<a href="#" class="btn btn-primary a-btn-slide-text" id="done">
+        <span><strong>Save</strong></span> 
+        <span><img src="{{url_for('static',filename='img/save.png')}}" style="padding: 2px;height: 19px; width: 19px; margin-left: 3px;"></span>
+</a>
+<!--<button id="edit">Edit</button>-->
+<!--<button id = "done">Done</button>-->
+		<div id="calendar" style="overflow-y:auto; height: 450px; padding-top: 10px;margin-top: 10px;"></div>
+		<!--<script type="text/javascript" src="calendarize.js"></script>-->
+
+        
+    
+		<script type="text/javascript">
+            // var x=localStorage.getItem("url");
+            var Holidays ={};
+            var get_holiday = function() {
+            var response = $.ajax({
+                type: "GET",
+                url: "{{url_for('get_calendar')}}",
+                cache: false,
+                async: false,
+              }).responseText;
+             
+                var obj = JSON.parse(response);
+                console.log(obj)
+                for (var i in obj["holidays"]){
+                    //console.log(obj["holidays"][i]["dateDay"]);
+                    var holidate = obj["holidays"][i]["dateDay"];
+                    var holidescription = obj["holidays"][i]["description"];
+                    Holidays[holidate] = holidescription;
+                }
+                //console.log(Holidays);
+            }
+            get_holiday();
+            console.log(Holidays);
+            
+            var monthsNumber = {"Jan":"01", "Feb":"02", "Mar":"03", "Apr":"04", "May":"05", "Jun":"06", "Jul":"07", "Aug":"08", "Sep":"09", "Oct":"10", "Nov":"11", "Dec":"12"}
+            
+            var edit = document.getElementById("edit");
+            var descriptionDone = document.getElementById("descriptionDone");
+            var done_holiday = document.getElementById("done");
+			var $calendar = document.getElementById("calendar");
+			var currentYear = new Date().getFullYear();
+            var calendarize = new Calendarize(Holidays);
+            
+			calendarize.buildYearCalendar($calendar, currentYear);
+            
+            
+            var classname = document.getElementsByClassName("day");
+
+            var myFunction = function() {
+                
+                var chk = this.getAttribute("date-selected");
+                var selectedDate=this.getAttribute("data-date");
+               
+                
+                //console.log(chk);
+                //console.log(selectedDate);
+                
+                if(chk==="no")
+                {
+                    this.style = "background-color:Green;";
+                    this.setAttribute("date-selected", "yes");
+                    descriptionDone.setAttribute("date-selected", selectedDate);
+                    $("#exampleModal").modal("show");
+                    //console.log("selected date: "+selectedDate);      
+                    
+                }
+                else{
+                    Month = selectedDate.slice(4,7);
+                    var Day = selectedDate.slice(8,10)
+                    var Year = selectedDate.slice(11,15)
+                    
+                    var holiDate = Year+'-'+monthsNumber[Month]+'-'+Day;
+                    delete Holidays[holiDate];
+                    console.log(Holidays)
+                    this.style = "background-color:white;";
+                    this.setAttribute("date-selected", "no");
+                    this.removeAttribute("data-toggle");
+                    this.removeAttribute("data-original-title");
+                    
+                }
+                
+            };
+            var enableClick = function(){
+            //document.getElementsByClassName("day future").style.backgroundColor = "red";
+            for (var i = 0; i < classname.length; i++) {
+                
+                classname[i].addEventListener('click', myFunction, false);
+                classname[i].style.color = "Black";
+            }
+            }
+            edit.addEventListener('click',enableClick,false);
+            
+            var descriptionDoneClick= function(){
+                var descriptionText = document.getElementById("descriptionText");
+                var selectedDate = this.getAttribute("date-selected");
+                
+                var Month = selectedDate.slice(4,7);
+                var Day = selectedDate.slice(8,10)
+                var Year = selectedDate.slice(11,15)
+                
+                
+                var holiDate = Year+'-'+monthsNumber[Month]+'-'+Day;
+                
+                Holidays[holiDate]=descriptionText.value;
+                
+                console.log(Holidays);
+                descriptionText.value = "";
+            }
+            descriptionDone.addEventListener('click',descriptionDoneClick,false);
+            
+            var Done_holiday = function(){
+                console.log(Holidays)
+                $.post("{{url_for('update_calendar')}}",Holidays,
+                       function(response){
+        
+                    console.log(response);
+                    if(response["status"] == "1"){
+                        //console.log("b"+response);
+                        
+                           window.location.reload();
+                         }
+                    
+                    
+                    
+                    
+                
+              },"json"); 
+                /*var response = $.ajax({
+                type: "POST",
+                url: x+"update_calendar",
+                cache: false,
+                async: false,
+                data:{hh:Holidays},
+              }).responseText;
+                //var obj = (response);
+                console.log(response);
+                //window.location.reload();*/
+                
+            }
+            done_holiday.addEventListener('click',Done_holiday,false);
+		</script>
+        
+        <script>
+            $(document).ready(function(){
+              $('[data-toggle="tooltip"]').tooltip();   
+            });
+        </script> 
+        <!--    js based content for bootstrap script-->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    
+
+
+
+
+{% endblock %}
+

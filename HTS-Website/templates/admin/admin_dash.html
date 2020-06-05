@@ -1,0 +1,820 @@
+{% extends "admin/admin_sidebar.html" %}
+{% block body %}
+  <!-- Modal -->
+<div class="modal fade" id="dateRangeModal" tabindex="-1" role="dialog" aria-labelledby="dateRangeModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="dateRangeModalCenterTitle">Select Date Range</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body row" id="dateRangeModalContainer"  style="height: 400px; padding-bottom: 1rem;padding-left:2rem;padding-right: 1rem;">
+        
+      </div>
+      <div class="modal-footer text-center">
+       <button type="button" class="btn btn-success" data-dismiss="modal" id="done" >Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!--Modal-->
+  <style type="text/css">
+    
+  td,th
+  {
+    text-align: center;
+    font-size: 10px;
+
+  }
+
+  th,td
+  {
+    padding: 10px;
+
+  }
+
+  
+  </style>
+  
+	<script src= "{{ url_for('static',filename='js/canvasjs.min.js')}}"></script>
+  <script src="{{ url_for('static',filename='js/loading-bar.js')}}"></script>
+  <script src="{{ url_for('static',filename='js/plotly.min.js')}}"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" style="text-decoration: none">Overall Stats</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" style="text-decoration: none">Filters</a>
+  </li>
+  <!--
+  <li class="nav-item">
+    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" style="text-decoration: none">Contact</a>
+  </li>-->
+</ul>
+
+
+
+<div class="tab-content" id="myTabContent">
+
+
+
+
+<!-- overall stats of file -->
+  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+      <div class="row justify-content-md-center shadow-sm p-3 mb-5 bg-white rounded font-weight-light" >
+
+
+      <div class="col-sm">
+        <p align='center' style='font-size:24px;font-weight:bold;top:50px;position:relative'>Overall Stats Pie Graph</p>
+        <div id="overall_stats_chart" style="position:relative;height: 250px; width: 100%;top:50px"></div>
+      </div>
+
+      <div class="col-sm" >
+        <!--<p align='center' style='font-size:22px;font-weight:bold;top:50px;position:relative'>Overall Stats Bar Graph</p>-->
+        <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+        <div id='myDiv' style="width: 400px;height: 400px"><!-- Plotly chart will be drawn inside this DIV --></div>
+      </div>
+
+      <div class="col-sm-12">
+        <div class ="main">
+            
+          <table class="table" id="worktable">
+            <thead class="thead-dark">
+           <tr>           
+           <th>Completed Files</th>
+           <th>Files Processed on Time</th>
+           <th>Delayed Files</th> 
+         </tr>
+        </thead>
+
+        <thead class="thead-light">
+         <tr>          
+           <td class="count2"></td>
+           <td class="count3"></td>  
+           <td class="count4"></td>
+         </tr>
+        </thead>
+          </table>
+
+        </div>
+      </div>
+    
+      </div>
+
+</div>
+
+
+
+
+
+
+<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+  <div class="row justify-content-md-center shadow-sm p-3 mb-5 bg-white rounded font-weight-light" style="font-style:Andale ; font-size: 30px;" >
+        <select class="form-control" id="sel1" onchange="myFunction()" style="height: 45px">
+          <option value="" disabled selected>Select Department</option>
+                <!-- <option>01</option>
+                <option>02</option>
+                <option>03</option>
+                <option>04</option> -->
+              </select>
+</div>
+
+<p align="center" id="show_error_for_department">No Records to Show</p>
+
+<div class="row shadow-sm p-3 mb-5 bg-white rounded" >
+
+  
+  <!-- overall file stats for file for each department-->
+  <div class="col-sm-4 shadow p-3 mb-5 bg-white rounded" id="department_chart_box">
+
+        <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+        <div class ="main">
+            
+          <table class="table" id="worktable">
+            <thead class="thead-dark">
+           <tr>           
+           <th>Total Files</th>
+           <th>Files Processed on Time</th>
+           <th>Delayed Files</th> 
+         </tr>
+        </thead>
+
+        <thead class="thead-light">
+         <tr>          
+           <td class="count5"></td>
+           <td class="count6"></td>  
+           <td class="count7"></td>
+         </tr>
+        </thead>
+          </table>
+
+        </div>
+  </div>
+
+  <!-- month wise analysis for  all file -->
+  <div class="col-sm shadow p-3 mb-5 bg-white rounded" style="margin-left: 10px;" id="department_filter_box">
+          <div class="row">
+            <div class="col-sm">
+            <select class="form-control" id="drop" onchange="select_dropdown()" style="height: 45px">
+            <option   selected>Current Month</option>
+                <option >Quarter</option>
+                <option>Year</option>
+                <option>Select Date Range</option>
+              </select>
+            </div>
+
+
+              
+                <div class="col-sm" id="quarter_range_box">
+                  <select class="form-control" id="quarter_range_select" onchange="filter_quarter_stats_graph()" style="height: 45px">
+                <option value="" disabled selected>Select Quarter</option>
+                <option>First Quarter</option>
+                <option>Second Quarter</option>
+                <option>Third Quarter</option>
+                <option>Fourth Quarter</option>
+              </select>
+                </div>
+
+                <div class="col-sm" id="year_range_box">
+                  <select class="form-control" id="year_range_select" onchange="filter_year_stats_graph()" style="height: 45px">
+                <option value="" disabled selected>Select Year</option>
+                <option>2020</option>
+                <option>2019</option>
+                <option>2018</option>
+              </select>
+                </div>
+
+                <div class="col-sm" id="date_range_box">
+                  
+                  <input type="text" id='dateRangeDatePickerInputParent' data-toggle='modal' data-target='#dateRangeModal' name="daterange" value="" style="width: 300px;border-radius: 3px;border-color: #d6d6c2">
+
+                   <button class="btn btn-primary" onclick="filter_daterange_stats_graph()">Apply</button>
+                </div>
+                
+               
+              </div>
+
+<!-- container for filter graph -->
+              <div id="chartContainer1" style="height: 250px; width: 100%;margin-top: 10px"></div>
+  </div>
+  <!-- month wise end -->
+
+</div>
+
+
+
+</div>
+<!--
+  <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>-->
+
+
+
+
+
+</div>
+
+
+
+<script>
+var sel;
+function department_graph(i,j,k){
+  document.getElementById('department_chart_box').style.display="block";
+  document.getElementById('department_filter_box').style.display="block";
+  document.getElementById('show_error_for_department').style.display="none";
+  var sum = j+k;
+console.log("sum:"+sum) 
+pie()
+file1()
+
+function pie() {
+  console.log('c')
+var chart = new CanvasJS.Chart("chartContainer", {
+animationEnabled: true,
+title: {
+  text: "Overall Department files Stats"
+},
+
+data: [{
+  type: "pie",
+  startAngle: 240,
+  yValueFormatString: "##0.00\"%\"",
+  indexLabel: "{label} {y}",
+  dataPoints: [  
+    {y: (j/sum)*100, label: "Processing on Time"},
+    {y: (k/sum)*100, label: "Delayed"}
+    
+  ]
+}]
+});
+chart.render();
+
+}
+
+function file1(){
+      
+      $('.count5').prop('Counter',0).animate({
+
+        Counter: i
+    }, {
+        duration: 1500,
+        easing: 'swing',
+        step: function (now) {
+            $(this).text(Math.ceil(now));
+        }
+    });
+      $('.count6').prop('Counter',0).animate({
+        Counter: j
+    }, {
+        duration: 1500,
+        easing: 'swing',
+        step: function (now) {
+            $(this).text(Math.ceil(now));
+        }
+    });
+      $('.count7').prop('Counter',0).animate({
+        Counter: k
+    }, {
+        duration: 1500,
+        easing: 'swing',
+        step: function (now) {
+            $(this).text(Math.ceil(now));
+        }
+    });
+      }
+
+    console.log('doc funcrtion');
+}
+
+
+function myFunction() {
+      sel = document.getElementById("sel1");
+       console.log(sel.value);
+ /* var url=localStorage.getItem("url");*/
+  var table = document.getElementById("worktable");
+      //console.log(table);
+      $.get("{{url_for('get_dept_stats')}}",{dept_id:sel.value},
+                
+                function(response){
+                  //check if what response is   
+                   
+                    console.log(response)
+                    if(response["status"]==="1"){
+                      console.log(response);
+                  
+
+                        var i=0;
+                      var details=response['message'];
+                      //var elem = details['currFilesDetails'];
+                      //console.log(elem);
+                      var files = {total_count : details["totalCount"],  delayed_count : details["delayedCount"]};
+                        var i = files.total_count;
+                        var j = files.total_count-files.delayed_count;
+                        var k = files.delayed_count;
+                      if(i==0 && j==0 && k==0){ 
+                        function_for_nan_value1();
+                      }
+                        else{
+                          document.getElementById('show_error_for_department').style.display="none"
+                          department_graph(i,j,k);
+                        }
+            
+                        
+                     
+                    }
+                    
+                    //alert(response);
+
+
+/*var files = {total_count : details["totalCount"],  delayed_count : details["delayedCount"]};
+console.log('A')
+var i = files.total_count;
+
+//var k = (files.completed+files.delayed)-files.processing
+var j = files.total_count-files.delayed_count;
+var k = files.delayed_count;
+console.log('b')*/
+
+                
+              },"json");
+
+  current_employee_filter(sel.value);
+}
+  //myFunction();
+
+
+
+function function_for_graph(d_c,t_c){
+   // console.log("function for graph dealy count"+d_c);
+
+var i = t_c;
+var j = t_c-d_c;
+var k = d_c;
+var sum = j+k;
+
+pie()
+//file1()
+
+function pie() {
+  console.log('c')
+var chart = new CanvasJS.Chart("chartContainer1", {
+animationEnabled: true,
+title: {
+  text: ""
+},
+
+data: [{
+  type: "pie",
+  startAngle: 240,
+  yValueFormatString: "##0.00\"%\"",
+  indexLabel: "{label} {y}",
+  dataPoints: [  
+    {y: (j/sum)*100, label: "Processing on Time"},
+    {y: (k/sum)*100, label: "Delayed"}
+    
+  ]
+}]
+});
+chart.render();
+
+}
+
+}
+
+function function_for_nan_value(){
+  console.log("hiiiiiiiiiiiiiii");
+  document.getElementById('chartContainer1').innerHTML="<h2 align='center' style='margin:100px;'>No Records to Show</h2>";
+  
+}
+function function_for_nan_value1(){
+  document.getElementById('department_chart_box').style.display="none";
+  document.getElementById('department_filter_box').style.display="none";
+  document.getElementById('show_error_for_department').style.display="block";
+}
+
+
+
+
+function select_dropdown(){
+  var drop = document.getElementById("drop").value;
+  var quarter =document.getElementById("quarter_range_box");
+  var year =document.getElementById("year_range_box");
+  var date =document.getElementById("date_range_box");
+
+       if (drop == "Quarter"){
+        date.style.display="none";
+        year.style.display="none";
+        quarter.style.display="block";
+       }
+       else if(drop == "Year"){
+        date.style.display="none";
+        quarter.style.display="none";
+        year.style.display="block";
+        
+
+       }
+       else if(drop=="Select Date Range"){
+        date.style.display="block";
+        year.style.display="none";
+        quarter.style.display="none";
+
+       }
+       else if(drop=="Current Month"){
+        date.style.display="none";
+        year.style.display="none";
+        quarter.style.display="none";
+        current_employee_filter(sel.value);
+
+
+       }
+} 
+
+function current_employee_filter(dept){
+  console.log("current_employee_filter: "+dept);
+  $.get("{{url_for('get_dept_stats_current_month')}}",{dept_id:dept},
+                
+                function(response){
+                  //check if what response is 
+                    
+                    console.log(response);
+                    if(response["status"]==="1"){
+                        var d_c=response["details"]["delayedCount"];
+                        var t_c=response["details"]["totalCount"];
+                        function_for_graph(d_c,t_c);
+                    }            
+          
+              },"json");
+} 
+
+
+
+function filter_quarter_stats_graph(){
+  var quarter_select="";
+  var option;
+  //var option = {FirstQuarter:1,SecondQuarter:2,ThirdQuarter:3,FourthQuarter:4};
+  //var dept = document.getElementById("sel1").value;
+  console.log("department selected:"+sel.value);
+  quarter_select=document.getElementById("quarter_range_select").value;
+  
+  if (quarter_select == "First Quarter"){
+      option=1;
+  } 
+  else if(quarter_select == "Second Quarter"){
+      option=2;
+  }
+  else if(quarter_select == "Third Quarter"){
+      option=3;
+  }
+  else if(quarter_select == "Fourth Quarter"){
+      option=4;
+  }
+  console.log("selected option: "+option);
+  //console.log(quarter_select);
+      $.get("{{url_for('get_dept_stats_quarter')}}",{dept_id:sel.value,quarter:option},
+                
+                function(response){
+                  //check if what response is 
+                    
+                    console.log(response);
+                    if(response["status"]==="1"){
+                        var d_c=response["details"]["delayedCount"];
+                        var t_c=response["details"]["totalCount"];
+                        if(d_c ==0 && t_c ==0  ){
+                          function_for_nan_value();
+                        }     
+                        else{
+                          
+                          function_for_graph(d_c,t_c);
+                        }       
+                    }            
+          
+              },"json");
+
+}
+
+
+function filter_year_stats_graph(){
+  var year_select=""
+
+  var year_select=document.getElementById("year_range_select").value;
+  console.log(year_select);
+  $.get("{{url_for('get_dept_stats_year')}}",{dept_id:sel.value,year:year_select},
+                
+                function(response){
+                  //check if what response is 
+                    
+                    console.log(response);
+                    if(response["status"]==="1"){
+                        var d_c=response["details"]["delayedCount"];
+                        var t_c=response["details"]["totalCount"];
+                        if(d_c ==0 && t_c ==0  ){
+                          function_for_nan_value();
+                        }     
+                        else{
+                          
+                          function_for_graph(d_c,t_c);
+                        }       
+                    }            
+          
+              },"json");
+}
+
+    </script>
+
+
+
+<!-- date selector jquery plugin for filters -->
+<script>
+/*$(function() {
+  $('input[name="daterange"]').daterangepicker({
+    opens: 'left'
+  }, function(start, end, label) {
+   var start_range=start.format('DD-MM-YYYY');
+   var end_range=end.format('DD-MM-YYYY');
+   start_range=start_range.split('-');
+   //start date ko split kiya  [date,month,year]
+   end_range=end_range.split('-');
+   //end date ko split kiya [date,month,year]
+   console.log(start_range);
+   console.log(end_range);
+   $.get(url+"get_dept_stats_date_range",{dept_id:sel.value,startYear:start_range[2],startMonth:start_range[1],startDay:start_range[0],endYear:end_range[2],endMonth:end_range[1],endDay:end_range[0]},
+                
+                function(response){
+                  //check if what response is 
+                    
+                    console.log(response);
+                    if(response["status"]==="1"){
+                        var d_c=response["details"]["delayedCount"];
+                        var t_c=response["details"]["totalCount"];
+                        if(d_c ==0 && t_c ==0  ){
+                          function_for_nan_value();
+                        }     
+                        else{
+                          
+                          function_for_graph(d_c,t_c);
+                        }           
+                    }            
+          
+              },"json");
+
+
+  });
+
+});
+
+*/
+function filter_daterange_stats_graph() {
+  var daterange=document.getElementById("dateRangeDatePickerInputParent").value;
+  daterange= daterange.split('-');
+  console.log(daterange);
+  start_range=daterange[0].split('/');
+  end_range=daterange[1].split('/');
+  console.log(start_range);
+  console.log(end_range);
+  $.get("{{url_for('get_dept_stats_date_range')}}",{dept_id:sel.value,startYear:start_range[2],startMonth:start_range[0],startDay:start_range[1],endYear:end_range[2],endMonth:end_range[0],endDay:end_range[1]},
+                
+                function(response){
+                  //check if what response is 
+                    
+                    console.log(response);
+                    if(response["status"]==="1"){
+                        var d_c=response["details"]["delayedCount"];
+                        var t_c=response["details"]["totalCount"];
+                        if(d_c ==0 && t_c ==0  ){
+                          function_for_nan_value();
+                        }     
+                        else{
+                          
+                          function_for_graph(d_c,t_c);
+                        }           
+                    }            
+          
+              },"json");
+}
+/*******************abhay changes*********************/
+
+function loadDropDown()
+{
+  var dropdown=document.getElementById("sel1");
+  $.post("{{url_for('get_dept_ids')}}",
+                
+                function(response){
+                  //check if what response is 
+           
+                    
+                var details = response["dept_ids"];
+                
+                    console.log(details);
+                
+                    
+ 
+                     for(var i = 0;i < details.length;i++)
+                     {
+                         var opt = details[i]['dept_name']+' ('+details[i]['dept_id']+')';
+                         var el = document.createElement("option");
+                         el.textContent = opt;
+                         el.value =details[i]['dept_id'];
+                         dropdown.appendChild(el);
+                     }
+
+                    
+                    //alert(response);
+                
+              },"json");
+}
+loadDropDown();
+
+
+
+/*******************abhay changes*********************/
+
+/**********************function for overall stats of org and others implementation also for bar graph*******************************/
+function function_for_overall_stats_graph(c_c,c_p_c,c_p_d_c){
+var i = c_c;
+var j = c_p_c;
+var k = c_p_d_c;
+var sum = j+k;
+
+pie();
+file1();
+
+function pie() {
+  console.log('c')
+var chart = new CanvasJS.Chart("overall_stats_chart", {
+animationEnabled: true,
+title: {
+  text: ""
+},
+
+data: [{
+  type: "pie",
+  startAngle: 240,
+  yValueFormatString: "##0.00\"%\"",
+  indexLabel: "{label} {y}",
+  dataPoints: [  
+    {y: (j/sum)*100, label: "Processing on Time"},
+    {y: (k/sum)*100, label: "Delayed", color:"#e60000"}
+    
+  ]
+}]
+});
+chart.render();
+
+}
+
+function file1(){
+      
+      $('.count2').prop('Counter',0).animate({
+
+        Counter: i
+    }, {
+        duration: 1500,
+        easing: 'swing',
+        step: function (now) {
+            $(this).text(Math.ceil(now));
+        }
+    });
+      $('.count3').prop('Counter',0).animate({
+        Counter: j
+    }, {
+        duration: 1500,
+        easing: 'swing',
+        step: function (now) {
+            $(this).text(Math.ceil(now));
+        }
+    });
+      $('.count4').prop('Counter',0).animate({
+        Counter: k
+    }, {
+        duration: 1500,
+        easing: 'swing',
+        step: function (now) {
+            $(this).text(Math.ceil(now));
+        }
+    });
+      }
+
+
+}
+
+function overall_stats_chart(){
+  //console.log("current_employee_filter: "+dept);
+  $.get("{{url_for('get_overall_stats')}}",{},
+                
+                function(response){
+                  //check if what response is 
+                    
+                    console.log(response);
+                    if(response["status"]==="1"){
+                        var c_p_d_c=response["details"]["currentProcessingDelayCount"];
+                        var c_p_c=response["details"]["currentProcessingCount"];
+                        var c_c=response["details"]["completedCount"];
+                        
+                        function_for_overall_stats_graph(c_c,c_p_c,c_p_d_c);
+                        timepass(c_p_c,c_p_d_c);
+                    }            
+          
+              },"json");
+} 
+overall_stats_chart();
+
+function timepass(c_p_c,c_p_d_c){
+  var trace1 = {
+  x: ['Files' ],
+  y: [c_p_c],
+  name: 'Processing On time',
+  type: 'bar',
+  
+};
+
+var trace2 = {
+  x: ['Files'],
+  y: [c_p_d_c],
+  name: 'Delay Files',
+  type: 'bar',
+  marker:{color:' #e60000'}
+};
+
+var data = [trace1, trace2];
+
+var layout = {barmode: 'stack'};
+
+Plotly.newPlot('myDiv', data, layout);
+
+//document.getElementsByClassName('modebar-container')[0].remove();
+document.getElementsByClassName('modebar-container')[0].innerHTML="<p align='center' style='font-size:22px;font-weight:bold;top:50px;position:relative'>Overall Stats Bar Graph</p>";
+
+}
+
+
+</script>
+
+<!-- -->
+
+<script type="text/javascript">
+  function formatDate()
+    {
+        var d = new Date(),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+
+        return [year, month, day].join('-');
+    }
+
+  var dateSelected=formatDate();
+$('#done').on('click',doneClick);
+        function doneClick() {
+            console.log("seldategh");
+            var selDate=$("#dpIframe").contents().find("#daterangeINPUT");
+            console.log(selDate[0]['value']);
+            dateSelected=selDate[0]['value'];
+            $('#dateRangeDatePickerInputParent')[0].value=dateSelected;
+            $('#dateRangeModal').modal('hide');
+            
+        }
+        
+$('#dateRangeDatePickerInputParent').on('click',openModal);
+        function openModal() {
+            //$('#dateRangeModal').modal('show');
+            var dateRangeModalContainer = document.getElementById('dateRangeModalContainer');
+        dateRangeModalContainer.innerHTML=
+            "<div class='row w-100'>"+ 
+            "<iframe src='{{ url_for('dd') }}' id='dpIframe' seamless='' height='100%' width='100%'></iframe>"
+            "</div>";
+            console.log("openmodal "+dateSelected);
+            var selDate=$("#dpIframe").contents().find("#daterangeINPUT");
+            console.log(selDate);
+            selDate[0]['value']=dateSelected;
+            console.log("shailesh : "+selDate);
+            console.log($('#dateRangeDatePickerInputParent'));
+            $('#dateRangeDatePickerInputParent')[0].value=' ';
+            $('#dateRangeDatePickerInputParent')[0].value=dateSelected;
+           // filter_daterange_stats_graph(dateSelected);
+        }   
+</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- -->
+{% endblock %}
+
+<!--
+search box for where is file
+from admin to employee portal web message
+try to make communication between employee-employee
+timeline should be more attractive
+-->

@@ -1,0 +1,519 @@
+[{
+  "_id": {
+    "$oid": "5e2ac6f1ca4124c735c2aece"
+  },
+  "email_id": "1@g.com",
+  "dept_id": "bevada",
+  "incomingFiles": {},
+  "outgoingFiles": {},
+  "currFiles": [
+    {
+      "fid": "ADC02293",
+      "timeArrived": {
+        "$date": "2020-01-24T17:09:06.493Z"
+      }
+    }
+  ],
+  "prevFiles": []
+},{
+  "_id": {
+    "$oid": "5e2acf2ed7d866eb62d3d4a5"
+  },
+  "email_id": "tejas.choudhari15@gmail.com",
+  "dept_id": "01",
+  "incomingFiles": {
+    "ADC48499": {
+      "time": {
+        "$date": "2020-01-28T17:03:57.485Z"
+      },
+      "remark": "",
+      "from": "OLd therefore Nothing",
+      "alert": false
+    },
+    "ADC36419": {
+      "time": {
+        "$date": "2020-01-29T14:47:56.364Z"
+      },
+      "remark": "",
+      "from": "OLd therefore Nothing",
+      "alert": false
+    },
+    "PAN06966": {
+      "time": {
+        "$date": "2020-02-01T01:35:59.899Z"
+      },
+      "from": "OLd therefore Nothing",
+      "remark": "ccc",
+      "alert": false
+    },
+    "ADC1580629269824328": {
+      "time": {
+        "$date": "2020-02-02T13:11:09.824Z"
+      },
+      "remark": "",
+      "from": "OLd therefore Nothing",
+      "alert": false
+    }
+  },
+  "outgoingFiles": {
+    "ADC30193": {
+      "time": {
+        "$date": "2020-02-01T01:05:39.163Z"
+      },
+      "to": "abygpta@gmail.com",
+      "remark": "tejas"
+    },
+    "ADC94720": {
+      "time": {
+        "$date": "2020-02-01T01:17:07.930Z"
+      },
+      "to": "abygpta@gmail.com",
+      "remark": "tejack"
+    },
+    "ADC48789": {
+      "time": {
+        "$date": "2020-02-01T01:26:38.392Z"
+      },
+      "to": "abygpta@gmail.com",
+      "remark": "hh"
+    }
+  },
+  "currFiles": [],
+  "prevFiles": [
+    {
+      "fid": "DLC06790",
+      "delay": 21,
+      "timeArrived": {
+        "$date": "2020-01-24T17:49:15.441Z"
+      },
+      "timeCompleted": {
+        "$date": "2020-01-24T17:50:07.451Z"
+      }
+    },
+    {
+      "fid": "ADC02293",
+      "delay": 5,
+      "timeArrived": {
+        "$date": "2020-01-25T14:58:56.923Z"
+      },
+      "timeCompleted": {
+        "$date": "2020-01-28T15:01:02.591Z"
+      }
+    },
+    {
+      "fid": "PAN15545",
+      "delay": 24,
+      "timeArrived": {
+        "$date": "2020-01-28T15:02:17.600Z"
+      },
+      "timeCompleted": {
+        "$date": "2020-01-29T17:06:28.258Z"
+      }
+    },
+    {
+      "fid": "ADC64216",
+      "delay": 0,
+      "timeArrived": {
+        "$date": "2020-01-29T20:54:26.772Z"
+      },
+      "timeCompleted": {
+        "$date": "2020-01-29T20:56:05.087Z"
+      }
+    },
+    {
+      "fid": "ADC10885",
+      "delay": 0,
+      "timeArrived": {
+        "$date": "2020-01-29T22:07:07.235Z"
+      },
+      "timeCompleted": {
+        "$date": "2020-01-29T22:09:56.929Z"
+      }
+    },
+    {
+      "fid": "PAN14462",
+      "delay": 0,
+      "timeArrived": {
+        "$date": "2020-01-31T13:32:13.270Z"
+      },
+      "timeCompleted": {
+        "$date": "2020-01-31T13:33:55.972Z"
+      }
+    },
+    {
+      "fid": "ADC10384",
+      "delay": 0,
+      "timeArrived": {
+        "$date": "2020-02-01T00:55:18.317Z"
+      },
+      "timeCompleted": {
+        "$date": "2020-02-01T00:55:34.765Z"
+      }
+    },
+    {
+      "fid": "ADC18377",
+      "delay": 0,
+      "timeArrived": {
+        "$date": "2020-02-01T01:00:10.874Z"
+      },
+      "timeCompleted": {
+        "$date": "2020-02-01T01:00:29.585Z"
+      }
+    },
+    {
+      "fid": "ADC30193",
+      "delay": 0,
+      "timeArrived": {
+        "$date": "2020-02-01T01:05:28.543Z"
+      },
+      "timeCompleted": {
+        "$date": "2020-02-01T01:05:39.163Z"
+      }
+    },
+    {
+      "fid": "ADC57501",
+      "delay": 0,
+      "timeArrived": {
+        "$date": "2020-02-01T01:15:05.891Z"
+      },
+      "timeCompleted": {
+        "$date": "2020-02-01T01:15:21.101Z"
+      }
+    },
+    {
+      "fid": "ADC94720",
+      "delay": 0,
+      "timeArrived": {
+        "$date": "2020-02-01T01:14:22.513Z"
+      },
+      "timeCompleted": {
+        "$date": "2020-02-01T01:17:07.930Z"
+      }
+    },
+    {
+      "fid": "ADC98086",
+      "delay": 0,
+      "timeArrived": {
+        "$date": "2020-02-01T01:13:44.616Z"
+      },
+      "timeCompleted": {
+        "$date": "2020-02-01T01:22:16.474Z"
+      }
+    },
+    {
+      "fid": "ADC48789",
+      "delay": 0,
+      "timeArrived": {
+        "$date": "2020-02-01T01:26:29.611Z"
+      },
+      "timeCompleted": {
+        "$date": "2020-02-01T01:26:38.392Z"
+      }
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5e2acf59d7d866eb62d3d4a7"
+  },
+  "email_id": "chavanrachit16e@student.mes.ac.in",
+  "dept_id": "01",
+  "incomingFiles": {
+    "ADC14734": {
+      "time": {
+        "$date": "2020-01-29T14:37:38.147Z"
+      },
+      "remark": "",
+      "from": "OLd therefore Nothing",
+      "alert": false
+    },
+    "ADC26872": {
+      "time": {
+        "$date": "2020-01-29T14:39:40.268Z"
+      },
+      "remark": "",
+      "from": "OLd therefore Nothing",
+      "alert": false
+    },
+    "ADC65953": {
+      "time": {
+        "$date": "2020-01-29T14:46:08.659Z"
+      },
+      "remark": "",
+      "from": "OLd therefore Nothing",
+      "alert": false
+    },
+    "ADC63358": {
+      "time": {
+        "$date": "2020-01-29T14:46:32.633Z"
+      },
+      "remark": "",
+      "from": "OLd therefore Nothing",
+      "alert": false
+    },
+    "ADC28766": {
+      "time": {
+        "$date": "2020-01-29T14:48:11.287Z"
+      },
+      "remark": "",
+      "from": "OLd therefore Nothing",
+      "alert": false
+    },
+    "ADC59615": {
+      "time": {
+        "$date": "2020-01-29T14:50:54.596Z"
+      },
+      "remark": "",
+      "from": "OLd therefore Nothing",
+      "alert": false
+    },
+    "ADC78504": {
+      "time": {
+        "$date": "2020-01-29T19:57:38.785Z"
+      },
+      "remark": "",
+      "from": "OLd therefore Nothing",
+      "alert": false
+    }
+  },
+  "outgoingFiles": {},
+  "currFiles": [
+    {
+      "fid": "PAN99384",
+      "timeArrived": {
+        "$date": "2020-01-30T12:44:34.971Z"
+      }
+    }
+  ],
+  "prevFiles": []
+},{
+  "_id": {
+    "$oid": "5e2acfa7d7d866eb62d3d4a9"
+  },
+  "email_id": "shaileshgupta596@gmail.com",
+  "dept_id": "02",
+  "incomingFiles": {
+    "DLC30977": {
+      "time": {
+        "$date": "2020-01-28T17:05:34.309Z"
+      },
+      "remark": "",
+      "from": "OLd therefore Nothing",
+      "alert": true
+    },
+    "PAN1580629418": {
+      "time": {
+        "$date": "2020-02-02T13:13:38.991Z"
+      },
+      "remark": "",
+      "from": "OLd therefore Nothing",
+      "alert": true
+    }
+  },
+  "outgoingFiles": {
+    "PAN06966": {
+      "time": {
+        "$date": "2020-02-01T01:35:59.899Z"
+      },
+      "to": "tejas.choudhari15@gmail.com",
+      "remark": "ccc"
+    }
+  },
+  "currFiles": [],
+  "prevFiles": [
+    {
+      "fid": "DLC06790",
+      "delay": 0,
+      "timeArrived": {
+        "$date": "2020-01-24T17:44:10.192Z"
+      },
+      "timeCompleted": {
+        "$date": "2020-01-24T17:44:39.166Z"
+      }
+    },
+    {
+      "fid": "PAN15545",
+      "delay": 0,
+      "timeArrived": {
+        "$date": "2020-01-27T14:56:45.318Z"
+      },
+      "timeCompleted": {
+        "$date": "2020-01-27T15:48:37.205Z"
+      }
+    },
+    {
+      "fid": "PAN99384",
+      "delay": 0,
+      "timeArrived": {
+        "$date": "2020-01-27T16:06:21.342Z"
+      },
+      "timeCompleted": {
+        "$date": "2020-01-29T14:27:22.295Z"
+      }
+    },
+    {
+      "fid": "ADC64216",
+      "delay": 0,
+      "timeArrived": {
+        "$date": "2020-01-29T21:03:29.601Z"
+      },
+      "timeCompleted": {
+        "$date": "2020-01-29T21:06:09.849Z"
+      }
+    },
+    {
+      "fid": "PAN14462",
+      "delay": 1,
+      "timeArrived": {
+        "$date": "2020-01-31T13:25:41.969Z"
+      },
+      "timeCompleted": {
+        "$date": "2020-01-31T13:31:09.278Z"
+      }
+    },
+    {
+      "fid": "ADC57501",
+      "delay": 0,
+      "timeArrived": {
+        "$date": "2020-02-01T01:32:39.402Z"
+      },
+      "timeCompleted": {
+        "$date": "2020-02-01T01:33:59.103Z"
+      }
+    },
+    {
+      "fid": "ADC98086",
+      "delay": 0,
+      "timeArrived": {
+        "$date": "2020-02-01T01:31:37.403Z"
+      },
+      "timeCompleted": {
+        "$date": "2020-02-01T01:34:55.167Z"
+      }
+    },
+    {
+      "fid": "PAN06966",
+      "delay": 4,
+      "timeArrived": {
+        "$date": "2020-02-01T01:29:13.468Z"
+      },
+      "timeCompleted": {
+        "$date": "2020-02-01T01:35:59.899Z"
+      }
+    },
+    {
+      "fid": "ADC10384",
+      "delay": 0,
+      "timeArrived": {
+        "$date": "2020-02-01T01:41:08.572Z"
+      },
+      "timeCompleted": {
+        "$date": "2020-02-01T01:41:23.855Z"
+      }
+    },
+    {
+      "fid": "ADC02293",
+      "delay": 0,
+      "timeArrived": {
+        "$date": "2020-02-01T01:42:48.716Z"
+      },
+      "timeCompleted": {
+        "$date": "2020-02-01T01:43:00.321Z"
+      }
+    },
+    {
+      "fid": "ADC18377",
+      "delay": 0,
+      "timeArrived": {
+        "$date": "2020-02-01T01:39:41.184Z"
+      },
+      "timeCompleted": {
+        "$date": "2020-02-01T01:43:42.493Z"
+      }
+    },
+    {
+      "fid": "ADC10885",
+      "delay": 0,
+      "timeArrived": {
+        "$date": "2020-02-01T01:54:54.687Z"
+      },
+      "timeCompleted": {
+        "$date": "2020-02-01T01:55:04.020Z"
+      }
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5e2ad010d7d866eb62d3d4ab"
+  },
+  "email_id": "abygpta@gmail.com",
+  "dept_id": "02",
+  "incomingFiles": {
+    "PAN75604": {
+      "time": {
+        "$date": "2020-01-27T14:55:37.756Z"
+      },
+      "remark": "",
+      "from": "OLd therefore Nothing",
+      "alert": false
+    },
+    "PAN94870": {
+      "time": {
+        "$date": "2020-01-27T16:12:49.948Z"
+      },
+      "remark": "",
+      "from": "OLd therefore Nothing",
+      "alert": false
+    },
+    "ADC02293": {
+      "time": {
+        "$date": "2020-01-28T14:54:08.630Z"
+      },
+      "remark": "hhhh",
+      "from": "OLd therefore Nothing",
+      "alert": false
+    },
+    "DLC88780": {
+      "time": {
+        "$date": "2020-01-28T17:05:00.887Z"
+      },
+      "remark": "",
+      "from": "OLd therefore Nothing",
+      "alert": false
+    },
+    "DLC61293": {
+      "time": {
+        "$date": "2020-01-28T17:05:37.612Z"
+      },
+      "remark": "",
+      "from": "OLd therefore Nothing",
+      "alert": false
+    },
+    "ADC30193": {
+      "time": {
+        "$date": "2020-02-01T01:05:39.163Z"
+      },
+      "from": "OLd therefore Nothing",
+      "remark": "tejas",
+      "alert": false
+    },
+    "ADC94720": {
+      "time": {
+        "$date": "2020-02-01T01:17:07.930Z"
+      },
+      "from": "OLd therefore Nothing",
+      "remark": "tejack",
+      "alert": false
+    },
+    "ADC48789": {
+      "time": {
+        "$date": "2020-02-01T01:26:38.392Z"
+      },
+      "from": "OLd therefore Nothing",
+      "remark": "hh",
+      "alert": false
+    }
+  },
+  "outgoingFiles": [],
+  "currFiles": [],
+  "prevFiles": []
+}]

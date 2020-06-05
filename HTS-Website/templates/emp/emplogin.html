@@ -1,0 +1,23 @@
+<html>
+<head>
+<title>HR Transparency System</title>
+    <link rel= "stylesheet" type="text/css" href="{{url_for('static',filename='css/loginstyle.css')}}">
+<body>
+ 
+      <div class="loginbox">
+             <img src="{{url_for('static',filename='img/avatar.png')}}" class="avatar">
+                <h1>EMPLOYEE LOGIN</h1>
+                <form method="POST">
+                    <input type="text" name="email" placeholder="Enter Email">
+                    <input type="password" name="pass" placeholder="Enter Password">
+                    <input type="submit" name="" value="Login">
+                    <label id="error">{{error}}</label>
+                    <!--<a href="#">Forgot your password?</a><br>
+                    <a href="signup.html">Don't have an account?</a>-->                
+                </form>
+                  
+    </div>    
+  
+</body>
+</head>
+</html>

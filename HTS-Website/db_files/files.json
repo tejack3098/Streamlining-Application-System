@@ -1,0 +1,1403 @@
+[{
+  "_id": {
+    "$oid": "5e2ad6e9bfdbb673062a6c7a"
+  },
+  "fid": "ADC02293",
+  "applicationType": "ADC",
+  "timeCreated": {
+    "$date": "2019-02-24T17:07:13.566Z"
+  },
+  "fileDone": true,
+  "currDept": null,
+  "currEmp": null,
+  "delayed": false,
+  "delayedDays": 0,
+  "expectedTimeline": {
+    "01": {
+      "$date": "2020-01-30T17:07:13.566Z"
+    },
+    "02": {
+      "$date": "2020-02-03T17:07:13.566Z"
+    }
+  },
+  "expectedTimelineDuplicate": {
+    "01": {
+      "$date": "2020-01-23T17:07:13.566Z"
+    },
+    "02": {
+      "$date": "2020-02-24T17:07:13.566Z"
+    }
+  },
+  "stageList": [
+    {
+      "deptID": "02",
+      "empID": "shaileshgupta596@gmail.com",
+      "timeArrived": {
+        "$date": "2020-01-24T17:30:46.524Z"
+      },
+      "remark": "Data"
+    },
+    {
+      "deptID": "01",
+      "empID": "tejas.choudhari15@gmail.com",
+      "timeArrived": {
+        "$date": "2020-01-25T14:58:56.923Z"
+      },
+      "remark": "batla shana he"
+    },
+    {
+      "deptID": "02",
+      "empID": "shaileshgupta596@gmail.com",
+      "timeArrived": {
+        "$date": "2020-02-01T01:42:48.716Z"
+      },
+      "remark": "gg",
+      "delay": 0
+    }
+  ],
+  "firstDept": "01",
+  "lastDept": "02",
+  "delayNotificationSent": null,
+  "lastScanTime": {
+    "$date": "2020-02-01T01:42:48.716Z"
+  },
+  "scanned": false,
+  "prevDept": "02",
+  "prevEmp": "shaileshgupta596@gmail.com"
+},{
+  "_id": {
+    "$oid": "5e2eac9178ce0efaaa160852"
+  },
+  "fid": "PAN15545",
+  "applicationType": "PAN",
+  "timeCreated": {
+    "$date": "2020-02-25T14:55:37.756Z"
+  },
+  "fileDone": true,
+  "currDept": null,
+  "currEmp": null,
+  "prevDept": "01",
+  "prevEmp": "tejas.choudhari15@gmail.com",
+  "scanned": false,
+  "delayed": false,
+  "delayedDays": 0,
+  "expectedTimeline": {
+    "02": {
+      "$date": "2020-01-30T14:55:37.756Z"
+    },
+    "01": {
+      "$date": "2020-02-05T14:55:37.756Z"
+    }
+  },
+  "expectedTimelineDuplicate": {
+    "02": {
+      "$date": "2020-03-04T14:55:37.756Z"
+    },
+    "01": {
+      "$date": "2020-01-05T14:55:37.756Z"
+    }
+  },
+  "stageList": [
+    {
+      "deptID": "02",
+      "empID": "shaileshgupta596@gmail.com",
+      "timeArrived": {
+        "$date": "2020-01-27T14:56:45.318Z"
+      },
+      "remark": "Shraddha Jadhav\nPrajakta Ambolkar "
+    },
+    {
+      "deptID": "01",
+      "empID": "tejas.choudhari15@gmail.com",
+      "timeArrived": {
+        "$date": "2020-01-28T15:02:17.600Z"
+      },
+      "remark": "batla shana he"
+    }
+  ],
+  "firstDept": "02",
+  "lastDept": "01",
+  "delayNotificationSent": null,
+  "lastScanTime": {
+    "$date": "2020-01-28T15:02:17.600Z"
+  }
+},{
+  "_id": {
+    "$oid": "5e2ebab7a4f2552ded686906"
+  },
+  "fid": "PAN99384",
+  "applicationType": "PAN",
+  "timeCreated": {
+    "$date": "2020-01-25T15:55:59.619Z"
+  },
+  "fileDone": false,
+  "currDept": "01",
+  "currEmp": "chavanrachit16e@student.mes.ac.in",
+  "prevDept": "02",
+  "prevEmp": "shaileshgupta596@gmail.com",
+  "scanned": true,
+  "delayed": false,
+  "delayedDays": 0,
+  "expectedTimeline": {
+    "02": {
+      "$date": "2020-01-30T15:55:59.619Z"
+    },
+    "01": {
+      "$date": "2020-02-05T15:55:59.619Z"
+    }
+  },
+  "expectedTimelineDuplicate": {
+    "02": {
+      "$date": "2020-01-30T15:55:59.619Z"
+    },
+    "01": {
+      "$date": "2020-02-05T15:55:59.619Z"
+    }
+  },
+  "stageList": [
+    {
+      "deptID": "02",
+      "empID": "shaileshgupta596@gmail.com",
+      "timeArrived": {
+        "$date": "2020-01-27T16:06:21.342Z"
+      },
+      "remark": "done"
+    },
+    {
+      "deptID": "01",
+      "empID": "chavanrachit16e@student.mes.ac.in",
+      "timeArrived": {
+        "$date": "2020-01-30T12:44:34.971Z"
+      },
+      "remark": "",
+      "delay": 0
+    }
+  ],
+  "firstDept": "02",
+  "lastDept": "01",
+  "delayNotificationSent": null,
+  "lastScanTime": {
+    "$date": "2020-01-30T12:44:34.971Z"
+  }
+},{
+  "_id": {
+    "$oid": "5e2ebe853b97fb056c8a8a2c"
+  },
+  "fid": "PAN14462",
+  "applicationType": "PAN",
+  "timeCreated": {
+    "$date": "2020-01-27T16:12:13.144Z"
+  },
+  "fileDone": true,
+  "currDept": null,
+  "currEmp": null,
+  "prevDept": "01",
+  "prevEmp": "tejas.choudhari15@gmail.com",
+  "scanned": false,
+  "delayed": false,
+  "delayedDays": 0,
+  "expectedTimeline": {
+    "02": {
+      "$date": "2020-01-30T16:12:13.144Z"
+    },
+    "01": {
+      "$date": "2020-02-05T16:12:13.144Z"
+    }
+  },
+  "expectedTimelineDuplicate": {
+    "02": {
+      "$date": "2020-01-30T16:12:13.144Z"
+    },
+    "01": {
+      "$date": "2020-02-06T16:12:13.144Z"
+    }
+  },
+  "stageList": [
+    {
+      "deptID": "02",
+      "empID": "shaileshgupta596@gmail.com",
+      "timeArrived": {
+        "$date": "2020-01-31T13:25:41.969Z"
+      },
+      "remark": "batla kidhar he",
+      "delay": 1
+    },
+    {
+      "deptID": "01",
+      "empID": "tejas.choudhari15@gmail.com",
+      "timeArrived": {
+        "$date": "2020-01-31T13:32:13.270Z"
+      },
+      "remark": "file completd",
+      "delay": 0
+    }
+  ],
+  "firstDept": "02",
+  "lastDept": "01",
+  "delayNotificationSent": null,
+  "lastScanTime": {
+    "$date": "2020-01-31T13:32:13.270Z"
+  }
+},{
+  "_id": {
+    "$oid": "5e2ebea93b97fb056c8a8a2d"
+  },
+  "fid": "PAN94870",
+  "applicationType": "PAN",
+  "timeCreated": {
+    "$date": "2020-01-27T16:12:49.948Z"
+  },
+  "fileDone": false,
+  "currDept": "02",
+  "currEmp": "abygpta@gmail.com",
+  "prevDept": null,
+  "prevEmp": null,
+  "scanned": false,
+  "delayed": true,
+  "delayedDays": 3,
+  "expectedTimeline": {
+    "02": {
+      "$date": "2020-01-30T16:12:49.948Z"
+    },
+    "01": {
+      "$date": "2020-02-05T16:12:49.948Z"
+    }
+  },
+  "expectedTimelineDuplicate": {
+    "02": {
+      "$date": "2020-01-30T16:12:49.948Z"
+    },
+    "01": {
+      "$date": "2020-02-05T16:12:49.948Z"
+    }
+  },
+  "stageList": [],
+  "firstDept": "02",
+  "lastDept": "01",
+  "delayNotificationSent": null,
+  "lastScanTime": "Not Scanned yet."
+},{
+  "_id": {
+    "$oid": "5e2ec15e3b97fb056c8a8a2e"
+  },
+  "fid": "PAN06966",
+  "applicationType": "PAN",
+  "timeCreated": {
+    "$date": "2020-01-27T16:24:22.069Z"
+  },
+  "fileDone": false,
+  "currDept": "01",
+  "currEmp": "tejas.choudhari15@gmail.com",
+  "prevDept": "02",
+  "prevEmp": "shaileshgupta596@gmail.com",
+  "scanned": false,
+  "delayed": false,
+  "delayedDays": 0,
+  "expectedTimeline": {
+    "02": {
+      "$date": "2020-01-30T16:24:22.069Z"
+    },
+    "01": {
+      "$date": "2020-02-05T16:24:22.069Z"
+    }
+  },
+  "expectedTimelineDuplicate": {
+    "02": {
+      "$date": "2020-01-28T16:24:22.069Z"
+    },
+    "01": {
+      "$date": "2020-02-11T16:24:22.069Z"
+    }
+  },
+  "stageList": [
+    {
+      "deptID": "02",
+      "empID": "shaileshgupta596@gmail.com",
+      "timeArrived": {
+        "$date": "2020-02-01T01:29:13.468Z"
+      },
+      "remark": "ccc",
+      "delay": 4
+    }
+  ],
+  "firstDept": "02",
+  "lastDept": "01",
+  "delayNotificationSent": null,
+  "lastScanTime": {
+    "$date": "2020-02-01T01:29:13.468Z"
+  }
+},{
+  "_id": {
+    "$oid": "5e301c0d17726d7711b904b7"
+  },
+  "fid": "ADC16611",
+  "applicationType": "ADC",
+  "timeCreated": {
+    "$date": "2020-01-28T17:03:33.166Z"
+  },
+  "fileDone": false,
+  "currDept": "01",
+  "currEmp": "tejas.choudhari15@gmail.com",
+  "prevDept": null,
+  "prevEmp": null,
+  "scanned": false,
+  "delayed": false,
+  "delayedDays": 0,
+  "expectedTimeline": {
+    "01": {
+      "$date": "2020-02-03T17:03:33.166Z"
+    },
+    "02": {
+      "$date": "2020-02-05T17:03:33.166Z"
+    }
+  },
+  "expectedTimelineDuplicate": {
+    "01": {
+      "$date": "2020-02-03T17:03:33.166Z"
+    },
+    "02": {
+      "$date": "2020-02-05T17:03:33.166Z"
+    }
+  },
+  "stageList": [],
+  "firstDept": "01",
+  "lastDept": "02",
+  "delayNotificationSent": null,
+  "lastScanTime": "Not Scanned yet."
+},{
+  "_id": {
+    "$oid": "5e301c2517726d7711b904b8"
+  },
+  "fid": "ADC64216",
+  "applicationType": "ADC",
+  "timeCreated": {
+    "$date": "2020-01-28T17:03:57.485Z"
+  },
+  "fileDone": true,
+  "currDept": null,
+  "currEmp": null,
+  "prevDept": "02",
+  "prevEmp": "shaileshgupta596@gmail.com",
+  "scanned": false,
+  "delayed": false,
+  "delayedDays": 0,
+  "expectedTimeline": {
+    "01": {
+      "$date": "2020-02-03T17:03:57.485Z"
+    },
+    "02": {
+      "$date": "2020-02-05T17:03:57.485Z"
+    }
+  },
+  "expectedTimelineDuplicate": {
+    "01": {
+      "$date": "2020-02-03T17:03:57.485Z"
+    },
+    "02": {
+      "$date": "2020-02-05T17:03:57.485Z"
+    }
+  },
+  "stageList": [
+    {
+      "deptID": "01",
+      "empID": "tejas.choudhari15@gmail.com",
+      "timeArrived": {
+        "$date": "2020-01-29T20:54:26.772Z"
+      },
+      "remark": "abhay chutya",
+      "delay": 10
+    },
+    {
+      "deptID": "02",
+      "empID": "shaileshgupta596@gmail.com",
+      "timeArrived": {
+        "$date": "2020-01-29T21:03:29.601Z"
+      },
+      "remark": "Abhay Chutya",
+      "delay": 2
+    }
+  ],
+  "firstDept": "01",
+  "lastDept": "02",
+  "delayNotificationSent": null,
+  "lastScanTime": {
+    "$date": "2020-01-29T21:03:29.601Z"
+  }
+},{
+  "_id": {
+    "$oid": "5e301c6417726d7711b904b9"
+  },
+  "fid": "DLC88780",
+  "applicationType": "DLC",
+  "timeCreated": {
+    "$date": "2020-01-28T17:05:00.887Z"
+  },
+  "fileDone": false,
+  "currDept": "02",
+  "currEmp": "abygpta@gmail.com",
+  "prevDept": null,
+  "prevEmp": null,
+  "scanned": false,
+  "delayed": false,
+  "delayedDays": 0,
+  "expectedTimeline": {
+    "02": {
+      "$date": "2020-02-03T17:05:00.887Z"
+    },
+    "01": {
+      "$date": "2020-02-05T17:05:00.887Z"
+    }
+  },
+  "expectedTimelineDuplicate": {
+    "02": {
+      "$date": "2020-02-03T17:05:00.887Z"
+    },
+    "01": {
+      "$date": "2020-02-05T17:05:00.887Z"
+    }
+  },
+  "stageList": [],
+  "firstDept": "02",
+  "lastDept": "01",
+  "delayNotificationSent": null,
+  "lastScanTime": "Not Scanned yet."
+},{
+  "_id": {
+    "$oid": "5e301c8617726d7711b904ba"
+  },
+  "fid": "DLC30977",
+  "applicationType": "DLC",
+  "timeCreated": {
+    "$date": "2020-01-28T17:05:34.309Z"
+  },
+  "fileDone": false,
+  "currDept": "02",
+  "currEmp": "shaileshgupta596@gmail.com",
+  "prevDept": null,
+  "prevEmp": null,
+  "scanned": false,
+  "delayed": false,
+  "delayedDays": 0,
+  "expectedTimeline": {
+    "02": {
+      "$date": "2020-02-03T17:05:34.309Z"
+    },
+    "01": {
+      "$date": "2020-02-05T17:05:34.309Z"
+    }
+  },
+  "expectedTimelineDuplicate": {
+    "02": {
+      "$date": "2020-02-03T17:05:34.309Z"
+    },
+    "01": {
+      "$date": "2020-02-05T17:05:34.309Z"
+    }
+  },
+  "stageList": [],
+  "firstDept": "02",
+  "lastDept": "01",
+  "delayNotificationSent": null,
+  "lastScanTime": "Not Scanned yet."
+},{
+  "_id": {
+    "$oid": "5e301c8917726d7711b904bb"
+  },
+  "fid": "DLC61293",
+  "applicationType": "DLC",
+  "timeCreated": {
+    "$date": "2020-01-28T17:05:37.612Z"
+  },
+  "fileDone": false,
+  "currDept": "02",
+  "currEmp": "abygpta@gmail.com",
+  "prevDept": null,
+  "prevEmp": null,
+  "scanned": false,
+  "delayed": false,
+  "delayedDays": 0,
+  "expectedTimeline": {
+    "02": {
+      "$date": "2020-02-03T17:05:37.612Z"
+    },
+    "01": {
+      "$date": "2020-02-05T17:05:37.612Z"
+    }
+  },
+  "expectedTimelineDuplicate": {
+    "02": {
+      "$date": "2020-02-03T17:05:37.612Z"
+    },
+    "01": {
+      "$date": "2020-02-05T17:05:37.612Z"
+    }
+  },
+  "stageList": [],
+  "firstDept": "02",
+  "lastDept": "01",
+  "delayNotificationSent": null,
+  "lastScanTime": "Not Scanned yet."
+},{
+  "_id": {
+    "$oid": "5e314b412609a2a4839ae62c"
+  },
+  "fid": "ADC30193",
+  "applicationType": "ADC",
+  "timeCreated": {
+    "$date": "2020-01-29T14:37:13.301Z"
+  },
+  "fileDone": false,
+  "currDept": "02",
+  "currEmp": "abygpta@gmail.com",
+  "prevDept": "01",
+  "prevEmp": "tejas.choudhari15@gmail.com",
+  "scanned": false,
+  "delayed": false,
+  "delayedDays": 0,
+  "expectedTimeline": {
+    "01": {
+      "$date": "2020-02-04T14:37:13.301Z"
+    },
+    "02": {
+      "$date": "2020-02-06T14:37:13.301Z"
+    }
+  },
+  "expectedTimelineDuplicate": {
+    "01": {
+      "$date": "2020-02-04T14:37:13.301Z"
+    },
+    "02": {
+      "$date": "2020-02-06T14:37:13.301Z"
+    }
+  },
+  "stageList": [
+    {
+      "deptID": "01",
+      "empID": "tejas.choudhari15@gmail.com",
+      "timeArrived": {
+        "$date": "2020-02-01T01:05:28.543Z"
+      },
+      "remark": "tejas",
+      "delay": 0
+    }
+  ],
+  "firstDept": "01",
+  "lastDept": "02",
+  "delayNotificationSent": null,
+  "lastScanTime": {
+    "$date": "2020-02-01T01:05:28.543Z"
+  }
+},{
+  "_id": {
+    "$oid": "5e314b5a2609a2a4839ae62d"
+  },
+  "fid": "ADC14734",
+  "applicationType": "ADC",
+  "timeCreated": {
+    "$date": "2020-01-29T14:37:38.147Z"
+  },
+  "fileDone": false,
+  "currDept": "01",
+  "currEmp": "chavanrachit16e@student.mes.ac.in",
+  "prevDept": null,
+  "prevEmp": null,
+  "scanned": false,
+  "delayed": false,
+  "delayedDays": 0,
+  "expectedTimeline": {
+    "01": {
+      "$date": "2020-02-04T14:37:38.147Z"
+    },
+    "02": {
+      "$date": "2020-02-06T14:37:38.147Z"
+    }
+  },
+  "expectedTimelineDuplicate": {
+    "01": {
+      "$date": "2020-02-04T14:37:38.147Z"
+    },
+    "02": {
+      "$date": "2020-02-06T14:37:38.147Z"
+    }
+  },
+  "stageList": [],
+  "firstDept": "01",
+  "lastDept": "02",
+  "delayNotificationSent": null,
+  "lastScanTime": "Not Scanned yet."
+},{
+  "_id": {
+    "$oid": "5e314b9a2609a2a4839ae62e"
+  },
+  "fid": "ADC57501",
+  "applicationType": "ADC",
+  "timeCreated": {
+    "$date": "2020-01-29T14:38:42.575Z"
+  },
+  "fileDone": true,
+  "currDept": null,
+  "currEmp": null,
+  "prevDept": "02",
+  "prevEmp": "shaileshgupta596@gmail.com",
+  "scanned": false,
+  "delayed": false,
+  "delayedDays": 0,
+  "expectedTimeline": {
+    "01": {
+      "$date": "2020-02-04T14:38:42.575Z"
+    },
+    "02": {
+      "$date": "2020-02-06T14:38:42.575Z"
+    }
+  },
+  "expectedTimelineDuplicate": {
+    "01": {
+      "$date": "2020-02-04T14:38:42.575Z"
+    },
+    "02": {
+      "$date": "2020-02-06T14:38:42.575Z"
+    }
+  },
+  "stageList": [
+    {
+      "deptID": "01",
+      "empID": "tejas.choudhari15@gmail.com",
+      "timeArrived": {
+        "$date": "2020-02-01T01:15:05.891Z"
+      },
+      "remark": "batla shana he",
+      "delay": 0
+    },
+    {
+      "deptID": "02",
+      "empID": "shaileshgupta596@gmail.com",
+      "timeArrived": {
+        "$date": "2020-02-01T01:32:39.402Z"
+      },
+      "remark": "te",
+      "delay": 0
+    }
+  ],
+  "firstDept": "01",
+  "lastDept": "02",
+  "delayNotificationSent": null,
+  "lastScanTime": {
+    "$date": "2020-02-01T01:32:39.402Z"
+  }
+},{
+  "_id": {
+    "$oid": "5e314bd42609a2a4839ae62f"
+  },
+  "fid": "ADC26872",
+  "applicationType": "ADC",
+  "timeCreated": {
+    "$date": "2020-01-29T14:39:40.268Z"
+  },
+  "fileDone": false,
+  "currDept": "01",
+  "currEmp": "chavanrachit16e@student.mes.ac.in",
+  "prevDept": null,
+  "prevEmp": null,
+  "scanned": false,
+  "delayed": false,
+  "delayedDays": 0,
+  "expectedTimeline": {
+    "01": {
+      "$date": "2020-02-04T14:39:40.268Z"
+    },
+    "02": {
+      "$date": "2020-02-06T14:39:40.268Z"
+    }
+  },
+  "expectedTimelineDuplicate": {
+    "01": {
+      "$date": "2020-02-04T14:39:40.268Z"
+    },
+    "02": {
+      "$date": "2020-02-06T14:39:40.268Z"
+    }
+  },
+  "stageList": [],
+  "firstDept": "01",
+  "lastDept": "02",
+  "delayNotificationSent": null,
+  "lastScanTime": "Not Scanned yet."
+},{
+  "_id": {
+    "$oid": "5e314d4b2609a2a4839ae630"
+  },
+  "fid": "ADC18377",
+  "applicationType": "ADC",
+  "timeCreated": {
+    "$date": "2020-01-29T14:45:55.183Z"
+  },
+  "fileDone": true,
+  "currDept": null,
+  "currEmp": null,
+  "prevDept": "02",
+  "prevEmp": "shaileshgupta596@gmail.com",
+  "scanned": false,
+  "delayed": false,
+  "delayedDays": 0,
+  "expectedTimeline": {
+    "01": {
+      "$date": "2020-02-04T14:45:55.183Z"
+    },
+    "02": {
+      "$date": "2020-02-06T14:45:55.183Z"
+    }
+  },
+  "expectedTimelineDuplicate": {
+    "01": {
+      "$date": "2020-02-04T14:45:55.183Z"
+    },
+    "02": {
+      "$date": "2020-02-06T14:45:55.183Z"
+    }
+  },
+  "stageList": [
+    {
+      "deptID": "01",
+      "empID": "tejas.choudhari15@gmail.com",
+      "timeArrived": {
+        "$date": "2020-02-01T01:00:10.874Z"
+      },
+      "remark": "batla shana he",
+      "delay": 0
+    },
+    {
+      "deptID": "02",
+      "empID": "shaileshgupta596@gmail.com",
+      "timeArrived": {
+        "$date": "2020-02-01T01:39:41.184Z"
+      },
+      "remark": "h",
+      "delay": 0
+    }
+  ],
+  "firstDept": "01",
+  "lastDept": "02",
+  "delayNotificationSent": null,
+  "lastScanTime": {
+    "$date": "2020-02-01T01:39:41.184Z"
+  }
+},{
+  "_id": {
+    "$oid": "5e314d582609a2a4839ae631"
+  },
+  "fid": "ADC65953",
+  "applicationType": "ADC",
+  "timeCreated": {
+    "$date": "2020-01-29T14:46:08.659Z"
+  },
+  "fileDone": false,
+  "currDept": "01",
+  "currEmp": "chavanrachit16e@student.mes.ac.in",
+  "prevDept": null,
+  "prevEmp": null,
+  "scanned": false,
+  "delayed": false,
+  "delayedDays": 0,
+  "expectedTimeline": {
+    "01": {
+      "$date": "2020-02-04T14:46:08.659Z"
+    },
+    "02": {
+      "$date": "2020-02-06T14:46:08.659Z"
+    }
+  },
+  "expectedTimelineDuplicate": {
+    "01": {
+      "$date": "2020-02-04T14:46:08.659Z"
+    },
+    "02": {
+      "$date": "2020-02-06T14:46:08.659Z"
+    }
+  },
+  "stageList": [],
+  "firstDept": "01",
+  "lastDept": "02",
+  "delayNotificationSent": null,
+  "lastScanTime": "Not Scanned yet."
+},{
+  "_id": {
+    "$oid": "5e314d612609a2a4839ae632"
+  },
+  "fid": "ADC10384",
+  "applicationType": "ADC",
+  "timeCreated": {
+    "$date": "2020-01-29T14:46:17.103Z"
+  },
+  "fileDone": true,
+  "currDept": null,
+  "currEmp": null,
+  "prevDept": "02",
+  "prevEmp": "shaileshgupta596@gmail.com",
+  "scanned": false,
+  "delayed": false,
+  "delayedDays": 0,
+  "expectedTimeline": {
+    "01": {
+      "$date": "2020-02-04T14:46:17.103Z"
+    },
+    "02": {
+      "$date": "2020-02-06T14:46:17.103Z"
+    }
+  },
+  "expectedTimelineDuplicate": {
+    "01": {
+      "$date": "2020-02-04T14:46:17.103Z"
+    },
+    "02": {
+      "$date": "2020-02-06T14:46:17.103Z"
+    }
+  },
+  "stageList": [
+    {
+      "deptID": "01",
+      "empID": "tejas.choudhari15@gmail.com",
+      "timeArrived": {
+        "$date": "2020-02-01T00:55:18.317Z"
+      },
+      "remark": "all good",
+      "delay": 0
+    },
+    {
+      "deptID": "02",
+      "empID": "shaileshgupta596@gmail.com",
+      "timeArrived": {
+        "$date": "2020-02-01T01:41:08.572Z"
+      },
+      "remark": "tt",
+      "delay": 0
+    }
+  ],
+  "firstDept": "01",
+  "lastDept": "02",
+  "delayNotificationSent": null,
+  "lastScanTime": {
+    "$date": "2020-02-01T01:41:08.572Z"
+  }
+},{
+  "_id": {
+    "$oid": "5e314d702609a2a4839ae633"
+  },
+  "fid": "ADC63358",
+  "applicationType": "ADC",
+  "timeCreated": {
+    "$date": "2020-01-29T14:46:32.633Z"
+  },
+  "fileDone": false,
+  "currDept": "01",
+  "currEmp": "chavanrachit16e@student.mes.ac.in",
+  "prevDept": null,
+  "prevEmp": null,
+  "scanned": false,
+  "delayed": false,
+  "delayedDays": 0,
+  "expectedTimeline": {
+    "01": {
+      "$date": "2020-02-04T14:46:32.633Z"
+    },
+    "02": {
+      "$date": "2020-02-06T14:46:32.633Z"
+    }
+  },
+  "expectedTimelineDuplicate": {
+    "01": {
+      "$date": "2020-02-04T14:46:32.633Z"
+    },
+    "02": {
+      "$date": "2020-02-06T14:46:32.633Z"
+    }
+  },
+  "stageList": [],
+  "firstDept": "01",
+  "lastDept": "02",
+  "delayNotificationSent": null,
+  "lastScanTime": "Not Scanned yet."
+},{
+  "_id": {
+    "$oid": "5e314dc42609a2a4839ae634"
+  },
+  "fid": "ADC3641936419",
+  "applicationType": "ADC",
+  "timeCreated": {
+    "$date": "2020-01-29T14:47:56.364Z"
+  },
+  "fileDone": false,
+  "currDept": "01",
+  "currEmp": "tejas.choudhari15@gmail.com",
+  "prevDept": null,
+  "prevEmp": null,
+  "scanned": false,
+  "delayed": false,
+  "delayedDays": 0,
+  "expectedTimeline": {
+    "01": {
+      "$date": "2020-02-04T14:47:56.364Z"
+    },
+    "02": {
+      "$date": "2020-02-06T14:47:56.364Z"
+    }
+  },
+  "expectedTimelineDuplicate": {
+    "01": {
+      "$date": "2020-02-04T14:47:56.364Z"
+    },
+    "02": {
+      "$date": "2020-02-06T14:47:56.364Z"
+    }
+  },
+  "stageList": [],
+  "firstDept": "01",
+  "lastDept": "02",
+  "delayNotificationSent": null,
+  "lastScanTime": "Not Scanned yet."
+},{
+  "_id": {
+    "$oid": "5e314dd32609a2a4839ae635"
+  },
+  "fid": "ADC28766",
+  "applicationType": "ADC",
+  "timeCreated": {
+    "$date": "2020-01-29T14:48:11.287Z"
+  },
+  "fileDone": false,
+  "currDept": "01",
+  "currEmp": "chavanrachit16e@student.mes.ac.in",
+  "prevDept": null,
+  "prevEmp": null,
+  "scanned": false,
+  "delayed": false,
+  "delayedDays": 0,
+  "expectedTimeline": {
+    "01": {
+      "$date": "2020-02-04T14:48:11.287Z"
+    },
+    "02": {
+      "$date": "2020-02-06T14:48:11.287Z"
+    }
+  },
+  "expectedTimelineDuplicate": {
+    "01": {
+      "$date": "2020-02-04T14:48:11.287Z"
+    },
+    "02": {
+      "$date": "2020-02-06T14:48:11.287Z"
+    }
+  },
+  "stageList": [],
+  "firstDept": "01",
+  "lastDept": "02",
+  "delayNotificationSent": null,
+  "lastScanTime": "Not Scanned yet."
+},{
+  "_id": {
+    "$oid": "5e314e2c2609a2a4839ae636"
+  },
+  "fid": "ADC98086",
+  "applicationType": "ADC",
+  "timeCreated": {
+    "$date": "2020-01-29T14:49:39.980Z"
+  },
+  "fileDone": true,
+  "currDept": null,
+  "currEmp": null,
+  "prevDept": "02",
+  "prevEmp": "shaileshgupta596@gmail.com",
+  "scanned": false,
+  "delayed": false,
+  "delayedDays": 0,
+  "expectedTimeline": {
+    "01": {
+      "$date": "2020-02-04T14:49:39.980Z"
+    },
+    "02": {
+      "$date": "2020-02-06T14:49:39.980Z"
+    }
+  },
+  "expectedTimelineDuplicate": {
+    "01": {
+      "$date": "2020-02-04T14:49:39.980Z"
+    },
+    "02": {
+      "$date": "2020-02-06T14:49:39.980Z"
+    }
+  },
+  "stageList": [
+    {
+      "deptID": "01",
+      "empID": "tejas.choudhari15@gmail.com",
+      "timeArrived": {
+        "$date": "2020-02-01T01:13:44.616Z"
+      },
+      "remark": "yyy",
+      "delay": 0
+    },
+    {
+      "deptID": "02",
+      "empID": "shaileshgupta596@gmail.com",
+      "timeArrived": {
+        "$date": "2020-02-01T01:31:37.403Z"
+      },
+      "remark": "bbbb",
+      "delay": 0
+    }
+  ],
+  "firstDept": "01",
+  "lastDept": "02",
+  "delayNotificationSent": null,
+  "lastScanTime": {
+    "$date": "2020-02-01T01:31:37.403Z"
+  }
+},{
+  "_id": {
+    "$oid": "5e314e762609a2a4839ae637"
+  },
+  "fid": "ADC59615",
+  "applicationType": "ADC",
+  "timeCreated": {
+    "$date": "2020-01-29T14:50:54.596Z"
+  },
+  "fileDone": false,
+  "currDept": "01",
+  "currEmp": "chavanrachit16e@student.mes.ac.in",
+  "prevDept": null,
+  "prevEmp": null,
+  "scanned": false,
+  "delayed": false,
+  "delayedDays": 0,
+  "expectedTimeline": {
+    "01": {
+      "$date": "2020-02-04T14:50:54.596Z"
+    },
+    "02": {
+      "$date": "2020-02-06T14:50:54.596Z"
+    }
+  },
+  "expectedTimelineDuplicate": {
+    "01": {
+      "$date": "2020-02-04T14:50:54.596Z"
+    },
+    "02": {
+      "$date": "2020-02-06T14:50:54.596Z"
+    }
+  },
+  "stageList": [],
+  "firstDept": "01",
+  "lastDept": "02",
+  "delayNotificationSent": null,
+  "lastScanTime": "Not Scanned yet."
+},{
+  "_id": {
+    "$oid": "5e314e812609a2a4839ae638"
+  },
+  "fid": "ADC48789",
+  "applicationType": "ADC",
+  "timeCreated": {
+    "$date": "2020-01-29T14:51:05.487Z"
+  },
+  "fileDone": false,
+  "currDept": "02",
+  "currEmp": "abygpta@gmail.com",
+  "prevDept": "01",
+  "prevEmp": "tejas.choudhari15@gmail.com",
+  "scanned": false,
+  "delayed": false,
+  "delayedDays": 0,
+  "expectedTimeline": {
+    "01": {
+      "$date": "2020-02-04T14:51:05.487Z"
+    },
+    "02": {
+      "$date": "2020-02-06T14:51:05.487Z"
+    }
+  },
+  "expectedTimelineDuplicate": {
+    "01": {
+      "$date": "2020-02-04T14:51:05.487Z"
+    },
+    "02": {
+      "$date": "2020-02-06T14:51:05.487Z"
+    }
+  },
+  "stageList": [
+    {
+      "deptID": "01",
+      "empID": "tejas.choudhari15@gmail.com",
+      "timeArrived": {
+        "$date": "2020-02-01T01:26:29.611Z"
+      },
+      "remark": "hh",
+      "delay": 0
+    }
+  ],
+  "firstDept": "01",
+  "lastDept": "02",
+  "delayNotificationSent": null,
+  "lastScanTime": {
+    "$date": "2020-02-01T01:26:29.611Z"
+  }
+},{
+  "_id": {
+    "$oid": "5e318058a1ba39e57e4aba77"
+  },
+  "fid": "ADC94720",
+  "applicationType": "ADC",
+  "timeCreated": {
+    "$date": "2020-01-29T18:23:43.947Z"
+  },
+  "fileDone": false,
+  "currDept": "02",
+  "currEmp": "abygpta@gmail.com",
+  "prevDept": "01",
+  "prevEmp": "tejas.choudhari15@gmail.com",
+  "scanned": false,
+  "delayed": false,
+  "delayedDays": 0,
+  "expectedTimeline": {
+    "01": {
+      "$date": "2020-02-04T18:23:43.947Z"
+    },
+    "02": {
+      "$date": "2020-02-06T18:23:43.947Z"
+    }
+  },
+  "expectedTimelineDuplicate": {
+    "01": {
+      "$date": "2020-02-04T18:23:43.947Z"
+    },
+    "02": {
+      "$date": "2020-02-06T18:23:43.947Z"
+    }
+  },
+  "stageList": [
+    {
+      "deptID": "01",
+      "empID": "tejas.choudhari15@gmail.com",
+      "timeArrived": {
+        "$date": "2020-02-01T01:14:22.513Z"
+      },
+      "remark": "tejack",
+      "delay": 0
+    }
+  ],
+  "firstDept": "01",
+  "lastDept": "02",
+  "delayNotificationSent": null,
+  "lastScanTime": {
+    "$date": "2020-02-01T01:14:22.513Z"
+  }
+},{
+  "_id": {
+    "$oid": "5e31965a78ad5b5022a4c52a"
+  },
+  "fid": "ADC78504",
+  "applicationType": "ADC",
+  "timeCreated": {
+    "$date": "2020-01-29T19:57:38.785Z"
+  },
+  "fileDone": false,
+  "currDept": "01",
+  "currEmp": "chavanrachit16e@student.mes.ac.in",
+  "prevDept": null,
+  "prevEmp": null,
+  "scanned": false,
+  "delayed": false,
+  "delayedDays": 0,
+  "expectedTimeline": {
+    "01": {
+      "$date": "2020-02-04T19:57:38.785Z"
+    },
+    "02": {
+      "$date": "2020-02-06T19:57:38.785Z"
+    }
+  },
+  "expectedTimelineDuplicate": {
+    "01": {
+      "$date": "2020-02-04T19:57:38.785Z"
+    },
+    "02": {
+      "$date": "2020-02-06T19:57:38.785Z"
+    }
+  },
+  "stageList": [],
+  "firstDept": "01",
+  "lastDept": "02",
+  "delayNotificationSent": null,
+  "lastScanTime": "Not Scanned yet."
+},{
+  "_id": {
+    "$oid": "5e31966378ad5b5022a4c52b"
+  },
+  "fid": "ADC10885",
+  "applicationType": "ADC",
+  "timeCreated": {
+    "$date": "2020-01-29T19:57:47.280Z"
+  },
+  "fileDone": true,
+  "currDept": null,
+  "currEmp": null,
+  "prevDept": "02",
+  "prevEmp": "shaileshgupta596@gmail.com",
+  "scanned": false,
+  "delayed": false,
+  "delayedDays": 0,
+  "expectedTimeline": {
+    "01": {
+      "$date": "2020-02-04T19:57:47.280Z"
+    },
+    "02": {
+      "$date": "2020-02-06T19:57:47.280Z"
+    }
+  },
+  "expectedTimelineDuplicate": {
+    "01": {
+      "$date": "2020-02-04T19:57:47.280Z"
+    },
+    "02": {
+      "$date": "2020-02-06T19:57:47.280Z"
+    }
+  },
+  "stageList": [
+    {
+      "deptID": "01",
+      "empID": "tejas.choudhari15@gmail.com",
+      "timeArrived": {
+        "$date": "2020-01-29T22:07:07.235Z"
+      },
+      "remark": "Abhay Chutya...........",
+      "delay": 0
+    },
+    {
+      "deptID": "02",
+      "empID": "shaileshgupta596@gmail.com",
+      "timeArrived": {
+        "$date": "2020-02-01T01:54:54.687Z"
+      },
+      "remark": "gt",
+      "delay": 0
+    }
+  ],
+  "firstDept": "01",
+  "lastDept": "02",
+  "delayNotificationSent": null,
+  "lastScanTime": {
+    "$date": "2020-02-01T01:54:54.687Z"
+  }
+},{
+  "_id": {
+    "$oid": "5e343f4b4903f5e604e246a9"
+  },
+  "fid": "ADC60256",
+  "applicationType": "ADC",
+  "timeCreated": {
+    "$date": "2020-01-31T20:22:58.602Z"
+  },
+  "fileDone": false,
+  "currDept": "01",
+  "currEmp": "12@g.com",
+  "prevDept": null,
+  "prevEmp": null,
+  "scanned": false,
+  "delayed": false,
+  "delayedDays": 0,
+  "expectedTimeline": {
+    "01": {
+      "$date": "2020-02-07T20:22:58.602Z"
+    },
+    "02": {
+      "$date": "2020-02-11T20:22:58.602Z"
+    }
+  },
+  "expectedTimelineDuplicate": {
+    "01": {
+      "$date": "2020-02-07T20:22:58.602Z"
+    },
+    "02": {
+      "$date": "2020-02-11T20:22:58.602Z"
+    }
+  },
+  "stageList": [],
+  "firstDept": "01",
+  "lastDept": "02",
+  "delayNotificationSent": null,
+  "lastScanTime": "Not Scanned yet."
+},{
+  "_id": {
+    "$oid": "5e367d16bd89974851b7eef1"
+  },
+  "fid": "ADC1580629269.824328",
+  "applicationType": "ADC",
+  "timeCreated": {
+    "$date": "2020-02-02T13:11:09.824Z"
+  },
+  "fileDone": false,
+  "currDept": "01",
+  "currEmp": "tejas.choudhari15@gmail.com",
+  "prevDept": null,
+  "prevEmp": null,
+  "scanned": false,
+  "delayed": false,
+  "delayedDays": 0,
+  "expectedTimeline": {
+    "01": {
+      "$date": "2020-02-07T13:11:09.824Z"
+    },
+    "02": {
+      "$date": "2020-02-11T13:11:09.824Z"
+    }
+  },
+  "expectedTimelineDuplicate": {
+    "01": {
+      "$date": "2020-02-07T13:11:09.824Z"
+    },
+    "02": {
+      "$date": "2020-02-11T13:11:09.824Z"
+    }
+  },
+  "stageList": [],
+  "firstDept": "01",
+  "lastDept": "02",
+  "delayNotificationSent": null,
+  "lastScanTime": "Not Scanned yet."
+},{
+  "_id": {
+    "$oid": "5e367dab98aad14d7c4ce612"
+  },
+  "fid": "PAN1580629418",
+  "applicationType": "PAN",
+  "timeCreated": {
+    "$date": "2020-02-02T13:13:38.991Z"
+  },
+  "fileDone": false,
+  "currDept": "02",
+  "currEmp": "shaileshgupta596@gmail.com",
+  "prevDept": null,
+  "prevEmp": null,
+  "scanned": false,
+  "delayed": false,
+  "delayedDays": 0,
+  "expectedTimeline": {
+    "02": {
+      "$date": "2020-02-06T13:13:38.991Z"
+    },
+    "01": {
+      "$date": "2020-02-12T13:13:38.991Z"
+    }
+  },
+  "expectedTimelineDuplicate": {
+    "02": {
+      "$date": "2020-02-06T13:13:38.991Z"
+    },
+    "01": {
+      "$date": "2020-02-12T13:13:38.991Z"
+    }
+  },
+  "stageList": [],
+  "firstDept": "02",
+  "lastDept": "01",
+  "delayNotificationSent": null,
+  "lastScanTime": "Not Scanned yet."
+}]

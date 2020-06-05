@@ -1,0 +1,177 @@
+[{
+  "_id": {
+    "$oid": "5e2ad243d7d866eb62d3d4ae"
+  },
+  "appname": "Aadhar Card",
+  "appid": "ADC",
+  "stageList": [
+    {
+      "dept_id": "01",
+      "no_of_days": "4"
+    },
+    {
+      "dept_id": "02",
+      "no_of_days": "2"
+    }
+  ],
+  "lastDept": "01",
+  "timeCreated": {
+    "$date": "2020-01-24T16:47:23.241Z"
+  }
+},{
+  "_id": {
+    "$oid": "5e2ad25fd7d866eb62d3d4af"
+  },
+  "appname": "Pan Card",
+  "appid": "PAN",
+  "stageList": [
+    {
+      "dept_id": "02",
+      "no_of_days": "3"
+    },
+    {
+      "dept_id": "01",
+      "no_of_days": "4"
+    }
+  ],
+  "lastDept": "02",
+  "timeCreated": {
+    "$date": "2020-01-24T16:47:51.041Z"
+  }
+},{
+  "_id": {
+    "$oid": "5e2adf1c00a25c9ed536db3f"
+  },
+  "appname": "Driving Lnc",
+  "appid": "DLC",
+  "stageList": [
+    {
+      "dept_id": "02",
+      "no_of_days": "4"
+    },
+    {
+      "dept_id": "01",
+      "no_of_days": "2"
+    }
+  ],
+  "lastDept": "02",
+  "timeCreated": {
+    "$date": "2020-01-24T17:42:12.859Z"
+  }
+},{
+  "_id": {
+    "$oid": "5e349dca66bc2df643ebbf1b"
+  },
+  "appname": "dadsa",
+  "appid": "ADC34567",
+  "stageList": [
+    {
+      "dept_id": "44",
+      "no_of_days": "5"
+    }
+  ],
+  "lastDept": "44",
+  "timeCreated": {
+    "$date": "2020-02-01T03:06:10.866Z"
+  }
+},{
+  "_id": {
+    "$oid": "5e349e0266bc2df643ebbf1c"
+  },
+  "appname": "zxx",
+  "appid": "DLC123",
+  "stageList": [
+    {
+      "dept_id": "r",
+      "no_of_days": "5"
+    }
+  ],
+  "lastDept": "r",
+  "timeCreated": {
+    "$date": "2020-02-01T03:07:06.469Z"
+  }
+},{
+  "_id": {
+    "$oid": "5e65e557225b7e48e47a8406"
+  },
+  "appname": "Tej123",
+  "appid": "TEJAS12",
+  "stageList": [
+    {
+      "dept_id": "02",
+      "no_of_days": "4"
+    }
+  ],
+  "lastDept": "02",
+  "timeCreated": {
+    "$date": "2020-03-09T12:12:31.883Z"
+  }
+},{
+  "_id": {
+    "$oid": "5e666fe9225b7e48e47a8407"
+  },
+  "appname": "zxx",
+  "appid": "s",
+  "stageList": [
+    {
+      "dept_id": "555",
+      "no_of_days": "3"
+    }
+  ],
+  "lastDept": "555",
+  "timeCreated": {
+    "$date": "2020-03-09T22:03:45.081Z"
+  }
+},{
+  "_id": {
+    "$oid": "5e668270225b7e48e47a8408"
+  },
+  "appname": "asasaa",
+  "appid": "ddddd",
+  "stageList": [
+    {
+      "dept_id": "333",
+      "no_of_days": "2"
+    }
+  ],
+  "lastDept": "333",
+  "timeCreated": {
+    "$date": "2020-03-09T23:22:48.453Z"
+  }
+},{
+  "_id": {
+    "$oid": "5e668629225b7e48e47a8409"
+  },
+  "appname": "zxxw",
+  "appid": "ADCqs",
+  "stageList": [
+    {
+      "dept_id": "02",
+      "no_of_days": "s"
+    }
+  ],
+  "lastDept": "02",
+  "timeCreated": {
+    "$date": "2020-03-09T23:38:41.581Z"
+  }
+},{
+  "_id": {
+    "$oid": "5e68b6f8225b7e0f20971dcb"
+  },
+  "appname": "Tej189",
+  "appid": "TEJAD",
+  "stageList": [
+    {
+      "dept_id": "01",
+      "no_of_days": "2"
+    },
+    {
+      "dept_id": "02",
+      "no_of_days": "2"
+    }
+  ],
+  "lastDept": "02",
+  "timeCreated": {
+    "$date": "2020-03-11T15:31:28.310Z"
+  }
+}]

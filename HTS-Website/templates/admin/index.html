@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DEMO- jQuery-based responsive timeline generator</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/vertical-timeline.css')}}">
+    <script src="{{ url_for('static',filename='js/vertical-timeline.min.js')}}"></script>
+    <script src="{{ url_for('static',filename='js/jquery-3.2.1.min.js')}}"></script>
+    
+    
+<!--    <link rel="stylesheet" href="vertical-timeline.css">
+<script  src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="   crossorigin="anonymous"></script>
+<script src="vertical-timeline.min.js"></script>-->
+<script>
+    var data=[
+        {
+            estimated_time:"12",
+            department:"Dept_1",
+            delayed:"Yes",
+            remark:"Proin mattis nisl non est dapibus elementum. Etiam varius, purus sodales varius tempor, mauris nunc hendrerit velit, vitae interdum quam erat non lorem. Fusce luctus malesuada neque nec pretium. In sed turpis dui."
+            
+        },
+        {
+            estimated_time:"12",
+            department:"Dept_1",
+            delayed:"Yes",
+            remark:"Proin mattis nisl non est dapibus elementum. Etiam varius, purus sodales varius tempor, mauris nunc hendrerit velit, vitae interdum quam erat non lorem. Fusce luctus malesuada neque nec pretium. In sed turpis dui."
+            
+        },
+        {
+            estimated_time:"12",
+            department:"Dept_1",
+            delayed:"Yes",
+            remark:"Proin mattis nisl non est dapibus elementum. Etiam varius, purus sodales varius tempor, mauris nunc hendrerit velit, vitae interdum quam erat non lorem. Fusce luctus malesuada neque nec pretium. In sed turpis dui."
+            
+        },
+        {
+            estimated_time:"12",
+            department:"Dept_1",
+            delayed:"Yes",
+            remark:"Proin mattis nisl non est dapibus elementum. Etiam varius, purus sodales varius tempor, mauris nunc hendrerit velit, vitae interdum quam erat non lorem. Fusce luctus malesuada neque nec pretium. In sed turpis dui."
+            
+        },
+        {
+            estimated_time:"12",
+            department:"Dept_1",
+            delayed:"Yes",
+            remark:"Proin mattis nisl non est dapibus elementum. Etiam varius, purus sodales varius tempor, mauris nunc hendrerit velit, vitae interdum quam erat non lorem. Fusce luctus malesuada neque nec pretium. In sed turpis dui."
+            
+        }
+        
+    ]
+
+    window.onload=load_data;
+    function load_data(){
+        data.map(function(d,key){
+            document.getElementById('timeline').innerHTML+="<div key="+key+" data-vtdate='Estimated time: "+d.estimated_time+"'><h3>"+d.department+"</h3><p>"+d.remark+"</p><p>Delayed:"+d.delayed+"</p></div>"
+        })
+        
+    }
+</script>
+</head>
+<style>
+
+    h1, h2 {
+        text-align: center;
+    }
+
+    h3 {
+        margin: 0;
+    }
+
+</style>
+<body>
+
+<br/>
+
+
+<div id="timeline"></div>
+    
+<script>
+$(function() {  
+  $('#timeline').verticalTimeline({
+        animate: 'slide' // OR animate: 'fade'
+    });
+ }); 
+</script>
+</body>
+</html>

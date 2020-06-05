@@ -1,0 +1,59 @@
+[{
+  "_id": {
+    "$oid": "5e2ac6f1ca4124c735c2aecd"
+  },
+  "email_id": "1@g.com",
+  "password": "123",
+  "fname": "Tejack",
+  "lname": "Beer",
+  "dept_id": "bevada",
+  "date_created": null
+},{
+  "_id": {
+    "$oid": "5e2acf2ed7d866eb62d3d4a4"
+  },
+  "email_id": "tejas.choudhari15@gmail.com",
+  "password": "123",
+  "fname": "Tejas",
+  "lname": "Choudhari",
+  "dept_id": "01",
+  "date_created": {
+    "$date": "2020-01-24T16:34:14.113Z"
+  }
+},{
+  "_id": {
+    "$oid": "5e2acf59d7d866eb62d3d4a6"
+  },
+  "email_id": "chavanrachit16e@student.mes.ac.in",
+  "password": "123",
+  "fname": "Rahul",
+  "lname": "Chavan",
+  "dept_id": "01",
+  "date_created": {
+    "$date": "2020-01-24T16:34:57.360Z"
+  }
+},{
+  "_id": {
+    "$oid": "5e2acfa7d7d866eb62d3d4a8"
+  },
+  "email_id": "shaileshgupta596@gmail.com",
+  "password": "123",
+  "fname": "Shailesh",
+  "lname": "Gupta",
+  "dept_id": "02",
+  "date_created": {
+    "$date": "2020-01-24T16:36:15.516Z"
+  }
+},{
+  "_id": {
+    "$oid": "5e2ad010d7d866eb62d3d4aa"
+  },
+  "email_id": "abygpta@gmail.com",
+  "password": "123",
+  "fname": "Abhay",
+  "lname": "Gupta",
+  "dept_id": "02",
+  "date_created": {
+    "$date": "2020-01-24T16:38:00.326Z"
+  }
+}]

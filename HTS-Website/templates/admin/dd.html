@@ -1,0 +1,47 @@
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+        
+    
+<div style="width:100%;">
+<input type="text" id="daterangeINPUT" name="daterange" value="01/01/2018 - 01/15/2018" style="width:200px;" />
+</div>
+
+    
+<script>
+  function formatDate()
+    {
+        var d = new Date(),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+
+        return [year, month, day].join('-');
+    }
+    $(document).ready(function(){
+        console.log("abhay");
+        $('#daterangeINPUT')[0].click();
+    });
+$(function() {
+  $('input[name="daterange"]').daterangepicker({
+    opens: 'left'
+  }, function(start, end, label) {
+    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+  });
+});
+var dpinput = document.getElementById("daterangeINPUT");
+dpinput.value=formatDate(); 
+    $('#daterangeINPUT').on('apply.daterangepicker', function(ev, picker) {
+  console.log(picker.startDate.format('YYYY-MM-DD'));
+  console.log(picker.endDate.format('YYYY-MM-DD'));
+        var dpinput = document.getElementById("daterangeINPUT");
+        
+  console.log(dpinput);
+  console.log(dpinput.value);
+});
+</script>

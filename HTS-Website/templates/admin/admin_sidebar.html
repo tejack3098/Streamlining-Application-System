@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>document.getElementsByTagName("html")[0].className += " js";</script>
+   <script  src="{{ url_for('static',filename='js/jquery-3.2.1.min.js')}}" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="   crossorigin="anonymous"></script>
+   <script src="{{ url_for('static',filename='js/bootstrap.min.js')}}"></script>
+   <script src="{{ url_for('static',filename='js/jquery.min.js')}}"></script>
+   <script src="{{ url_for('static',filename='js/link.js')}}"></script>
+
+   <link rel="stylesheet" href="{{ url_for('static',filename='css/admin_emp_reg.css')}}">
+    <link href="{{ url_for('static',filename='css/bootstrap.min.css')}}" rel="stylesheet" id="bootstrap-css">
+   <link rel="stylesheet" href="{{ url_for('static',filename='css/Sidebarstyle.css')}}">
+
+   <!-- For calender -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/calendarize.css')}}">
+    <!-- <link rel="stylesheet" href="{{ url_for('static',filename='css/Sidebarstyle.css')}}"> -->
+    <script src="{{ url_for('static',filename='js/calendarize.js')}}"></script>
+  <title>HR Transparency System</title>
+
+<style >
+     * {
+  box-sizing: border-box;
+}
+
+#quarter_range_box{
+  display: none;
+}
+#year_range_box{
+  display: none;
+}
+#date_range_box{
+  display: none;
+}
+
+
+/* The actual timeline (the vertical ruler) */
+.timelinet {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* The actual timeline (the vertical ruler) */
+.timelinet::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  background-color: white;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: -3px;
+}
+
+/* Container around content */
+.containert {
+  padding: 10px 40px;
+  position: relative;
+  background-color: inherit;
+  width: 50%;
+
+}
+
+/* The circles on the timeline */
+.containert::after {
+  content: '';
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  right: -12px;
+  background-color: white;
+  border: 4px solid #FF9F55;
+  top: 15px;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+/* Place the container to the left */
+.leftt {
+  left: 0;
+}
+
+/* Place the container to the right */
+.rightt {
+  left: 50.5%;
+}
+
+/* Add arrows to the left container (pointing right) */
+.leftt::before {
+  content: " ";
+  height: 0;
+  position: absolute;
+  top: 22px;
+  width: 0;
+  z-index: 1;
+  right: 30px;
+  border: medium solid white;
+  border-width: 10px 0 10px 10px;
+  border-color: transparent transparent transparent white;
+}
+
+/* Add arrows to the right container (pointing left) */
+.rightt::before {
+  content: " ";
+  height: 0;
+  position: absolute;
+  top: 22px;
+  width: 0;
+  z-index: 1;
+  left: 30px;
+  border: medium solid white;
+  border-width: 10px 10px 10px 0;
+  border-color: transparent white transparent transparent;
+}
+
+/* Fix the circle for containers on the right side */
+.rightt::after {
+  left: -16px;
+}
+
+/* The actual content */
+.contentt {
+  padding: 20px 30px;
+  background-color: white;
+  position: relative;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+/* Media queries - Responsive timeline on screens less than 600px wide */
+@media screen and (max-width: 600px) {
+/* Place the timelime to the left */
+  .timelinet::after {
+    left: 31px;
+  }
+
+/* Full-width containers */
+  .containert {
+    width: 100%;
+    padding-left: 70px;
+    padding-right: 25px;
+  }
+
+/* Make sure that all arrows are pointing leftwards */
+  .containert::before {
+    left: 60px;
+    border: medium solid white;
+    border-width: 10px 10px 10px 0;
+    border-color: transparent white transparent transparent;
+  }
+
+/* Make sure all circles are at the same spot */
+  .leftt::after, .rightt::after {
+    left: 15px;
+  }
+
+/* Make all right containers behave like the left ones */
+  .rightt {
+    left: 0%;
+  }
+}
+
+.modalt {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-contentt {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 70%;
+}
+
+/* Modal Content */
+.modal-contentt2 {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+#processed{
+  width: 100%;
+  background-color: #ddd;
+}
+#myBar{
+  width: 0%;
+  height: 30px;
+  background-color: #0072ff;
+  text-align: center;
+  line-height: 30px;
+  color: white;
+}
+   </style>
+
+
+
+</head>
+<body>
+  <header class="cd-main-header js-cd-main-header">
+    <div class="cd-logo-wrapper">
+      <a href="#0" class="cd-logo"><img src="{{ url_for('static',filename='img/logo2.png')}}" alt="Logo"></a>
+    </div>
+    
+    <div class="cd-search js-cd-search" style="display: none;">
+      <!-- <form>
+        <input class="reset" type="search" placeholder="Search...">
+      </form> -->
+    </div>
+  
+    <button class="reset cd-nav-trigger js-cd-nav-trigger" aria-label="Toggle menu"><span></span></button>
+  
+    <ul class="cd-nav__list js-cd-nav__list">
+  <!--     <li class="cd-nav__item"><a href="#0">Tour</a></li> -->
+
+      <li class="cd-nav__item cd-nav__item--has-children cd-nav__item--account js-cd-item--has-children">
+        <a href="{{url_for('adminalert')}}">
+          <img src="{{ url_for('static',filename='img/notif_small.png')}}" alt="avatar">
+          <span>Alert</span>
+        </a>
+      </li>
+      <li class="cd-nav__item cd-nav__item--has-children cd-nav__item--account js-cd-item--has-children">
+        <a href="#0">
+          
+          <span>Language</span>
+        </a>
+    
+        <ul class="cd-nav__sub-list">
+          <li class="cd-nav__sub-item"><a href="#0" onclick="change_to_enlish()">English</a></li>
+          <li class="cd-nav__sub-item"><a href="#0" onclick="change_to_nepali()" >Nepali</a></li>
+        </ul>
+      </li>
+      <li class="cd-nav__item cd-nav__item--has-children cd-nav__item--account js-cd-item--has-children">
+        <a href="#0">
+          <img src="{{ url_for('static',filename='img/cd-avatar.svg')}}" alt="avatar">
+          <span>Account</span>
+        </a>
+    
+        <ul class="cd-nav__sub-list">
+         <!-- <li class="cd-nav__sub-item"><a href="#0">My Account</a></li>
+          <li class="cd-nav__sub-item"><a href="#0">Edit Account</a></li>-->
+          <li class="cd-nav__sub-item"><a href="{{url_for('adminlogout')}}">Logout</a></li>
+        </ul>
+      </li>
+    </ul>
+  </header> <!-- .cd-main-header -->
+  
+  <main class="cd-main-content">
+    <nav class="cd-side-nav js-cd-side-nav">
+      <ul class="cd-side__list js-cd-side__list">
+        <li class="cd-side__label"><span>Main</span></li>
+        <li class="cd-side__item cd-side__item--has-children cd-side__item--overview js-cd-item--has-children">
+          <a href="{{ url_for('adminDash')}}" id="Overview">Overview</a>
+          
+          <!--<ul class="cd-side__sub-list">
+            <li class="cd-side__sub-item"><a href="#0">All Data</a></li>
+            <li class="cd-side__sub-item"><a href="#0">Category 1</a></li>
+            <li class="cd-side__sub-item"><a href="#0">Category 2</a></li>
+          </ul>-->
+        </li>
+
+        <li class="cd-side__item cd-side__item--has-children cd-side__item--notifications cd-side__item--selected js-cd-item--has-children">
+          <!--<a href="#0">Notifications<span class="cd-count">3</span></a>-->
+          
+          <ul class="cd-side__sub-list">
+           <!-- <li class="cd-side__sub-item"><a aria-current="page" href="#0">All Notifications</a></li>-->
+            <li class="cd-side__sub-item"><a href="{{ url_for('adminDash_addemp')}}" id="AddEmp">Add Employees</a></li>
+            <li class="cd-side__sub-item"><a href="{{ url_for('adminDash_addapplication')}}" id="App">Applications</a></li>
+            <li class="cd-side__sub-item"><a href="{{ url_for('adminDash_add_dept')}}" id="Dept">Departments</a></li>
+            <li class="cd-side__sub-item"><a href="{{ url_for('adminDash_addfile')}}" id="AddFile">Add File</a></li>
+            <li class="cd-side__sub-item"><a href="{{ url_for('employeeRatings')}}" id="EmpStat">Employee Stats</a></li>
+            <li class="cd-side__sub-item"><a href="{{ url_for('calender')}}" id="Calender">Calender</a></li>
+          </ul>
+        </li>
+    
+        <li class="cd-side__item cd-side__item--has-children cd-side__item--comments js-cd-item--has-children">
+          <a href="{{ url_for('adminDash_searchfile')}}" id="SeachFile">Search File</a>
+          
+         <!-- <ul class="cd-side__sub-list">
+            <li class="cd-side__sub-item"><a href="#0">All Comments</a></li>
+            <li class="cd-side__sub-item"><a href="#0">Edit Comment</a></li>
+            <li class="cd-side__sub-item"><a href="#0">Delete Comment</a></li>
+          </ul>-->
+        </li>
+      </ul>
+    
+      <ul class="cd-side__list js-cd-side__list">
+        <li class="cd-side__label"><span>Secondary</span></li>
+        <li class="cd-side__item cd-side__item--has-children cd-side__item--bookmarks js-cd-item--has-children">
+          <a href="" id="Files">Files</a>
+        <!--   <a href="{{url_for('adminDash_processingfiles')}}">Processing Files</a>
+          <a href="{{url_for('adminDash_delayedfiles')}}">Delayed Files</a>
+          <a href="{{url_for('adminDash_completedfiles')}}">Completed Files</a> -->
+          <ul class="cd-side__sub-list">
+            <li class="cd-side__sub-item"><a href="{{url_for('adminDash_processingfiles')}}" id="ProFiles">Processing Files</a></li>
+            <li class="cd-side__sub-item"><a href="{{url_for('adminDash_delayedfiles')}}" id="DelayFiles">Delayed Files</a></li>
+            <li class="cd-side__sub-item"><a href="{{url_for('adminDash_completedfiles')}}" id="ComFiles">Completed Files</a></li>
+          </ul>
+        </li>
+    
+        <!--<li class="cd-side__item cd-side__item--has-children cd-side__item--users js-cd-item--has-children">
+          <a href="#0">Users</a>
+          
+          <ul class="cd-side__sub-list">
+            <li class="cd-side__sub-item"><a href="#0">All Users</a></li>
+            <li class="cd-side__sub-item"><a href="#0">Edit User</a></li>
+            <li class="cd-side__sub-item"><a href="#0">Add User</a></li>
+          </ul>
+        </li>-->
+      </ul>
+    
+      <!--<ul class="cd-side__list js-cd-side__list">
+        <li class="cd-side__label"><span>Action</span></li>
+        <li class="cd-side__btn"><button class="reset" href="#0">+ Button</button></li>
+      </ul>-->
+    </nav>
+  
+    <div class="cd-content-wrapper" style="padding: 20px">
+      <!--<div class="text-component text-center">
+        <h1>Inside Area</h1>
+        <p>👈<a href="https://codyhouse.co/gem/responsive-sidebar-navigation">Article &amp; Download</a></p>
+      </div>-->
+        
+        {% block body %}
+        {% endblock %}
+        
+    </div> <!-- .content-wrapper -->
+  </main> <!-- .cd-main-content -->
+  <script src="{{ url_for('static',filename='js/util.js')}}"></script> <!-- util functions included in the CodyHouse framework -->
+  <script src="{{ url_for('static',filename='js/menu-aim.js')}}"></script>
+  <script src="{{ url_for('static',filename='js/main.js')}}"></script>
+    
+    
+    <script src="{{ url_for('static',filename='js/change_language.js')}}"></script>
+    <script>
+        
+        var lang = sessionStorage.getItem("lang");
+        
+        function change_to_nepali(){
+            
+            sessionStorage.setItem("lang", "nepali");
+            lang = sessionStorage.getItem("lang", "nepali");
+            if (lang === "nepali"){   
+                change_lang();
+                }
+        }
+        
+        function change_to_enlish(){
+            sessionStorage.setItem("lang", "english");
+            location.reload(true);
+        }
+        
+       function change_lang(){
+           Overview.textContent = language.nep.overview;
+           AddEmp.textContent = language.nep.add_emp;
+           App.textContent = language.nep.applications;
+           Dept.textContent = language.nep.departments;
+           AddFile.textContent = language.nep.add_file;
+           EmpStat.textContent = language.nep.emp_stats;
+           Calender.textContent = language.nep.calender;
+           SeachFile.textContent = language.nep.search_file;
+           ProFiles.textContent = language.nep.process_files;
+           DelayFiles.textContent = language.nep.delay_files;
+           ComFiles.textContent = language.nep.comp_files;
+           Files.textContent = language.nep.files;
+           //change_lang1();
+           
+           
+       }
+        if(lang === "nepali"){
+                change_lang();
+                }
+    
+    </script>
+</body>
+</html>
