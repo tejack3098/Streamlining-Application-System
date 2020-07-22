@@ -49,7 +49,7 @@
             var get_holiday = function() {
             var response = $.ajax({
                 type: "GET",
-                url: "{{url_for('get_calendar')}}",
+                url: "{{url_for('backend.get_calendar')}}",
                 cache: false,
                 async: false,
               }).responseText;
@@ -145,7 +145,7 @@
             
             var Done_holiday = function(){
                 console.log(Holidays)
-                $.post("{{url_for('update_calendar')}}",Holidays,
+                $.post("{{url_for('backend.update_calendar')}}",Holidays,
                        function(response){
         
                     console.log(response);

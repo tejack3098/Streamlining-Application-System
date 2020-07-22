@@ -243,7 +243,7 @@
   <!--     <li class="cd-nav__item"><a href="#0">Tour</a></li> -->
 
       <li class="cd-nav__item cd-nav__item--has-children cd-nav__item--account js-cd-item--has-children">
-        <a href="{{url_for('adminalert')}}">
+        <a href="{{url_for('adminapp.adminalert')}}">
           <img src="{{ url_for('static',filename='img/notif_small.png')}}" alt="avatar">
           <span>Alert</span>
         </a>
@@ -268,7 +268,7 @@
         <ul class="cd-nav__sub-list">
          <!-- <li class="cd-nav__sub-item"><a href="#0">My Account</a></li>
           <li class="cd-nav__sub-item"><a href="#0">Edit Account</a></li>-->
-          <li class="cd-nav__sub-item"><a href="{{url_for('adminlogout')}}">Logout</a></li>
+          <li class="cd-nav__sub-item"><a href="{{url_for('adminapp.adminlogout')}}">Logout</a></li>
         </ul>
       </li>
     </ul>
@@ -279,7 +279,7 @@
       <ul class="cd-side__list js-cd-side__list">
         <li class="cd-side__label"><span>Main</span></li>
         <li class="cd-side__item cd-side__item--has-children cd-side__item--overview js-cd-item--has-children">
-          <a href="{{ url_for('adminDash')}}" id="Overview">Overview</a>
+          <a href="{{ url_for('adminapp.adminDash')}}" id="Overview">Overview</a>
           
           <!--<ul class="cd-side__sub-list">
             <li class="cd-side__sub-item"><a href="#0">All Data</a></li>
@@ -293,17 +293,17 @@
           
           <ul class="cd-side__sub-list">
            <!-- <li class="cd-side__sub-item"><a aria-current="page" href="#0">All Notifications</a></li>-->
-            <li class="cd-side__sub-item"><a href="{{ url_for('adminDash_addemp')}}" id="AddEmp">Add Employees</a></li>
-            <li class="cd-side__sub-item"><a href="{{ url_for('adminDash_addapplication')}}" id="App">Applications</a></li>
-            <li class="cd-side__sub-item"><a href="{{ url_for('adminDash_add_dept')}}" id="Dept">Departments</a></li>
-            <li class="cd-side__sub-item"><a href="{{ url_for('adminDash_addfile')}}" id="AddFile">Add File</a></li>
-            <li class="cd-side__sub-item"><a href="{{ url_for('employeeRatings')}}" id="EmpStat">Employee Stats</a></li>
-            <li class="cd-side__sub-item"><a href="{{ url_for('calender')}}" id="Calender">Calender</a></li>
+            <li class="cd-side__sub-item"><a href="{{ url_for('adminapp.adminDash_addemp')}}" id="AddEmp">Add Employees</a></li>
+            <li class="cd-side__sub-item"><a href="{{ url_for('adminapp.adminDash_addapplication')}}" id="App">Applications</a></li>
+            <li class="cd-side__sub-item"><a href="{{ url_for('adminapp.adminDash_add_dept')}}" id="Dept">Departments</a></li>
+            <li class="cd-side__sub-item"><a href="{{ url_for('adminapp.adminDash_addfile')}}" id="AddFile">Add File</a></li>
+            <li class="cd-side__sub-item"><a href="{{ url_for('adminapp.employeeRatings')}}" id="EmpStat">Employee Stats</a></li>
+            <li class="cd-side__sub-item"><a href="{{ url_for('adminapp.calender')}}" id="Calender">Calender</a></li>
           </ul>
         </li>
     
         <li class="cd-side__item cd-side__item--has-children cd-side__item--comments js-cd-item--has-children">
-          <a href="{{ url_for('adminDash_searchfile')}}" id="SeachFile">Search File</a>
+          <a href="{{ url_for('adminapp.adminDash_searchfile')}}" id="SeachFile">Search File</a>
           
          <!-- <ul class="cd-side__sub-list">
             <li class="cd-side__sub-item"><a href="#0">All Comments</a></li>
@@ -317,13 +317,13 @@
         <li class="cd-side__label"><span>Secondary</span></li>
         <li class="cd-side__item cd-side__item--has-children cd-side__item--bookmarks js-cd-item--has-children">
           <a href="" id="Files">Files</a>
-        <!--   <a href="{{url_for('adminDash_processingfiles')}}">Processing Files</a>
-          <a href="{{url_for('adminDash_delayedfiles')}}">Delayed Files</a>
-          <a href="{{url_for('adminDash_completedfiles')}}">Completed Files</a> -->
+        <!--   <a href="{{url_for('adminapp.adminDash_processingfiles')}}">Processing Files</a>
+          <a href="{{url_for('adminapp.adminDash_delayedfiles')}}">Delayed Files</a>
+          <a href="{{url_for('adminapp.adminDash_completedfiles')}}">Completed Files</a> -->
           <ul class="cd-side__sub-list">
-            <li class="cd-side__sub-item"><a href="{{url_for('adminDash_processingfiles')}}" id="ProFiles">Processing Files</a></li>
-            <li class="cd-side__sub-item"><a href="{{url_for('adminDash_delayedfiles')}}" id="DelayFiles">Delayed Files</a></li>
-            <li class="cd-side__sub-item"><a href="{{url_for('adminDash_completedfiles')}}" id="ComFiles">Completed Files</a></li>
+            <li class="cd-side__sub-item"><a href="{{url_for('adminapp.adminDash_processingfiles')}}" id="ProFiles">Processing Files</a></li>
+            <li class="cd-side__sub-item"><a href="{{url_for('adminapp.adminDash_delayedfiles')}}" id="DelayFiles">Delayed Files</a></li>
+            <li class="cd-side__sub-item"><a href="{{url_for('adminapp.adminDash_completedfiles')}}" id="ComFiles">Completed Files</a></li>
           </ul>
         </li>
     

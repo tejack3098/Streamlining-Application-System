@@ -83,7 +83,7 @@
             var dataString = 'q=' +value;
               $.ajax({
                 type: "GET",
-                url: "{{url_for('generate_barcode')}}",
+                url: "{{url_for('backend.generate_barcode')}}",
                 data: dataString,
                 cache: false,
                 success: function(response){
@@ -114,7 +114,7 @@ function loaddepts(){
     var select =  document.getElementById("appid");  
       
       console.log("calllled");
-       $.post("{{url_for('get_app_types')}}",
+       $.post("{{url_for('backend.get_app_types')}}",
                 
                 function(response){
                   //check if what response is 

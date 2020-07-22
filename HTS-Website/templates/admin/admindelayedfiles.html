@@ -86,7 +86,7 @@
   $("#worktable").find("tr:gt(0)").remove();
 
       console.log(table);
-      $.get("{{url_for('get_delayed_files')}}",{},
+      $.get("{{url_for('backend.get_delayed_files')}}",{},
                 
                 function(response){
                   //check if what response is   
@@ -139,7 +139,7 @@
 function loadDropDown()
 {
   var dropdown=document.getElementById("sel1");
-  $.post("{{url_for('get_dept_ids')}}",
+  $.post("{{url_for('backend.get_dept_ids')}}",
                 
                 function(response){
                   //check if what response is 

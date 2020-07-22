@@ -104,7 +104,7 @@ var sel=1;
   var user='{{user}}';
   console.log(user)
 
-     $.post("{{url_for('get_emp_data_for_rating')}}",{email_id:user},
+     $.post("{{url_for('backend.get_emp_data_for_rating')}}",{email_id:user},
                 
                 function(response){
                   //check if what response is   

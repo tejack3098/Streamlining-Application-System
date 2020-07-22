@@ -17,7 +17,7 @@
             console.log(from);
             console.log(time);
             
-               $.post("{{url_for('file_not_arrived_complain')}}",{notificationid:notificationid,email:email,file:file,from:from,time:time},
+               $.post("{{url_for('backend.file_not_arrived_complain')}}",{notificationid:notificationid,email:email,file:file,from:from,time:time},
                     function(response){
                       //check if what response is  
                         if(response["status"]==="1")
@@ -43,7 +43,7 @@
       var d = new Date();
       
       console.log("calllled");
-       $.post("{{url_for('get_emp_stats')}}",{email_id:email},
+       $.post("{{url_for('backend.get_emp_stats')}}",{email_id:email},
                 
                 function(response){
                   //check if what response is   
@@ -187,7 +187,7 @@
   var dataString = {'bcodeTxt':bar,'deptID':dept_id,'email':email};
   console.log(dataString);
       
-      $.post("{{url_for('bcode_entry')}}",{bcodeTxt:bar,deptID:dept_id,email:email},
+      $.post("{{url_for('backend.bcode_entry')}}",{bcodeTxt:bar,deptID:dept_id,email:email},
                 
                 function(response){
                   //check if what response is   
@@ -223,7 +223,7 @@ function remarkfunct(){
     var remarksend = document.getElementById("remark").value;
     console.log(remarksend);
 //    bar = document.getElementById("result").textContent;
-    $.get("{{url_for('forward')}}",{remark:remarksend,filename:bar},
+    $.get("{{url_for('backend.forward')}}",{remark:remarksend,filename:bar},
                 
                 function(response){
                   //check if what response is   

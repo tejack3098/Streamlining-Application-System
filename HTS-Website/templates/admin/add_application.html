@@ -156,7 +156,7 @@
 
 <script>
         
-  var url= localStorage.getItem("url");   
+//  var url= localStorage.getItem("url");   
            
   function loadapplications(){
       var table = document.getElementById("apptable").getElementsByTagName('tbody')[0];
@@ -167,7 +167,7 @@
       console.log("calllled");
 
 
-       $.post("{{url_for('get_app_types')}}",
+       $.post("{{url_for('backend.get_app_types')}}",
                 
                 function(response){
                   //check if what response is   
@@ -235,7 +235,7 @@
     var selectParent = select.parentNode;    
       
       console.log("calllled");
-       $.post("{{url_for('get_dept_ids')}}",
+       $.post("{{url_for('backend.get_dept_ids')}}",
                 
                 function(response){
                   //check if what response is 
@@ -315,7 +315,7 @@
     /*var x = localStorage.getItem("url");*/
     $.ajax({
       type: "GET",
-      url: "{{url_for('chk_appid')}}",
+      url: "{{url_for('backend.chk_appid')}}",
       data: dataString,
       cache: false,
       success: function(response){
@@ -469,7 +469,7 @@ function enable_add(){
 
             console.log(pvalue);
 
-            $.post("{{url_for('add_application')}}",{appid:appid.value,appname:appname.value,priority:pvalue,no_of_days:n_days,dept_id:aControl},
+            $.post("{{url_for('backend.add_application')}}",{appid:appid.value,appname:appname.value,priority:pvalue,no_of_days:n_days,dept_id:aControl},
                 
                 function(response){
         

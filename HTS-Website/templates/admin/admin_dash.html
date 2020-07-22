@@ -305,7 +305,7 @@ function myFunction() {
  /* var url=localStorage.getItem("url");*/
   var table = document.getElementById("worktable");
       //console.log(table);
-      $.get("{{url_for('get_dept_stats')}}",{dept_id:sel.value},
+      $.get("{{url_for('backend.get_dept_stats')}}",{dept_id:sel.value},
                 
                 function(response){
                   //check if what response is   
@@ -443,7 +443,7 @@ function select_dropdown(){
 
 function current_employee_filter(dept){
   console.log("current_employee_filter: "+dept);
-  $.get("{{url_for('get_dept_stats_current_month')}}",{dept_id:dept},
+  $.get("{{url_for('backend.get_dept_stats_current_month')}}",{dept_id:dept},
                 
                 function(response){
                   //check if what response is 
@@ -482,7 +482,7 @@ function filter_quarter_stats_graph(){
   }
   console.log("selected option: "+option);
   //console.log(quarter_select);
-      $.get("{{url_for('get_dept_stats_quarter')}}",{dept_id:sel.value,quarter:option},
+      $.get("{{url_for('backend.get_dept_stats_quarter')}}",{dept_id:sel.value,quarter:option},
                 
                 function(response){
                   //check if what response is 
@@ -510,7 +510,7 @@ function filter_year_stats_graph(){
 
   var year_select=document.getElementById("year_range_select").value;
   console.log(year_select);
-  $.get("{{url_for('get_dept_stats_year')}}",{dept_id:sel.value,year:year_select},
+  $.get("{{url_for('backend.get_dept_stats_year')}}",{dept_id:sel.value,year:year_select},
                 
                 function(response){
                   //check if what response is 
@@ -583,7 +583,7 @@ function filter_daterange_stats_graph() {
   end_range=daterange[1].split('/');
   console.log(start_range);
   console.log(end_range);
-  $.get("{{url_for('get_dept_stats_date_range')}}",{dept_id:sel.value,startYear:start_range[2],startMonth:start_range[0],startDay:start_range[1],endYear:end_range[2],endMonth:end_range[0],endDay:end_range[1]},
+  $.get("{{url_for('backend.get_dept_stats_date_range')}}",{dept_id:sel.value,startYear:start_range[2],startMonth:start_range[0],startDay:start_range[1],endYear:end_range[2],endMonth:end_range[0],endDay:end_range[1]},
                 
                 function(response){
                   //check if what response is 
@@ -608,7 +608,7 @@ function filter_daterange_stats_graph() {
 function loadDropDown()
 {
   var dropdown=document.getElementById("sel1");
-  $.post("{{url_for('get_dept_ids')}}",
+  $.post("{{url_for('backend.get_dept_ids')}}",
                 
                 function(response){
                   //check if what response is 
@@ -711,7 +711,7 @@ function file1(){
 
 function overall_stats_chart(){
   //console.log("current_employee_filter: "+dept);
-  $.get("{{url_for('get_overall_stats')}}",{},
+  $.get("{{url_for('backend.get_overall_stats')}}",{},
                 
                 function(response){
                   //check if what response is 
@@ -795,7 +795,7 @@ $('#dateRangeDatePickerInputParent').on('click',openModal);
             var dateRangeModalContainer = document.getElementById('dateRangeModalContainer');
         dateRangeModalContainer.innerHTML=
             "<div class='row w-100'>"+ 
-            "<iframe src='{{ url_for('dd') }}' id='dpIframe' seamless='' height='100%' width='100%'></iframe>"
+            "<iframe src='{{ url_for('adminapp.dd') }}' id='dpIframe' seamless='' height='100%' width='100%'></iframe>"
             "</div>";
             console.log("openmodal "+dateSelected);
             var selDate=$("#dpIframe").contents().find("#daterangeINPUT");

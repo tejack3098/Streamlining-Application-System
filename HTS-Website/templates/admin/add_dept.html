@@ -109,7 +109,7 @@
       table.innerHTML="";
       
       console.log("calllled");
-       $.post("{{url_for('get_dept_ids')}}",
+       $.post("{{url_for('backend.get_dept_ids')}}",
                 
                 function(response){
                   //check if what response is   
@@ -167,7 +167,7 @@ function enable_add(){
             var dept_name = document.getElementById("dept_name");
             //var Success = document.getElementById("document.getElementById("demo").innerHTML").value;
             console.log(dept_id);
-            $.post("{{url_for('add_dept')}}",{dept_id:dept_id.value,dept_name:dept_name.value},
+            $.post("{{url_for('backend.add_dept')}}",{dept_id:dept_id.value,dept_name:dept_name.value},
                 
                 function(response){
         

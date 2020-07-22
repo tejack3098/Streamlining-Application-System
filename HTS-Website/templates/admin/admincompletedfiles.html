@@ -82,7 +82,7 @@
   var xmlhttp = new XMLHttpRequest();
   var table = document.getElementById("worktable");
       console.log(table);
-      $.get("{{url_for('get_completed_files')}}",{},
+      $.get("{{url_for('backend.get_completed_files')}}",{},
                 
                 function(response){
                   //check if what response is   

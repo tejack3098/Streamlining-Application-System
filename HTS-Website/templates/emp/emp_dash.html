@@ -80,7 +80,7 @@ function myFunction() {
  // var url=localStorage.getItem("url");
 
       //console.log(table);
-      $.get("{{url_for('get_emp_dashboard_stats')}}",{email_id: user},
+      $.get("{{url_for('backend.get_emp_dashboard_stats')}}",{email_id: user},
                 
                 function(response){
                   //check if what response is   

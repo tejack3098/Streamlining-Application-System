@@ -107,7 +107,7 @@
      var elem =document.getElementById('time');
     console.log(table);
 
-    $.get("{{url_for('get_file_path')}}",{q:bar},
+    $.get("{{url_for('backend.get_file_path')}}",{q:bar},
                 
                 function(response){
                   //check if what response is 
@@ -207,7 +207,7 @@
     table.innerHTML="";
 
 
-    $.get("{{url_for('get_file_path')}}",{q:bar2},
+    $.get("{{url_for('backend.get_file_path')}}",{q:bar2},
                 
                 function(response){
                   //check if what response is   

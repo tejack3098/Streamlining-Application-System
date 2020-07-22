@@ -78,7 +78,7 @@
              /*     var x = localStorage.getItem("url");*/
                   $.ajax({
                     type: "GET",
-                    url: "{{url_for('chk_email')}}",
+                    url: "{{url_for('backend.chk_email')}}",
                     data: dataString,
                     cache: false,
                     success: function(response){
@@ -135,7 +135,7 @@
             var mno = document.getElementById("mno");
             var conPass = document.getElementById("conPass");
             //console.log(dept_id);
-            $.post("{{url_for('emp_create')}}",{dept_id:dept_id.value,fname:fname.value,lname:lname.value,email:email.value,pword:pword.value,mno:mno.value},
+            $.post("{{url_for('backend.emp_create')}}",{dept_id:dept_id.value,fname:fname.value,lname:lname.value,email:email.value,pword:pword.value,mno:mno.value},
                 
                 function(response){
         

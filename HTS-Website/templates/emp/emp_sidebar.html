@@ -78,9 +78,9 @@
         <ul class="cd-nav__sub-list" style="width: 300px;">
           <!--<li class="cd-nav__sub-item"><a href="#0">My Account</a></li>
           <li class="cd-nav__sub-item"><a href="#0">Edit Account</a></li>-->
-          <li class="cd-nav__sub-item" style="color: white; padding: -2px;"><a href="{{url_for('empProfile')}}">{{user}}</a></li>
-          <li  class="cd-nav__sub-item"><a href="{{url_for('emplogout')}}">Logout</a></li>
-         <!--  <li class="cd-nav__sub-item"><a href="{{url_for('emplogout')}}">Logout</a></li> -->
+          <li class="cd-nav__sub-item" style="color: white; padding: -2px;"><a href="{{url_for('empapp.empProfile')}}">{{user}}</a></li>
+          <li  class="cd-nav__sub-item"><a href="{{url_for('empapp.emplogout')}}">Logout</a></li>
+         <!--  <li class="cd-nav__sub-item"><a href="{{url_for('empapp.emplogout')}}">Logout</a></li> -->
         </ul>
       </li>
     </ul>
@@ -93,7 +93,7 @@
       <ul class="cd-side__list js-cd-side__list">
         <li class="cd-side__label"><span>Main</span></li>
         <li class="cd-side__item cd-side__item--has-children cd-side__item--overview js-cd-item--has-children">
-          <a href="{{ url_for('empDash')}}">Overview</a>
+          <a href="{{ url_for('empapp.empDash')}}">Overview</a>
           
           <!--<ul class="cd-side__sub-list">
             <li class="cd-side__sub-item"><a href="#0">All Data</a></li>
@@ -107,7 +107,7 @@
           
           <ul class="cd-side__sub-list">
            <!-- <li class="cd-side__sub-item"><a aria-current="page" href="#0">All Notifications</a></li>-->
-            <li class="cd-side__sub-item"><a href="{{ url_for('empDash_workStatus')}}">Work Status</a></li>
+            <li class="cd-side__sub-item"><a href="{{ url_for('empapp.empDash_workStatus')}}">Work Status</a></li>
             <!--<li class="cd-side__sub-item"><a href="#0">Other</a></li>-->
           </ul>
         </li>
@@ -244,7 +244,7 @@
                     console.log(cntval);
 
                      console.log(l.style);
-                    $.get("{{url_for('update_notification_status')}}",{notificationID:notificationID2sent},
+                    $.get("{{url_for('backend.update_notification_status')}}",{notificationID:notificationID2sent},
                 
                     function(response){
                     if(response["status"]=="1"){   
@@ -273,7 +273,7 @@
         function myFunction() {
 
        console.log("calllled");
-       $.post("{{url_for('get_emp_notifications')}}",{email_id:email},
+       $.post("{{url_for('backend.get_emp_notifications')}}",{email_id:email},
                 
                 function(response){
                   //check if what response is   
@@ -381,7 +381,7 @@
         
         function markallread(){
 
-             $.post("{{url_for('update_all_notifications_status')}}",{email_id:email},
+             $.post("{{url_for('backend.update_all_notifications_status')}}",{email_id:email},
                 
                 function(response){
                  if(response["status"]=="1"){   

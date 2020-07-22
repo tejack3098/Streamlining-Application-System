@@ -151,7 +151,7 @@
  // var url= localStorage.getItem("url");;   
   function markAttended(element,notificationid){
       console.log("Notification ID "+notificationid);
-      $.post("{{url_for('update_file_complaint_notification')}}",{notificationid:notificationid},
+      $.post("{{url_for('backend.update_file_complaint_notification')}}",{notificationid:notificationid},
                     function(response){
                       //check if what response is  
                         if(response["status"]==="1")
@@ -175,7 +175,7 @@
       notattendedtable.innerHTML="";
       
       console.log("calllled");
-       $.get("{{url_for('get_file_complaints')}}",{},
+       $.get("{{url_for('backend.get_file_complaints')}}",{},
                 
                 function(response){
                   //check if what response is   

@@ -40,7 +40,7 @@ function move(m) {
     table.innerHTML="";
      
 
-    $.get("{{url_for('get_dept_emp_data_for_rating')}}",{dept_id:sel},
+    $.get("{{url_for('backend.get_dept_emp_data_for_rating')}}",{dept_id:sel},
                 
                 function(response){
                   //check if what response is   
@@ -407,7 +407,7 @@ window.onclick = function(event) {
 function loadDropDown()
 {
   var dropdown=document.getElementById("sel1");
-  $.post("{{url_for('get_dept_ids')}}",
+  $.post("{{url_for('backend.get_dept_ids')}}",
                 
                 function(response){
                   //check if what response is 

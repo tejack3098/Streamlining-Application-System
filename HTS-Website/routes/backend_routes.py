@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request,session, redirect, url_for, jsonify
+
+from flask import Flask, render_template, request,session, redirect, url_for, jsonify, Blueprint
 import requests, json, base64, pymongo
 from datetime import datetime
 from datetime import timedelta
@@ -7,10 +8,7 @@ from flask_cors import CORS
 from barcode import generate
 from barcode.writer import ImageWriter
 
-
-app = Flask(__name__)
-CORS(app)
-app.secret_key="abcdffgdefgac"
+backend = Blueprint('backend', __name__)
 iwriter = ImageWriter()
 
 #--------------------------------------------Back-End Starts-----------------------------------------------------
@@ -151,11 +149,11 @@ else:
 del(r)
 
 
-@app.route("/")
+@backend.route("/")
 def index():
     return url_for("emp_login")
 
-@app.route("/add_application",methods=["GET","POST"])
+@backend.route("/add_application",methods=["GET","POST"])
 def add_application():
     if request.method == "POST":
         if "application/x-www-form-urlencoded" in request.headers["Content-Type"]:
@@ -187,7 +185,7 @@ def add_application():
     else:
         return "GET method not allowed"
 
-@app.route("/get_app_types",methods=["GET","POST"])
+@backend.route("/get_app_types",methods=["GET","POST"])
 def get_app_types():
     '''
     if request.method == "POST":
@@ -208,7 +206,7 @@ def get_app_types():
     return jsonify(response)
 
 
-@app.route("/add_dept",methods=["GET","POST"])
+@backend.route("/add_dept",methods=["GET","POST"])
 def add_dept():
     print(request.headers)
     if request.method == "POST":
@@ -231,7 +229,7 @@ def add_dept():
             response  = {"status":"0"}
     return  jsonify(response)
 
-@app.route("/get_dept_ids",methods=["GET","POST"])
+@backend.route("/get_dept_ids",methods=["GET","POST"])
 def get_dept_ids():
     '''
     if request.method == "POST":
@@ -292,7 +290,7 @@ def least_file_emp(dept_id):
     return list(Dic)[0]
 
 
-@app.route("/generate_barcode", methods=["GET", "POST"])
+@backend.route("/generate_barcode", methods=["GET", "POST"])
 def generate_barcode():
     if request.method == "GET":
         appid = request.args.get('q')
@@ -346,7 +344,7 @@ def generate_barcode():
     else:
         return "POST method not allowed"
 
-@app.route("/chk_email", methods=["GET"])
+@backend.route("/chk_email", methods=["GET"])
 def chk_email():
     email = request.args.get('q')
     print(email)
@@ -356,7 +354,7 @@ def chk_email():
     else:
         return "0"
 
-@app.route("/chk_appid", methods=["GET"])
+@backend.route("/chk_appid", methods=["GET"])
 def chk_appid():
     appid = request.args.get('q')
     print(appid)
@@ -366,7 +364,7 @@ def chk_appid():
     else:
         return "0"
 
-@app.route("/emp_create",methods=["GET","POST"])
+@backend.route("/emp_create",methods=["GET","POST"])
 def emp_create():
     if request.method == "POST":
         if "application/x-www-form-urlencoded" in request.headers["Content-Type"]:
@@ -388,7 +386,7 @@ def emp_create():
     else:
         return "GET method is not allowed"
 
-@app.route("/emp_login",methods=["POST","GET"])
+@backend.route("/emp_login",methods=["POST","GET"])
 def emp_login():
     if request.method == "POST":
         postData = request.get_json()
@@ -414,7 +412,7 @@ def emp_login():
         response = {"status": 2, "message": "Method error"}
         return jsonify(response)
 
-@app.route("/bcode_entry",methods=["GET","POST","OPTIONS"]) #TEST for PC
+@backend.route("/bcode_entry",methods=["GET","POST","OPTIONS"]) #TEST for PC
 def bcode_entry():
     if request.method == "POST":
         #print(request.headers["Content-Type"])
@@ -495,7 +493,7 @@ def chk_delayed(file):
 
 
 '''                                                  Notifications                                                     '''
-@app.route("/get_emp_notifications",methods=["GET","POST"])
+@backend.route("/get_emp_notifications",methods=["GET","POST"])
 def get_emp_notifications():
     if request.method == "POST":
         if "application/x-www-form-urlencoded" in request.headers["Content-Type"]:
@@ -530,7 +528,7 @@ def get_emp_notifications():
     else:
         return "POST method not allowed"
 
-@app.route("/update_all_notifications_status",methods=["GET","POST"])
+@backend.route("/update_all_notifications_status",methods=["GET","POST"])
 def update_all_notifications_status():
     if request.method == "POST":
         if "application/x-www-form-urlencoded" in request.headers["Content-Type"]:
@@ -544,7 +542,7 @@ def update_all_notifications_status():
     else:
         return "POST method not allowed"
 
-@app.route("/update_notification_status",methods=["GET","POST"]) #Not Complete
+@backend.route("/update_notification_status",methods=["GET","POST"]) #Not Complete
 def update_notification_status():
     if request.method == "GET":
         notificationID = request.args.get('notificationID')
@@ -556,7 +554,7 @@ def update_notification_status():
         return "POST method not allowed"
 
 
-@app.route("/file_not_arrived_complain",methods=["GET","POST"])
+@backend.route("/file_not_arrived_complain",methods=["GET","POST"])
 def file_not_arrived_complain():
     if request.method=="POST":
         if "application/x-www-form-urlencoded" in request.headers["Content-Type"]:
@@ -590,7 +588,7 @@ def file_not_arrived_complain():
     else:
         return "GET not allowed!"
 
-@app.route("/get_file_complaints",methods=["GET","POST"])
+@backend.route("/get_file_complaints",methods=["GET","POST"])
 def get_file_complaints():
     if request.method =="GET":
         attended = adminInbox.find({"read":True},{"_id":0})
@@ -604,7 +602,7 @@ def get_file_complaints():
     else:
         return "POST not allowed"
 
-@app.route("/update_file_complaint_notification",methods=["GET","POST"])
+@backend.route("/update_file_complaint_notification",methods=["GET","POST"])
 def update_file_complaint_notification():
     if request.method =="POST":
         if "application/x-www-form-urlencoded" in request.headers["Content-Type"]:
@@ -620,7 +618,7 @@ def update_file_complaint_notification():
 '''                                                  Notifications                                                     '''
 
 '''                                                        Forward                                                     '''
-@app.route("/forward",methods=["GET","POST"]) #TEST
+@backend.route("/forward",methods=["GET","POST"]) #TEST
 def forward():
     if request.method == "GET" or request.method=="POST":
         if request.method == "GET":
@@ -751,7 +749,7 @@ def forward():
 
 '''                                                       ALL STATS                                                    '''
 '''                                                       FileTrack                                                    '''
-@app.route("/get_file_path",methods=["GET","POST"])#TEST
+@backend.route("/get_file_path",methods=["GET","POST"])#TEST
 def get_file_path():
     if request.method == "GET":
         fid = request.args.get('q')
@@ -800,7 +798,7 @@ def get_file_path():
         return "POST method not allowed"
 '''                                                       FileTrack                                                    '''
 
-@app.route("/get_dashboard_stats",methods=["GET","POST"])
+@backend.route("/get_dashboard_stats",methods=["GET","POST"])
 def get_dashboard_stats():
     if request.method == "GET":
         total_count = files.find({},{"fid":True,"_id":False}).count()
@@ -812,7 +810,7 @@ def get_dashboard_stats():
     else:
         return "POST method not allowed"
 
-@app.route("/get_all_files",methods=["GET","POST"])
+@backend.route("/get_all_files",methods=["GET","POST"])
 def get_all_files():
     if request.method == "GET":
         all_files = files.find({},{"_id":False})
@@ -822,7 +820,7 @@ def get_all_files():
     else:
         return "POST method not allowed"
 
-@app.route("/get_completed_files",methods=["GET","POST"])
+@backend.route("/get_completed_files",methods=["GET","POST"])
 def get_completed_files():
     if request.method == "GET":
         completed_files = files.find({"fileDone":True},{"_id":False})
@@ -832,7 +830,7 @@ def get_completed_files():
     else:
         return "POST method not allowed"
 
-@app.route("/get_processing_files",methods=["GET","POST"])
+@backend.route("/get_processing_files",methods=["GET","POST"])
 def get_processing_files():
     if request.method == "GET":
         processing_files = files.find({"fileDone":{"$ne" : True},"delayed":{"$ne" : True}},{"_id":False})
@@ -842,7 +840,7 @@ def get_processing_files():
     else:
         return "POST method not allowed"
 
-@app.route("/get_delayed_files",methods=["GET","POST"])
+@backend.route("/get_delayed_files",methods=["GET","POST"])
 def get_delayed_files():
     if request.method == "GET":
         delayed_files = files.find({"delayed":True},{"_id":False})
@@ -865,7 +863,7 @@ def chk_delayed_dept(file):
     else:
         return [None,result["currEmp"]]
 
-@app.route("/get_dept_stats",methods=["GET","POST"])
+@backend.route("/get_dept_stats",methods=["GET","POST"])
 def get_dept_stats():
     if request.method == "GET":
         dept_id = request.args.get('dept_id')
@@ -905,7 +903,7 @@ def get_dept_stats():
     else:
         return ("Post method not allowed")
 '''
-@app.route("/get_dept_stats_current_month",methods=["GET","POST"])
+@backend.route("/get_dept_stats_current_month",methods=["GET","POST"])
 def get_dept_stats_current_month():
     if request.method=="GET":
         d=datetime.now()
@@ -936,7 +934,7 @@ def get_dept_stats_current_month():
     else:
         return "POST not allowed"
 
-@app.route("/get_dept_stats_quarter",methods=["GET","POST"])
+@backend.route("/get_dept_stats_quarter",methods=["GET","POST"])
 def get_dept_stats_quarter():
     if request.method=="GET":
         d=datetime.now()
@@ -983,7 +981,7 @@ def get_dept_stats_quarter():
     else:
         return "POST not allowed"
 
-@app.route("/get_dept_stats_year",methods=["GET","POST"])
+@backend.route("/get_dept_stats_year",methods=["GET","POST"])
 def get_dept_stats_year():
     if request.method == "GET":
         d = datetime.now()
@@ -1017,7 +1015,7 @@ def get_dept_stats_year():
     else:
         return "POST not allowed"
 
-@app.route("/get_dept_stats_date_range",methods=["GET","POST"])
+@backend.route("/get_dept_stats_date_range",methods=["GET","POST"])
 def get_dept_stats_date_range():
     if request.method == "GET":
         d = datetime.now()
@@ -1058,7 +1056,7 @@ def get_dept_stats_date_range():
         return "POST not allowed"
 
 
-@app.route("/get_emp_stats",methods=["GET","POST"]) #TEST
+@backend.route("/get_emp_stats",methods=["GET","POST"]) #TEST
 def get_emp_stats():
     if request.method == "POST":
         if "application/x-www-form-urlencoded" in request.headers["Content-Type"]:
@@ -1094,7 +1092,7 @@ def get_emp_stats():
     else:
         return "GET is not allowed"
 
-@app.route("/get_emp_dashboard_stats",methods=["GET","POST"])
+@backend.route("/get_emp_dashboard_stats",methods=["GET","POST"])
 def get_emp_dashboard_stats():
     if request.method == "GET":
         email_id = request.args.get('email_id')
@@ -1134,7 +1132,7 @@ def chk_delayed_rating(file):
     else:
         return [None,currDept,result["lastDept"]]
 
-@app.route("/get_dept_emp_data_for_rating",methods=["GET","POST"])
+@backend.route("/get_dept_emp_data_for_rating",methods=["GET","POST"])
 def get_dept_emp_data_for_rating():
     if request.method == "GET":
         dept_id = request.args.get('dept_id')
@@ -1177,7 +1175,7 @@ def get_dept_emp_data_for_rating():
         return "POST is not allowed"
 
 
-@app.route("/get_emp_data_for_rating",methods=["GET","POST"])
+@backend.route("/get_emp_data_for_rating",methods=["GET","POST"])
 def get_emp_data_for_rating():
     if request.method == "POST":
         if "application/x-www-form-urlencoded" in request.headers["Content-Type"]:
@@ -1220,7 +1218,7 @@ def get_emp_data_for_rating():
     else:
         return "POST is not allowed"
 
-@app.route("/get_overall_stats",methods=["GET","POST"])
+@backend.route("/get_overall_stats",methods=["GET","POST"])
 def get_overall_stats():
     if request.method == "GET":
         completedCount = files.find({"fileDone":True},{"fid":1,"_id":0}).count()
@@ -1235,7 +1233,7 @@ def get_overall_stats():
 
 
 '''                                                      Department Comparison                                                    '''
-@app.route("/get_dept_stats_comparison",methods=["GET","POST"])
+@backend.route("/get_dept_stats_comparison",methods=["GET","POST"])
 def get_dept_stats_comparison():
     if request.method == "GET":
         pass
@@ -1250,7 +1248,7 @@ def get_dept_stats_comparison():
 
 '''                                                     CALENDAR                                                       '''
 
-@app.route("/get_calendar",methods=["GET","POST"])
+@backend.route("/get_calendar",methods=["GET","POST"])
 def get_calendar():
     if request.method == "GET":
         lst = list(holidays.find({},{"dateDay":1,"description":1,"_id":0}))
@@ -1259,7 +1257,7 @@ def get_calendar():
     else:
         return ("POST not allowed")
 
-@app.route("/update_calendar",methods=["GET","POST"])
+@backend.route("/update_calendar",methods=["GET","POST"])
 def update_calendar():
     print("Request method : {}".format(request.method))
     if request.method == "POST":
@@ -1295,243 +1293,4 @@ def update_calendar():
 
 
 
-#--------------------------------------------Back-End End-----------------------------------------------------
-
-# ------------------------------------------Front End Starts-------------------------------------------------------
-
-# posturl="http://2ca82a77.ngrok.io/emp_login"
-
-def getPassword(email):
-    return "123"
-#-------------------------------------------Admin Routes-------------------------------------------------
-
-
-@app.route('/adminlogin', methods=["GET","POST"])
-def adminlogin():
-    error =""
-    if request.method == 'POST':
-        try:
-            print(request.form['email'])
-            session['email'] = request.form['email']
-            
-            PARAMS = {"email":request.form['email'],"pass":request.form['pass']} 
-            headers = {'content-type': 'application/json'}
-            print(type(PARAMS))
-            r = requests.post(url = "http://127.0.0.1:5000" +url_for("emp_login"), data = json.dumps(PARAMS),headers = headers) 
-            data=json.loads(r.text)
-            
-            print(type(data))
-            status=data['status']
-            
-            #print(session['dept_id'])
-            if status==1:
-                session['dept_id'] = data['message']['dept_id']
-                print(session['dept_id']) 
-                return redirect(url_for("adminDash"))
-
-            else:
-                error="Invalid Credentials. Please try again."
-        except:
-            print("Exception occuered")
-            raise
-
-    return render_template('admin/adminlogin.html',error=error)
-
-
-@app.route('/adminDash')
-def adminDash():
-    if 'email' in session:
-        user= session["email"]
-        print(user)
-        return render_template("admin/admin_dash.html", user=user)
-    else:
-        return redirect(url_for("adminlogin"))
-
-@app.route("/adminlogout")
-def adminlogout():
-    session.pop('email', None)
-    return redirect(url_for('adminlogin'))
-
-@app.route('/adminDash/addemp')
-def adminDash_addemp():
-    if 'email' in session:
-        user= session["email"]
-        return render_template("admin/add_emp.html", user=user)
-    else:
-        return redirect(url_for("adminlogin"))
-    
-@app.route('/adminDash/add_application')
-def adminDash_addapplication():
-    if 'email' in session:
-        user= session["email"]
-        return render_template("admin/add_application.html", user=user)
-    else:
-        return redirect(url_for("adminlogin"))
-
-@app.route('/adminDash/add_file')
-def adminDash_addfile():
-    if 'email' in session:
-        user= session["email"]
-        return render_template("admin/add_file.html", user=user)
-    else:
-        return redirect(url_for("adminlogin"))
-
-@app.route('/adminDash/add_dept')
-def adminDash_add_dept():
-    if 'email' in session:
-        user= session["email"]
-        return render_template("admin/add_dept.html", user=user)
-    else:
-        return redirect(url_for("adminlogin"))    
-    
-    
-    
-    
-    
-@app.route('/adminDash/search_file')
-def adminDash_searchfile():
-    if 'email' in session:
-        user= session["email"]
-        return render_template("admin/adminsearch.html", user=user)
-    else:
-        return redirect(url_for("adminlogin"))
-    
-
-@app.route('/adminDash/processingfiles')
-def adminDash_processingfiles():
-    if 'email' in session:
-        user= session["email"]
-        return render_template("admin/adminprocessfiles.html", user=user)
-    else:
-        return redirect(url_for("adminlogin"))
-    
-@app.route('/adminDash/delayedfiles')
-def adminDash_delayedfiles():
-    if 'email' in session:
-        user= session["email"]
-        return render_template("admin/admindelayedfiles.html", user=user)
-    else:
-        return redirect(url_for("adminlogin"))
-    
-@app.route('/adminDash/completedfiles')
-def adminDash_completedfiles():
-    if 'email' in session:
-        user= session["email"]
-        return render_template("admin/admincompletedfiles.html", user=user)
-    else:
-        return redirect(url_for("adminlogin"))
-    
-@app.route('/adminDash/employeeRatings')
-def employeeRatings():
-    if 'email' in session:
-        user= session["email"]
-        return render_template("admin/employee_ratings.html", user=user)
-    else:
-        return redirect(url_for("adminlogin"))
-
-@app.route('/adminDash/calender')
-def calender():
-    if 'email' in session:
-        user= session["email"]
-        return render_template("admin/add_holiday.html", user=user)
-    else:
-        return redirect(url_for("adminlogin"))
-    
-@app.route('/adminDash/adminalert')
-def adminalert():
-    if 'email' in session:
-        user= session["email"]
-        return render_template("admin/adminalert.html", user=user)
-    else:
-        return redirect(url_for("adminlogin"))
-
-
-@app.route('/adminDash/dd')
-def dd():
-    if 'email' in session:
-        user= session["email"]
-        return render_template("admin/dd.html", user=user)
-    else:
-        return redirect(url_for("adminlogin"))
-#-------------------------------------------Admin Routes End-------------------------------------------------
-
-#-------------------------------------------Emp Routes-------------------------------------------------------
-
-
-@app.route('/emplogin', methods=["GET","POST"])
-def emplogin():
-    error= ""
-    if request.method == 'POST':
-        try:
-            print(request.form['email'])
-            session['email'] = request.form['email']
-            PARAMS = {"email":request.form['email'],"pass":request.form['pass']} 
-            headers = {'content-type': 'application/json'}
-            print(type(PARAMS))
-            r = requests.post(url = "http://127.0.0.1:5000" +url_for("emp_login"), data = json.dumps(PARAMS),headers = headers) 
-            data=json.loads(r.text)
-            
-            print(data)
-            status=data['status']
-            print(status)
-            #print(session['dept_id'])
-            if status==1:
-                session['dept_id'] = data['message']['dept_id']
-                print(session['dept_id'])
-                return redirect(url_for("empDash"))
-            else :
-                error="Invalid Credentials. Please try again."
-        except:
-            print("Exception occuered")
-            raise
-    return render_template('emp/emplogin.html',error=error)
-
-
-@app.route('/empDash')
-def empDash():
-    if 'email' in session:
-        user= session["email"]
-        dept_id= session['dept_id']
-        print("Emp -----"+dept_id)
-        return render_template("emp/emp_dash.html", user=user,dept_id=dept_id)
-    else:
-        return redirect(url_for("emplogin"))
-
-
-@app.route("/emplogout")
-def emplogout():
-    session.pop('email', None)
-    return redirect(url_for('emplogin'))
-
-
-@app.route('/empDash/workStatus')
-def empDash_workStatus():
-    if 'email' in session:
-        user= session["email"]
-        dept_id= session['dept_id']
-        return render_template("emp/empwork.html", user=user,dept_id=dept_id)
-    else:
-        return redirect(url_for("emplogin"))
-    
-@app.route('/empDash/empnotification')
-def empDash_empnotification():
-    if 'email' in session:
-        user= session["email"]
-        dept_id= session['dept_id']
-        return render_template("emp/empnotification.html", user=user,dept_id=dept_id)
-    else:
-        return redirect(url_for("emplogin"))
-
-@app.route('/empProfile')
-def empProfile():
-    if 'email' in session:
-        user= session["email"]
-        dept_id= session['dept_id']
-        return render_template("emp/emp_profile.html", user=user,dept_id=dept_id)
-    else:
-        return redirect(url_for("emplogin"))
-#-------------------------------------------Emp Routes End--------------------------------------------------
-
-
-if __name__ == '__main__':
-    app.run(debug = True)
+#--------------------------------------------Back-End End-------------------------------------------------------
