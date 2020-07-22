@@ -381,7 +381,7 @@
         
         function markallread(){
 
-             $.post("{{url_for('update_all_notification_status')}}",{email_id:email},
+             $.post("{{url_for('update_all_notifications_status')}}",{email_id:email},
                 
                 function(response){
                  if(response["status"]=="1"){   
