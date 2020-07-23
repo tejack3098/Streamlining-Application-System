@@ -1,0 +1,291 @@
+{% extends "admin_sidebar.html" %}
+{% block body %}
+
+<!----Unattended Modal------>
+
+<div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="messageModalCenterTitle">Message</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body row" id="messageContainer"  style="padding-bottom: 1rem;padding-left:3rem;padding-right: 3rem;">
+        <!-- From start-->
+        <div class="row">
+            <label class="col-form-label">From: </label>
+            <label class="col-form-label" id="unattendedFrom"></label>
+        </div>
+        <!-- From end -->
+        <!-- Message start-->
+        <div class="row border" id="unattendedMessageBox" style="padding: 1rem;"></div>
+        <!-- Message end -->
+        <!-- Time start-->
+        <div class="row">
+            <label class="col-form-label">Time Arrived: </label>
+            <label class="col-form-label" id="unattendedTimeArrived"></label>
+        </div>
+        <!-- Time end -->
+      </div>
+      <div class="modal-footer text-center">
+       <button type="button" class="btn btn-success" data-dismiss="modal">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!----UnattendedModal------>
+
+<!----Attended Modal------>
+
+<div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="detailsModalCenterTitle">Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body row" id="detailsContainer"  style="padding-bottom: 1rem;padding-left:3rem;padding-right: 3rem;">
+        <!-- From start-->
+        <div class="row">
+            <label class="col-form-label">From: </label>
+            <label class="col-form-label" id="attendedFrom"></label>
+        </div>
+        <!-- From end -->
+        <!-- Message start-->
+        <div class="row border" id="attendedMessageBox" style="padding: 1rem;"></div>
+        <!-- Message end -->
+        <!-- Time start-->
+        <div class="row">
+            <label class="col-form-label">Time Arrived: </label>
+            <label class="col-form-label" id="attendedTimeArrived"></label>
+        </div>
+        <div class="row">
+            <label class="col-form-label">Time Attended: </label>
+            <label class="col-form-label" id="attendedTimeAttended"></label>
+        </div>
+        <!-- Time end -->
+      </div>
+      <div class="modal-footer text-center">
+       <button type="button" class="btn btn-success" data-dismiss="modal">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!----AttendedModal------>
+    
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item ">
+    <a class="nav-link active" id="notattended-tab" data-toggle="tab" href="#notattended" role="tab" aria-controls="home" aria-selected="true" onclick="loadalerts()" style="text-decoration: none;">Unattended</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="attended-tab" data-toggle="tab" href="#attended" role="tab" aria-controls="profile" aria-selected="false" style="text-decoration: none;">Attended</a>
+  </li>
+
+</ul>
+
+    
+<div class="tab-content" id="myTabContent" style="padding-top: 20px;">
+ <div class="tab-pane fade show active" id="notattended" role="tabpanel" aria-labelledby="notattended-tab">
+  
+
+       <div class="container shadow p-3 mb-5 bg-white rounded">
+      <table class="table" id="notattendedtable" style="font-size: 18px;" >
+      <thead >
+        <tr>
+          <th scope="col">Email </th>
+          <th scope="col">Time </th>
+          <th scope="col">Message </th>
+          <th scope="col">Action </th>
+         <!-- Not Attended table head--------------------------------------------------------------->
+        </tr>
+      </thead>
+      <tbody id='workTbdy'>
+    
+          <!--Not attended table body -->
+
+      </tbody>
+    </table>
+     </div>
+  
+  </div>
+
+
+   <div class="tab-pane fade" id="attended" role="tabpanel" aria-labelledby="attended-tab">
+       
+     <div class="container shadow p-3 mb-5 bg-white rounded">
+      <table class="table" id="attendedtable" style="font-size: 18px;" >
+      <thead >
+        <tr>
+          <th scope="col">Email </th>
+          <th scope="col">Time Arrived</th>
+          <th scope="col">Details </th>
+          <th scope="col">Time Attended</th>
+         <!-- Attended table head--------------------------------------------------------------->
+        </tr>
+      </thead>
+      <tbody id='attendedTbdy'>
+    
+          <!--attended table body -->
+
+      </tbody>
+    </table>
+     </div>
+
+
+      
+
+  </div>
+
+
+
+</div>
+
+    <script>
+        
+ // var url= localStorage.getItem("url");;   
+  function markAttended(element,notificationid){
+      console.log("Notification ID "+notificationid);
+      $.post("{{url_for('backendapp.update_file_complaint_notification')}}",{notificationid:notificationid},
+                    function(response){
+                      //check if what response is  
+                        if(response["status"]==="1")
+                            {
+                                loadalerts();
+                            }
+                        else{
+                            console.log("Some error occured response : "+response);
+                        }
+
+                        //alert(response);
+
+                  },"json");
+      //loadalerts();
+  }         
+  function loadalerts(){
+      var attendedtable = document.getElementById("attendedtable").getElementsByTagName('tbody')[0];
+      var notattendedtable = document.getElementById("notattendedtable").getElementsByTagName('tbody')[0];
+
+      attendedtable.innerHTML="";
+      notattendedtable.innerHTML="";
+      
+      console.log("calllled");
+       $.get("{{url_for('backendapp.get_file_complaints')}}",{},
+                
+                function(response){
+                  //check if what response is   
+                    console.log(response);
+                   var attendedlist = response["details"]["attended"];
+                   var notattendedlist = response["details"]["notattended"];   
+                   
+                    if(attendedlist.length===0)
+                        {
+                            var row = attendedtable.insertRow(0);
+                            var cell1 = row.insertCell(0);
+                            cell1.innerHTML = "No complaints attended yet";
+                        }
+                    else
+                        {
+                            for (i = 0; i < attendedlist.length; i++) {
+                              /*Ye change kar*/ 
+                                var message=String(attendedlist[i]['message']).split(' ').join('$$$');
+                                var timeCreated=String(attendedlist[i]['timeCreated']).split(' ').join('$$$');
+                                var timeAttended=String(attendedlist[i]['timeAttended']).split(' ').join('$$$');
+                                var row = attendedtable.insertRow(0);
+                                var cell1 = row.insertCell(0);
+                                var cell2 = row.insertCell(1);
+                                var cell3 = row.insertCell(2);
+                                var cell4 = row.insertCell(3);
+
+                                cell1.innerHTML = attendedlist[i]['emp_id'];
+                                cell2.innerHTML = attendedlist[i]['timeCreated'];
+                                cell3.innerHTML = '<button class="btn btn-primary" role="button" data-toggle="modal" data-target="#detailsModal" onclick=\'loadDetails("'+attendedlist[i]['emp_id']+'","'+message+'","'+timeCreated+'","'+timeAttended+'")\'>View</button>';
+                                /*console.log('<button class="btn btn-primary" role="button" data-toggle="modal" data-target="#detailsModal" onclick=\'loadDetails("'+attendedlist[i]['emp_id']+'","'+message+'","'+timeCreated+'","'+timeAttended+'")\'>View</button>');*/
+                                cell4.innerHTML = attendedlist[i]['timeAttended'];    
+
+                            }
+                        }
+                    
+                    if(notattendedlist.length==0)
+                        {
+                            var row = notattendedtable.insertRow(0);
+                            var cell1 = row.insertCell(0);
+                            cell1.innerHTML = "No complaints ! You are all catched up !!!";
+                        }
+                    else
+                        {
+                            for (i = 0; i < notattendedlist.length; i++) {
+                              /*Ye change kar*/
+                                var message=String(notattendedlist[i]['message']).split(' ').join('$$$');
+                                var timeCreated=String(notattendedlist[i]['timeCreated']).split(' ').join('$$$');
+                                var row = notattendedtable.insertRow(0);
+                                var cell1 = row.insertCell(0);
+                                var cell2 = row.insertCell(1);
+                                var cell3 = row.insertCell(2);
+                                var cell4 = row.insertCell(3);
+
+                                cell1.innerHTML = notattendedlist[i]['emp_id'];
+                                cell2.innerHTML = notattendedlist[i]['timeCreated'];
+                                cell3.innerHTML = '<button class="btn btn-primary" role="button" data-toggle="modal" data-target="#messageModal" onclick=\'loadMessage("'+notattendedlist[i]['emp_id']+'","'+message+'","'+timeCreated+'")\'>View</button>';
+                                /*console.log('<button class="btn btn-primary" role="button" data-toggle="modal" data-target="#messageModal" onclick=\'loadMessage("'+notattendedlist[i]['emp_id']+'","'+message+'","'+timeCreated+'")\'>View</button>');*/
+                                cell4.innerHTML = '<button type="button" class="btn btn-primary"'+ 'onclick=markAttended(this,"'+notattendedlist[i]['notificationID']+'")>Attended</button>';
+
+                            }
+                        }
+
+
+                    
+                    //alert(response);
+                
+              },"json");
+  
+}
+
+    loadalerts();
+        
+        
+    function loadMessage(from,message,timeArrived)
+        {
+            console.log("In Loadmessage");
+            message = message.split("$$$").join(' ');
+            timeArrived = timeArrived.split("$$$").join(' ');
+            console.log("message: "+ message);
+            console.log("timeArrived: "+ timeArrived);
+            var fromContainer = document.getElementById("unattendedFrom");
+            var messageContainer = document.getElementById("unattendedMessageBox");
+            var timeArrivedContainer = document.getElementById("unattendedTimeArrived");
+            
+            fromContainer.innerHTML=" "+from;
+            messageContainer.innerHTML=" "+message;
+            timeArrivedContainer.innerHTML=" "+timeArrived;
+            
+        }
+    function loadDetails(from,message,timeArrived,timeAttended)
+        {
+            message = message.split("$$$").join(' ');
+            timeArrived = timeArrived.split("$$$").join(' ');
+            timeAttended = timeAttended.split("$$$").join(' ');
+            var fromContainer = document.getElementById("attendedFrom");
+            var messageContainer = document.getElementById("attendedMessageBox");
+            var timeArrivedContainer = document.getElementById("attendedTimeArrived");
+            var timeAttendedContainer = document.getElementById("attendedTimeAttended");
+            
+            fromContainer.innerHTML=" "+from;
+            messageContainer.innerHTML=" "+message;
+            timeArrivedContainer.innerHTML=" "+timeArrived;
+            timeAttendedContainer.innerHTML=" "+timeAttended;
+        }
+</script>
+
+   
+      
+  
+
+
+
+{% endblock %}

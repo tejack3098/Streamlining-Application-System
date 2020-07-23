@@ -1,0 +1,222 @@
+
+{% extends "emp_sidebar.html" %}
+{% block body %}
+
+  <style type="text/css">
+    
+  td,th
+  {
+    text-align: center;
+    font-size: 10px;
+
+  }
+
+  th,td
+  {
+    padding: 10px;
+
+  }
+#show_no_record{
+  display: none;
+}
+  
+  </style>
+	<script src= "{{ url_for('static',filename='js/canvasjs.min.js')}}"></script>
+  <script src="{{ url_for('static',filename='js/loading-bar.js')}}"></script>
+  <script src="{{ url_for('static',filename='js/plotly.min.js')}}"></script>
+  
+<div class="row justify-content-md-center shadow-sm p-3 mb-5 bg-white rounded" id="show_no_record">
+ <p align="center"> Currently No Files on Desk Check Your Arrived Files</p>
+</div>
+<div class="row shadow-sm p-3 mb-5 bg-white rounded">
+
+
+  <div class="col-sm" id="emp_pie">
+    <p align='center' style='font-size:24px;font-weight:bold;top:50px;position:relative'>Pie Graph</p>
+    <div id="chartContainer" style="height: 300px; width: 100%;top:70px;position: relative;"></div>
+  </div>
+
+
+
+  <div class="col-sm" id="emp_bar">
+    <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+    <p align='center' style='font-size:24px;font-weight:bold;top:50px;position:relative'>Bar Graph</p>
+        <div id='myDiv' style="width: 450px;height: 450px"><!-- Plotly chart will be drawn inside this DIV --></div>
+  </div>
+
+
+  <div class="col-sm-12" >
+      <div class ="main">
+      	<table class="table" align="center" id="worktable1" style="width: 100%;background-color: black;color:white;">
+          <thead class="thead-dark">
+         <tr >
+         
+         <th>Proccessing Files Count</th>
+         <th>Completed Files Count</th>
+         <th>Delayed Files Count</th> 
+       </tr>
+      </thead>
+
+      <thead class="thead-light">
+       <tr style="background-color: white;color:black">
+         
+         <td class="count2"></td>
+         <td class="count3"></td>  
+         <td class="count4"></td>
+         
+
+       </tr>
+      </thead>
+        </table>
+
+      </div>
+</div>
+</div>
+
+<script>
+
+function myFunction() {
+    var user= '{{user}}';
+ // var url=localStorage.getItem("url");
+
+      //console.log(table);
+      $.get("{{url_for('backendapp.get_emp_dashboard_stats')}}",{email_id: user},
+                
+                function(response){
+                  //check if what response is   
+                   
+                    
+                    if(response["status"]==="1"){
+                      console.log(response);
+                  
+
+                        var i=0;
+                      var details=response['details']
+                      var files = {currFilesCount : details["currFilesCount"], currFilesDelayCount :  details["currFilesDelayCount"], prevFilesCount : details["prevFilesCount"]};
+
+                      var i = files.currFilesCount
+                      var j = files.currFilesDelayCount
+                      var k = files.prevFilesCount
+                      if (i==0 && j==0){
+                        //document.getElementById('chartContainer').innerHTML='<p align="center">Currenty No Files on Desk</p>';
+                        //document.getElementById('emp_bar').innerHTML='<p>Currently No Files on Desk</p>';
+                        document.getElementById('emp_pie').style.display="none";
+                        document.getElementById('emp_bar').style.display="none";
+                        document.getElementById('show_no_record').style.display="block";
+                        console.log("hola");
+
+                      }
+                      else{
+                        console.log("hola1");
+                      function_for_piechart(i,j,k);
+                      timepass(i,j);
+                        }
+                        
+                     
+                    }
+                    
+                    //alert(response);
+
+   
+              },"json");
+  
+}
+  myFunction(); 
+
+function function_for_piechart(i,j,k) {
+  var sum = i+j+k 
+pie()
+file1()
+
+function pie() {
+  console.log('c')
+var chart = new CanvasJS.Chart("chartContainer", {
+animationEnabled: true,
+title: {
+  text: ""
+},
+
+data: [{
+  type: "pie",
+  startAngle: 240,
+  yValueFormatString: "##0.00\"%\"",
+  indexLabel: "{label} {y}",
+  dataPoints: [
+    {y: (i/sum)*100, label: "Processing on Time"},
+    {y: (j/sum)*100, label: "Delayed",color:"#e60000"},
+   
+    
+  ]
+}]
+});
+chart.render();
+
+}
+
+function file1(){
+      
+      $('.count2').prop('Counter',0).animate({
+
+        Counter: i
+    }, {
+        duration: 1500,
+        easing: 'swing',
+        step: function (now) {
+            $(this).text(Math.ceil(now));
+        }
+    });
+      $('.count3').prop('Counter',0).animate({
+        Counter: k
+    }, {
+        duration: 1500,
+        easing: 'swing',
+        step: function (now) {
+            $(this).text(Math.ceil(now));
+        }
+    });
+      $('.count4').prop('Counter',0).animate({
+        Counter: j
+    }, {
+        duration: 1500,
+        easing: 'swing',
+        step: function (now) {
+            $(this).text(Math.ceil(now));
+        }
+    });
+      }
+
+}
+
+
+
+function timepass(c_p_c,c_p_d_c){
+  var trace1 = {
+  x: ['Files' ],
+  y: [c_p_c],
+  name: 'Processing On time',
+  type: 'bar',
+  
+};
+
+var trace2 = {
+  x: ['Files'],
+  y: [c_p_d_c],
+  name: 'Delay Files',
+  type: 'bar',
+  marker:{color:'#e60000'}
+};
+
+var data = [trace1, trace2];
+
+var layout = {barmode: 'stack'};
+
+Plotly.newPlot('myDiv', data, layout);
+
+//document.getElementsByClassName('modebar-container')[0].remove();
+document.getElementsByClassName('modebar-container')[0].innerHTML="<p align='center' style='font-size:22px;font-weight:bold;top:15px;position:relative'>Bar Graph</p>";
+
+}
+   
+    </script>
+
+{% endblock %}

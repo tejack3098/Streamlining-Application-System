@@ -1,0 +1,466 @@
+{% extends "admin_sidebar.html" %}
+{% block body %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.checked {
+  color: #0072ff;
+}
+</style>
+ <script>
+
+function move(m) {
+  var i = 0;
+  if (i == 0) {
+    i = 1;
+    var elem = document.getElementById("myBar");
+    var width = 0;
+    var id = setInterval(frame, 10);
+    function frame() {
+      if (width >= m) {
+        clearInterval(id);
+        i = 0;
+      } else {
+        width++;
+        elem.style.width = width + "%";
+        elem.innerHTML = width  + "%";
+      }
+    }
+  }
+}
+
+/*  var url=localStorage.getItem("url");*/
+  
+
+ function Employee(){
+
+  var response_emp_name=response_emp_email=response_emp_mobile=response_emp_deptid=response_emp_deptname="";
+  var obj={};
+ 	var sel= document.getElementById("sel1").value;
+    var table = document.getElementById("worktable").getElementsByTagName('tbody')[0];
+    table.innerHTML="";
+     
+
+    $.get("{{url_for('backendapp.get_dept_emp_data_for_rating')}}",{dept_id:sel},
+                
+                function(response){
+                  //check if what response is   
+                    //console.log(response);
+                    if(response["status"]==="1"){
+                        console.log(response);
+                        
+                        var table_length = document.getElementById("worktable").rows.length;
+                        for(var j = 1;j<table_length;j++){
+                            document.getElementById("worktable").deleteRow(j)
+                        }
+
+                        
+                        //var cell5=row.insertCell(4);
+                        
+                        /*var i = response["details"].length;
+                        console.log("length:"+i);*/
+                        for(var j = 0; j <response["details"].length; j++ ){
+                        //timeline_response=response['list'];
+                        console.log(j);
+                        var row = table.insertRow(j);
+                        var cell1 = row.insertCell(0);
+                        var cell2 = row.insertCell(1);
+                        var cell3 = row.insertCell(2);
+                        var cell4 = row.insertCell(3);
+
+                        cell1.innerHTML = response['details'][j]["email_id"];
+                        cell2.innerHTML = response['details'][j]['name'];
+                        
+                  
+
+                        var total = response['details'][j]['prevFilesCount'];
+                        var delayed = response['details'][j]['prevFilesWithDelay'];
+                        var codeBlock='';
+
+                        var n = Math.floor(((total - delayed)/total)*5)
+                        //console.log("total:"+n)
+                        //m variable for progress bar
+
+                        console.log(total,delayed);
+
+                        var percentage= ((total - delayed)/total)*100;
+                        for(var i=0; i<5;i++){
+                            if (i<n){
+                            codeBlock=codeBlock+'<span class="fa fa-star checked"></span>';
+                            }
+                            else{
+                                codeBlock=codeBlock+'<span class="fa fa-star"></span>';
+                            }
+
+                        }
+
+                        cell3.innerHTML = codeBlock;
+
+                        //here we are inserting content into emplyee stats modal
+                        /*
+                        emp_name.innerHTML=response['details'][j]['name'];
+                        emp_email.innerHTML=response['details'][j]['email_id'];
+                        emp_deptid.innerHTML=sel;
+                        emp_mobile.innerHTML=response['details'][j]['mno'];
+                        emp_deptname.innerHTML=response['details'][j]['dept_name'];
+
+                        total_files.innerHTML=total;
+                        on_t_files.innerHTML=total-delayed;
+                        delay_files.innerHTML=delayed;*/
+
+                        /*var obj = {
+                          response_emp_name :response['details'][j]['name'],
+                          response_emp_deptname:response['details'][j]['dept_name'],
+                          response_emp_deptid:sel,
+                          response_emp_email:response['details'][j]['email_id'],
+                          response_emp_mobile:response['details'][j]['mno'],
+                          total_files:total,
+                          delay_files:delayed
+
+                        }*/
+                        var on_t_files=total-delayed;
+                        var data = response['details'][j]['name']+","+response['details'][j]['dept_name']+","+sel+","+response['details'][j]['email_id']+","+response['details'][j]['mno']+","+total+","+delayed+","+on_t_files+","+percentage;
+
+                        
+                        
+                  
+                          
+        cell4.innerHTML = '<p class="btn btn-outline-primary" id="myBtn" onclick="openmodal(\''+data+'\'  )">Open</p>';
+
+
+                      
+
+                        //move(m);
+                        }
+                          
+                    }
+                    
+                
+              },"json");
+
+
+ }
+
+
+
+
+ </script>
+
+	   <form action="" method="post">
+  	<div class="container register-form">
+            <div class="form">
+                <div class="note">
+                    <p>Employee Ratings</p>
+                </div>
+
+                <div class="form-content">
+
+                	<label for="sel1"><b>Department List</b></label>
+      <select class="form-control" id="sel1" onchange ="Employee()" style="height: 50px;">
+      	<option value="">Choose Department</option>
+        <!-- <option>01</option>
+        <option>02</option>
+        <option>03</option>
+        <option>04</option> -->
+      </select><br>
+
+    </form>
+      			<!--
+                    <div class="col-md-12 text-center">
+                    <button type="submit" class="btnSubmit" id = "add">Search</button>
+                    </div>
+                </div>-->
+
+
+
+
+     <div class="container shadow p-3 mb-5 bg-white rounded">
+		
+			<table class="table" id="worktable">
+		  <thead>
+		    <tr>
+		      <th scope="col">Employee ID</th>
+		      <th scope="col">Name</th>
+		      <th scope="col">Ratings</th>
+		      <th scope="col">Profile</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+        
+		    <!-- <tr>
+		      <td>id3u40</td>
+		      <td>abcd</td>
+		      <td>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star"></span>
+              </td>
+		      <td>link</td>
+		      <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-xl" onclick="setfilename(\''+ bar +'\')">Track </button></td>
+		    </tr> -->
+		  </tbody>
+		</table>
+		</div>
+    </div>
+
+
+    
+                
+    </div>
+
+            
+        
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="myModal" class="modalt" >
+
+  <!-- Modal content -->
+  <div class="modal-contentt2">
+    <p id="spanclose" style="color: #aaaaaa;
+    position: relative;  font-size: 28px;">&times;</p>
+      
+    <div class="container shadow p-3 mb-5 bg-white rounded">
+        
+
+            <!--<div class ="row justify-content-md-center shadow p-3 mb-5 bg-white rounded">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Scan File</button>
+            </div>-->
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"  style="text-decoration: none">Employee Information</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false"  style="text-decoration: none">Employee Stats</a>
+  </li>
+  
+</ul>
+        <div class="tab-content" id="myTabContent">
+             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <!--<div class="title">
+                    <h1 align="center">Personal Infromation</h1>
+                  </div>-->
+                      <div class="row justify-content-md-center">
+                        <img src="{{url_for('static' ,filename='img/avatar.png')}}" width="150" height="150" style="margin:10px">
+                      </div>
+                      <div class="row" >
+                        <table class="table table-bordered" style="text-align: center;">
+                          <thead>
+                            <tr>
+                              <th scope="col" colspan="3">Employee Information</th>         
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td><b>Name</b></td>
+                              <td id="emp_name">Otto</td>
+                            </tr>
+                            <tr>                              
+                              <td><b>Mobile Number</b></td>
+                              <td id="emp_mobile">Thornton</td>   
+                            </tr> 
+                            <tr>                              
+                              <td><b>Email ID</b></td>
+                              <td id="emp_email">Thornton</td>   
+                            </tr> 
+                            <tr>                              
+                              <td><b>Department ID</b></td>
+                              <td id="emp_deptid">Thornton</td>   
+                            </tr>
+                            <tr>                              
+                              <td><b>Department Name</b></td>
+                              <td id="emp_deptname">Thornton</td>   
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+              </div>
+
+
+               <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <table class="table table-bordered" style="text-align: center;">
+                          <thead>
+                            <tr>
+                              <th scope="col" colspan="3">Employee stats</th>           
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td><b>Total File</b></td>
+                              <td id="total_files">Otto</td>
+                            </tr>
+                            <tr>                              
+                              <td><b>Completed On time Files</b></td>
+                              <td id="on_t_files">Thornton</td>   
+                            </tr> 
+                            <tr>                              
+                              <td><b>Dealyed Files</b></td>
+                              <td id="delay_files"></td>   
+                            </tr>
+                          </tbody>
+                        </table>
+                        <h5 align="center" style="margin:10px;">Employee efficiency</h5>
+                    <div id="processed">
+                        <div id="myBar">0%</div>
+                    </div>
+                 </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+
+<script>
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span1 = document.getElementById("spanclose");
+
+
+// When the user clicks the button, open the modal
+/* 
+btn.onclick = function() {
+  modal.style.display = "block";
+}*/
+function openmodal(x){
+    var emp_name= document.getElementById("emp_name");
+    var emp_email=document.getElementById("emp_email");
+    var emp_mobile=document.getElementById("emp_mobile");
+    var emp_deptid=document.getElementById("emp_deptid");
+    var emp_deptname=document.getElementById("emp_deptname");
+    var total_files=document.getElementById("total_files");
+    var on_t_files=document.getElementById("on_t_files");
+    var delay_files=document.getElementById("delay_files");
+
+  
+  var details=x.split(',');
+  console.log(details);
+  emp_name.innerHTML=details[0];
+  emp_email.innerHTML=details[3];
+  emp_mobile.innerHTML=details[4];
+  emp_deptid.innerHTML=details[2];
+  emp_deptname.innerHTML=details[1];
+  total_files.innerHTML=details[5];
+  on_t_files.innerHTML=details[7];
+  delay_files.innerHTML=details[6];
+  var percentage=details[8];
+  console.log(percentage);
+  if(percentage!="NaN"){
+  move(percentage);
+}
+else{
+  move(10);
+}
+
+
+
+
+
+
+
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span1.onclick = function() {
+  console.log("djbjb")
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+
+/*******************abhay changes*********************/
+
+function loadDropDown()
+{
+  var dropdown=document.getElementById("sel1");
+  $.post("{{url_for('backendapp.get_dept_ids')}}",
+                
+                function(response){
+                  //check if what response is 
+           
+                    
+                var details = response["dept_ids"];
+                
+                    console.log(details);
+                
+                    
+ 
+                     for(var i = 0;i < details.length;i++)
+                     {
+                         var opt = details[i]['dept_name']+' ('+details[i]['dept_id']+')';
+                         var el = document.createElement("option");
+                         el.textContent = opt;
+                         el.value =details[i]['dept_id'];
+                         dropdown.appendChild(el);
+                     }
+
+                    
+                    //alert(response);
+                
+              },"json");
+}
+loadDropDown();
+/*******************abhay changes*********************/
+
+
+</script>
+
+<!--<script>
+
+function move() {
+  var i = 0;
+  if (i == 0) {
+    i = 1;
+    var elem = document.getElementById("myBar");
+    var width = 0;
+    var id = setInterval(frame, 10);
+    function frame() {
+      if (width >= 70) {
+        clearInterval(id);
+        i = 0;
+      } else {
+        width++;
+        elem.style.width = width + "%";
+        elem.innerHTML = width  + "%";
+      }
+    }
+  }
+}
+
+</script>-->
+
+{% endblock%}
