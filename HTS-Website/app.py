@@ -8,7 +8,7 @@ from _admin import adminapp
 from _emp import empapp
 
 
-app = Flask(__name__) # static_folder=None
+app = Flask(__name__,static_folder='_static') # static_folder=None
 
 CORS(app)
     
