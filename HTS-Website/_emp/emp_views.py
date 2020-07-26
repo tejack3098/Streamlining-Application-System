@@ -20,10 +20,11 @@ def emplogin():
             data=json.loads(r.text)
            
             status=data['status']
-            dept_id = data['message']['dept_id']
+            
           
             if status==1:
                 session[email] = email
+                dept_id = data['message']['dept_id']
                 session[email[:-10]+'_dept_id'] = dept_id
                 print("====================================================================")
                 print(session.keys())

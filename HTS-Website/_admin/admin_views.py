@@ -22,7 +22,7 @@ def adminlogin():
             data=json.loads(r.text)
            
             status=data['status']
-            dept_id = data['message']['dept_id']
+        
           
             if status==1:
                 session[email] = email
