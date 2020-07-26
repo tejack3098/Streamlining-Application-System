@@ -48,7 +48,7 @@ def empDash(email):
 @empapp.route("/logout/<email>")
 def emplogout(email):
     session.pop(email, None)
-    session.pop(email+'_dept_id', None)
+    session.pop(email[:-10]+'_dept_id', None)
     return redirect(url_for('empapp.emplogin'))
 
 
