@@ -795,7 +795,7 @@ $('#dateRangeDatePickerInputParent').on('click',openModal);
             var dateRangeModalContainer = document.getElementById('dateRangeModalContainer');
         dateRangeModalContainer.innerHTML=
             "<div class='row w-100'>"+ 
-            "<iframe src='{{ url_for('adminapp.dd') }}' id='dpIframe' seamless='' height='100%' width='100%'></iframe>"
+            "<iframe src='{{ url_for('adminapp.dd', email = email) }}' id='dpIframe' seamless='' height='100%' width='100%'></iframe>"
             "</div>";
             console.log("openmodal "+dateSelected);
             var selDate=$("#dpIframe").contents().find("#daterangeINPUT");

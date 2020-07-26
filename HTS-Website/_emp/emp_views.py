@@ -12,22 +12,23 @@ def emplogin():
     error= ""
     if request.method == 'POST':
         try:
-            print(request.form['email'])
-            session['email'] = request.form['email']
-            PARAMS = {"email":request.form['email'],"pass":request.form['pass']} 
+            email = request.form['email']
+            PARAMS = {"email":email,"pass":request.form['pass']} 
             headers = {'content-type': 'application/json'}
             print(type(PARAMS))
             r = requests.post(url = "http://127.0.0.1:5000" +url_for("backendapp.emp_login"), data = json.dumps(PARAMS),headers = headers) 
             data=json.loads(r.text)
-            
-            print(data)
+           
             status=data['status']
-            print(status)
-            #print(session['dept_id'])
+            dept_id = data['message']['dept_id']
+          
             if status==1:
-                session['dept_id'] = data['message']['dept_id']
-                print(session['dept_id'])
-                return redirect(url_for("empapp.empDash"))
+                session[email] = email
+                session[email[:-10]+'_dept_id'] = dept_id
+                print("====================================================================")
+                print(session.keys())
+                print("====================================================================")
+                return redirect(url_for("empapp.empDash", email = email, dept_id = dept_id ))
             else :
                 error="Invalid Credentials. Please try again."
         except:
@@ -36,39 +37,33 @@ def emplogin():
     return render_template('emplogin.html',error=error)
 
 
-@empapp.route('/Dashboard')
-def empDash():
-    if 'email' in session:
-        user= session["email"]
-        dept_id= session['dept_id']
-        print("Emp -----"+dept_id)
-        return render_template("emp_dash.html", user=user,dept_id=dept_id)
+@empapp.route('/Dashboard/<email>')
+def empDash(email):
+    if email in session:
+        return render_template("emp_dash.html", email=email)
     else:
         return redirect(url_for("empapp.emplogin"))
 
 
-@empapp.route("/logout")
-def emplogout():
-    session.pop('email', None)
+@empapp.route("/logout/<email>")
+def emplogout(email):
+    session.pop(email, None)
+    session.pop(email+'_dept_id', None)
     return redirect(url_for('empapp.emplogin'))
 
 
-@empapp.route('/workStatus')
-def empworkStatus():
-    if 'email' in session:
-        user= session["email"]
-        dept_id= session['dept_id']
-        return render_template("empwork.html", user=user,dept_id=dept_id)
+@empapp.route('/workStatus/<email>')
+def empworkStatus(email):
+    if email in session:
+        return render_template("empwork.html", email=email)
     else:
         return redirect(url_for("empapp.emplogin"))
     
 
-@empapp.route('/Profile')
-def empProfile():
-    if 'email' in session:
-        user= session["email"]
-        dept_id= session['dept_id']
-        return render_template("emp_profile.html", user=user,dept_id=dept_id)
+@empapp.route('/Profile/<email>')
+def empProfile(email):
+    if email in session:
+        return render_template("emp_profile.html", email=email)
     else:
         return redirect(url_for("empapp.emplogin"))
 #-------------------------------------------Emp Routes End--------------------------------------------------

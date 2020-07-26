@@ -76,11 +76,11 @@
 <script>
 
 function myFunction() {
-    var user= '{{user}}';
+    var email= '{{email}}';
  // var url=localStorage.getItem("url");
 
       //console.log(table);
-      $.get("{{url_for('backendapp.get_emp_dashboard_stats')}}",{email_id: user},
+      $.get("{{url_for('backendapp.get_emp_dashboard_stats')}}",{email_id: email},
                 
                 function(response){
                   //check if what response is   

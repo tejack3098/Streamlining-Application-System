@@ -101,10 +101,9 @@
  //  var url=localStorage.getItem("url");
   function employee_info(){
 var sel=1;
-  var user='{{user}}';
-  console.log(user)
+  var email='{{email}}';
 
-     $.post("{{url_for('backendapp.get_emp_data_for_rating')}}",{email_id:user},
+     $.post("{{url_for('backendapp.get_emp_data_for_rating')}}",{email_id:email},
                 
                 function(response){
                   //check if what response is   

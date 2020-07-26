@@ -78,9 +78,8 @@
         <ul class="cd-nav__sub-list" style="width: 300px;">
           <!--<li class="cd-nav__sub-item"><a href="#0">My Account</a></li>
           <li class="cd-nav__sub-item"><a href="#0">Edit Account</a></li>-->
-          <li class="cd-nav__sub-item" style="color: white; padding: -2px;"><a href="{{url_for('empapp.empProfile')}}">{{user}}</a></li>
-          <li  class="cd-nav__sub-item"><a href="{{url_for('empapp.emplogout')}}">Logout</a></li>
-         <!--  <li class="cd-nav__sub-item"><a href="{{url_for('empapp.emplogout')}}">Logout</a></li> -->
+          <li class="cd-nav__sub-item" style="color: white; padding: -2px;"><a href="{{url_for('empapp.empProfile', email = email)}}">{{email}}</a></li>
+          <li  class="cd-nav__sub-item"><a href="{{url_for('empapp.emplogout', email = email)}}">Logout</a></li>
         </ul>
       </li>
     </ul>
@@ -93,7 +92,7 @@
       <ul class="cd-side__list js-cd-side__list">
         <li class="cd-side__label"><span>Main</span></li>
         <li class="cd-side__item cd-side__item--has-children cd-side__item--overview js-cd-item--has-children">
-          <a href="{{ url_for('empapp.empDash')}}">Overview</a>
+          <a href="{{ url_for('empapp.empDash', email = email)}}">Overview</a>
           
           <!--<ul class="cd-side__sub-list">
             <li class="cd-side__sub-item"><a href="#0">All Data</a></li>
@@ -107,7 +106,7 @@
           
           <ul class="cd-side__sub-list">
            <!-- <li class="cd-side__sub-item"><a aria-current="page" href="#0">All Notifications</a></li>-->
-            <li class="cd-side__sub-item"><a href="{{ url_for('empapp.empworkStatus')}}">Work Status</a></li>
+            <li class="cd-side__sub-item"><a href="{{ url_for('empapp.empworkStatus', email = email)}}">Work Status</a></li>
             <!--<li class="cd-side__sub-item"><a href="#0">Other</a></li>-->
           </ul>
         </li>
@@ -211,9 +210,7 @@
   <!--Script for Notifications-->
     <script>
         
-            var user= '{{user}}';
-           // var url=localStorage.getItem("url");
-            var email = '{{user}}';
+            var email = '{{email}}';
             var cnt= document.getElementById("notifycnt");
         
         function notificationmodal(messageText,timeCreated,notificationID2sent){

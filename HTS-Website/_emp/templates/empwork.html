@@ -33,7 +33,7 @@
         }
   /*********************************ABHAY****************************************************************/        
   function loadfiles(){
-      var email = '{{user}}';
+      var email = '{{email}}';
       var table = document.getElementById("worktable").getElementsByTagName('tbody')[0];
       var table2 = document.getElementById("comptable").getElementsByTagName('tbody')[0];
       var table3 = document.getElementById("arrfiles").getElementsByTagName('tbody')[0];
@@ -181,8 +181,10 @@
   bar = document.getElementById("result").textContent;
  
   var d = new Date();
-  var dept_id = '{{ dept_id }}';
-  var email = '{{user}}';
+  var dept_id = "{{ session.get(email+'_dept_id')}}";
+console.log("DEPARTMENT ID");
+console.log(dept_id);
+  var email = '{{email}}';
 
   var dataString = {'bcodeTxt':bar,'deptID':dept_id,'email':email};
   console.log(dataString);
