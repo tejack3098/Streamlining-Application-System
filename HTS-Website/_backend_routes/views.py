@@ -861,6 +861,27 @@ def chk_delayed_dept(file):
         return [int((today-expectedDate).days),result["currEmp"]]
     else:
         return [None,result["currEmp"]]
+    
+   
+@backendapp.route("/get_applications_stats",methods=["GET","POST"])
+def get_applications_stats():
+    if request.method == "GET":
+        
+        applications = files.distinct("applicationType")
+        details={}
+        for i in applications :
+            cnt={}
+            cnt['processfcnt'] = files.find({"applicationType":i,"fileDone":True}).count() 
+            cnt['delayfcnt'] = files.find({"applicationType":i,"delayed":True}).count() 
+            cnt['completedfcnt'] = files.find({"applicationType":i,"fileDone":False}).count() 
+            details[i]=cnt
+            
+        response = {"status":"1","message":details,"applist":applications}
+        return jsonify(response)
+    else:
+        return ("Post method not allowed")    
+    
+   
 
 @backendapp.route("/get_dept_stats",methods=["GET","POST"])
 def get_dept_stats():

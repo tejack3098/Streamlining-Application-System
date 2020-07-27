@@ -78,7 +78,7 @@
 
       <div class="col-sm">
         <p align='center' style='font-size:24px;font-weight:bold;top:50px;position:relative'>Overall Stats Pie Graph</p>
-        <div id="overall_stats_chart" style="position:relative;height: 250px; width: 100%;top:50px"></div>
+        <div id="overall_stats_chart" style="position:relative;height: 300px; width: 100%;top:50px"></div>
       </div>
 
       <div class="col-sm" >
@@ -86,6 +86,10 @@
         <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
         <div id='myDiv' style="width: 400px;height: 400px"><!-- Plotly chart will be drawn inside this DIV --></div>
       </div>
+          
+      </div>
+      
+       <div class="row justify-content-md-center shadow-sm p-3 mb-5 bg-white rounded font-weight-light" >
 
       <div class="col-sm-12">
         <div class ="main">
@@ -110,12 +114,26 @@
 
         </div>
       </div>
-    
+           
       </div>
+      
+      
+<div class="row justify-content-md-center shadow-sm p-3 mb-5 bg-white rounded font-weight-light" >     
+    <div class="col-sm-12">    
+        <div id="applications_chart" style="position:relative;top:20px"></div>  
+    </div>
+</div>      
+      
+<div class="row justify-content-md-center shadow-sm p-3 mb-5 bg-white rounded font-weight-light" >     
+    <div class="col-sm-12 " style="text-align: center">    
+        <div id="applications_cnt_pie" style="position:relative;width: 100%;top:20px"></div>  
+    </div>    
+</div>
+      
+
+          
 
 </div>
-
-
 
 
 
@@ -757,8 +775,105 @@ Plotly.newPlot('myDiv', data, layout);
 document.getElementsByClassName('modebar-container')[0].innerHTML="<p align='center' style='font-size:22px;font-weight:bold;top:50px;position:relative'>Overall Stats Bar Graph</p>";
 
 }
+    
+/****************Applications Charts ***********************************************************/
+function applications_chart(){
+  //console.log("current_employee_filter: "+dept);
+  $.get("{{url_for('backendapp.get_applications_stats')}}",{},
+                
+                function(response){
+                    
+                    console.log(response);
+                    if(response["status"]==="1"){ //message.ADC.completedfcnt message.ADC.processfcnt
+                        
+                        var applicationslist = response['applist'];
+                        var processcnt=[];
+                        var delayedcnt=[];
+                        var completedcnt=[];
+                        
+                        var countlist=[]
+                        
+                        applicationslist.forEach(function(app) {
+                            processcnt.push(response['message'][app]['processfcnt']);
+                            delayedcnt.push(response['message'][app]['delayfcnt']);
+                            completedcnt.push(response['message'][app]['completedfcnt']);
+                            
+                            countlist.push(response['message'][app]['processfcnt']+response['message'][app]['completedfcnt'])
+                            
+                        });
+                        
+                        
+                        function_for_applications_graph(applicationslist,processcnt,delayedcnt,completedcnt);
+                        function_for_applications_count(applicationslist,countlist);
+                        
+                    }            
+          
+              },"json");
+} 
+applications_chart();
+    
+function function_for_applications_graph(applicationslist,processcnt,delayedcnt,completedcnt){
+   
+    var trace1 = {
+        x: applicationslist,
+        y: processcnt,
+        name: 'Processing Files',
+        type: 'bar'
+    };
 
+    var trace2 = {
+        x: applicationslist,
+        y: delayedcnt,
+        name: 'Delayed Count',
+        type: 'bar',
+        marker:{color:' #e60000'}
+    };
+    
+    var trace3 = {
+        x: applicationslist,
+        y: completedcnt,
+        name: 'Completed Count',
+        type: 'bar'
+    };
 
+var data = [trace1, trace2, trace3];
+
+var layout = {title:{
+            text:'<b>Application Details Chart</b>',
+            font: {
+            size: 20
+            },
+            },barmode: 'stack'};
+
+Plotly.newPlot('applications_chart', data, layout);
+    
+/*    document.getElementsByClassName('modebar-container')[1].innerHTML="<p align='center' style='font-size:22px;font-weight:bold;top:50px;position:relative'>Overall Applications Bar Graph</p>";*/
+       
+}    
+
+function function_for_applications_count(applicationslist,countlist){
+    var data = [{
+        values: countlist,
+        labels: applicationslist,
+        type: 'pie'
+    }];
+
+    var layout = {
+        title:{
+            text:'<b>Applications Type Count</b>',
+            font:{
+                size:20
+            }
+        } ,
+        height: 400,
+        width: 500
+    };
+
+Plotly.newPlot('applications_cnt_pie', data, layout);
+   
+}
+    
+    
 </script>
 
 <!-- -->
