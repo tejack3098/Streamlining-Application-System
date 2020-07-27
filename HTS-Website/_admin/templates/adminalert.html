@@ -7,7 +7,7 @@
   <div class="modal-dialog  modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="messageModalCenterTitle">Message</h5>
+        <h5 class="modal-title" id="messageModalCenterTitle"><i class="fas fa-comment-alt fa-lg"> Message</i> </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -44,7 +44,7 @@
   <div class="modal-dialog  modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="detailsModalCenterTitle">Details</h5>
+        <h5 class="modal-title" id="detailsModalCenterTitle"><i class="fas fa-info-circle fa-lg"> Details</i></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -95,13 +95,13 @@
   
 
        <div class="container shadow p-3 mb-5 bg-white rounded">
-      <table class="table" id="notattendedtable" style="font-size: 18px;" >
+      <table class="table" id="notattendedtable" style="font-size: 18px; text-align: center " >
       <thead >
         <tr>
-          <th scope="col">Email </th>
-          <th scope="col">Time </th>
-          <th scope="col">Message </th>
-          <th scope="col">Action </th>
+          <th scope="col"><i class="fas fa-envelope"> Email</i></th>
+          <th scope="col"><i class="fas fa-clock"> Time</i></th>
+          <th scope="col"><i class="fas fa-comment-alt"> Message</i> </th>
+          <th scope="col"><i class="fas fa-marker" title="Mark Attended"> Mark</i></th>
          <!-- Not Attended table head--------------------------------------------------------------->
         </tr>
       </thead>
@@ -119,13 +119,13 @@
    <div class="tab-pane fade" id="attended" role="tabpanel" aria-labelledby="attended-tab">
        
      <div class="container shadow p-3 mb-5 bg-white rounded">
-      <table class="table" id="attendedtable" style="font-size: 18px;" >
+      <table class="table" id="attendedtable" style="font-size: 18px; text-align: center" >
       <thead >
         <tr>
-          <th scope="col">Email </th>
-          <th scope="col">Time Arrived</th>
-          <th scope="col">Details </th>
-          <th scope="col">Time Attended</th>
+          <th scope="col"><i class="fas fa-envelope"> Email</i></th>
+          <th scope="col"><i class="fas fa-clock"> Time Arrived</i></th>
+          <th scope="col"><i class="fas fa-info-circle "> Details</i></th>
+          <th scope="col"><i class="fas fa-clock"> Time Attended</i></th>
          <!-- Attended table head--------------------------------------------------------------->
         </tr>
       </thead>
@@ -233,7 +233,7 @@
                                 cell2.innerHTML = notattendedlist[i]['timeCreated'];
                                 cell3.innerHTML = '<button class="btn btn-primary" role="button" data-toggle="modal" data-target="#messageModal" onclick=\'loadMessage("'+notattendedlist[i]['emp_id']+'","'+message+'","'+timeCreated+'")\'>View</button>';
                                 /*console.log('<button class="btn btn-primary" role="button" data-toggle="modal" data-target="#messageModal" onclick=\'loadMessage("'+notattendedlist[i]['emp_id']+'","'+message+'","'+timeCreated+'")\'>View</button>');*/
-                                cell4.innerHTML = '<button type="button" class="btn btn-primary"'+ 'onclick=markAttended(this,"'+notattendedlist[i]['notificationID']+'")>Attended</button>';
+                                cell4.innerHTML = '<button type="button" class="btn btn-primary"'+ 'onclick=markAttended(this,"'+notattendedlist[i]['notificationID']+'")>Mark Attended</button>';
 
                             }
                         }

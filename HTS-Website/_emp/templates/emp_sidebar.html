@@ -16,6 +16,9 @@
      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 <!-- <script type="text/javascript" src="{{ url_for('static',filename='js/bootstrap.js')}}"></script>  -->
+    
+    <!--Script for all the font awsesome icons-->
+     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
    
   <style type="text/css">
     #processed{
@@ -63,7 +66,7 @@
     <!-- Notification -->
         <div style="">
         <ul class="cd-nav__sub-list mh-500" style="width: 400px; color: aliceblue; padding: 15px; max-height: 500px;overflow: auto;" id="notify">
-          <button style="margin: 10px;" onclick="markallread()"> Mark all Read</button>
+          <button style="margin: 10px;" onclick="markallread()"><i class="fas fa-envelope-open"> Mark all Read </i> </button>
         </ul>
         </div>
       </li>
@@ -78,8 +81,8 @@
         <ul class="cd-nav__sub-list" style="width: 300px;">
           <!--<li class="cd-nav__sub-item"><a href="#0">My Account</a></li>
           <li class="cd-nav__sub-item"><a href="#0">Edit Account</a></li>-->
-          <li class="cd-nav__sub-item" style="color: white; padding: -2px;"><a href="{{url_for('empapp.empProfile', email = email)}}">{{email}}</a></li>
-          <li  class="cd-nav__sub-item"><a href="{{url_for('empapp.emplogout', email = email)}}">Logout</a></li>
+          <li class="cd-nav__sub-item" style="color: white; padding: -2px;"><a href="{{url_for('empapp.empProfile', email = email)}}"><i class="fas fa-user-circle fa-lg">&nbsp;&nbsp;</i>{{email}}</a></li>
+          <li  class="cd-nav__sub-item"><a href="{{url_for('empapp.emplogout', email = email)}}"><i class="fas fa-sign-out-alt fa-lg">&nbsp;&nbsp;</i>Logout</a></li>
         </ul>
       </li>
     </ul>
@@ -106,7 +109,8 @@
           
           <ul class="cd-side__sub-list">
            <!-- <li class="cd-side__sub-item"><a aria-current="page" href="#0">All Notifications</a></li>-->
-            <li class="cd-side__sub-item"><a href="{{ url_for('empapp.empworkStatus', email = email)}}">Work Status</a></li>
+            <li class="cd-side__sub-item"><a href="{{ url_for('empapp.empworkStatus', email = email)}}">
+                <i class="fas fa-stream">&nbsp;&nbsp;</i>Work Status</a></li>
             <!--<li class="cd-side__sub-item"><a href="#0">Other</a></li>-->
           </ul>
         </li>

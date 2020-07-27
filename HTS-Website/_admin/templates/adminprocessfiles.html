@@ -1,27 +1,24 @@
 {% extends "admin_sidebar.html" %}
 {% block body %}
 
-
-    
-
-<body>
-  <style type="text/css">
+<style type="text/css">
     #error_show{
       display: none;
     }
-  </style>
-  <script src="https://code.jquery.com/jquery-git.js"></script>
-    <div class="container register-form">
+</style>
+  
+<script src="https://code.jquery.com/jquery-git.js"></script>
+
+    
+<body>
+  
+    <div class="container register-form" >
             <div class="form">
                 <div class="note">
                     <p>PROCESSING FILES</p>
                 </div>
 
                 <div class="form-content">
-
-
-
-
 
                   <div class="row justify-content-md-center shadow-sm p-3 mb-5 bg-white rounded font-weight-light" style="font-style:Andale ; font-size: 30px;">
         <select class="form-control" id="sel1" onchange="myFunction()" style="height: 45px">
@@ -32,56 +29,42 @@
                 <option>04</option> -->
               </select>
                   </div>
+                    
+                    <div class="row justify-content-md-center shadow-sm p-3 mb-5 bg-white rounded font-weight-light" style="font-style:Andale ; font-size: 30px;margin:auto">
+                        
+                        <!--Table-->
+                        
+                        <table class="table" id="worktable" style="font-size: 16px; text-align: center">
+		              <thead>
+                          <tr>
+                              <th scope="col"><i class="fas fa-file-alt" > File ID</i></th>
+                              <th scope="col"><i class="fas fa-clock" > Arrival Time</i></th>
+                              <th scope="col"><i class="fas fa-building" > Current Dept</i></th>
+                              <th scope="col"><i class="fas fa-user-tie" > Current Employee</i></th> 
+                          </tr>
+                            </thead>
+                            <tbody>
+		    
+                            </tbody>
+		              </table>        
+                    
+                    </div>
 
-
-
-
-                    <!--Table-->
-                        <div class="container shadow p-3 mb-5 bg-white rounded">
-		
-			<table class="table" id="worktable" style="font-size: 16px;">
-		  <thead>
-		    <tr>
-		      <th scope="col">FileID</th>
-		      <th scope="col">Arrival Time</th>
-		      <th scope="col">Current Dept</th>
-          <th scope="col">Current Employee</th> 
-
-
-		    </tr>
-		  </thead>
-		  <tbody>
-		    <!-- <tr>
-		      <th scope="row">id3u40</th>
-		      <td>11:34</td>
-		      <td>Dept Name</td>
-		      <td>delay time</td>
-		      <td><button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#staticBackdrop">Track</button></td>
-		    </tr> -->
-		  </tbody>
-		</table>
-
-</div>
+ 
 
 <div class="row justify-content-md-center shadow-sm p-3 mb-5 bg-white rounded font-weight-light" style="font-style:Andale ; font-size: 30px;margin:auto" id="error_show"><p align="center">No Records to Show</p></div>
-
-                    
+  
                     
                 </div>
             </div>
         </div>
-    
-
-    
-   
-
-
-
 </body>
-<!--Script for add new row for a file-->
-    <script>
 
-   function myFunction() {
+
+<!--Script for add new row for a file-->
+<script>
+
+function myFunction() {
   //var url=localStorage.getItem("url");
   //var xmlhttp = new XMLHttpRequest();
   var sel1 = document.getElementById("sel1").value;
@@ -136,14 +119,9 @@ console.log(table);
 
   
 }
-  myFunction(); 
+myFunction(); 
 
-
-
-
-
-
-  function loadDropDown()
+function loadDropDown()
 {
   var dropdown=document.getElementById("sel1");
   $.post("{{url_for('backendapp.get_dept_ids')}}",
@@ -174,5 +152,5 @@ console.log(table);
 }
 loadDropDown();
    
-    </script>
+</script>
 {% endblock %}

@@ -24,7 +24,7 @@
                             {
                                 console.log(element.innerHTML);
                                 //element.target.parentNode.removeEventListener;
-                                element.parentNode.innerHTML="Alerted";
+                                element.parentNode.innerHTML='<i class="fas fa-check-square"> Alerted</i>';
                             }
 
                         //alert(response);
@@ -153,13 +153,13 @@
                        cell3.innerHTML = '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Scan File</button>';
                        if(arrfiles[key]['alert']===false)
                            {
-                               cell4.innerHTML = '<button type="button" class="btn btn-primary"'+ 'onclick=alertAdmin(this,"'+key+email+'","'+email+'","'+key+'","'+from+'","'+time+'")>Alert</button>';
+                               cell4.innerHTML = '<button type="button" class="btn btn-primary"'+ 'onclick=alertAdmin(this,"'+key+email+'","'+email+'","'+key+'","'+from+'","'+time+'")>Send Alert</button>';
                                //cell4.addEventListener('click',alertAdmin());
                            
                            }
                        else
                            {
-                               cell4.innerHTML = "Alerted";
+                               cell4.innerHTML = '<i class="fas fa-check-square "> Alerted</i>';
                            }
                            //cell4.innerHTML = arrfiles[i]['recived']; 
                     }
@@ -270,19 +270,19 @@ function remarkfunct(){
       </div>
 
 
-      <table class="table" id="arrfiles" style="font-size: 18px">
+      <table class="table" id="arrfiles" style="font-size: 16px; text-align: center">
       <thead id="arrthead">
         <tr>
-          <th scope="col">FileID</th>
-          <th scope="col">Arrival Time</th>
-          <th scope="col">Received</th>
-          <th scope="col">Not Received</th>
+          <th scope="col"><i class="fas fa-file-alt" > File ID</i></th>
+          <th scope="col"><i class="fas fa-clock" > Arrival Time</i></th>
+          <th scope="col"><i class="fas fa-qrcode" > Scan File</i></th>
+          <th scope="col"><i class="fas fa-exclamation-triangle"> Not Received</i></th>
 
         </tr>
       </thead>
       <tbody id='workTbdy'>
         <tr>
-          <td id="loading">Loading...</td>
+          <td id="loading"><i class="fas fa-spinner fa-lg"> Loading...</i></td>
         </tr>
   <!--      <tr>
           <th scope="row">id3u40</th>
@@ -303,13 +303,13 @@ function remarkfunct(){
       </div>
 
 
-      <table class="table" id="worktable" style="font-size: 18px;">
+      <table class="table" id="worktable" style="font-size: 18px; text-align: center">
       <thead id="processthead">
         <tr>
-          <th scope="col">FileID</th>
-          <th scope="col">Arrival Time</th>
-          <th scope="col">Forward</th>
-          <th scope="col">Delay</th>
+          <th scope="col"><i class="fas fa-file-alt" > File ID</i></th>
+          <th scope="col"><i class="fas fa-clock" > Arrival Time</i></th>
+          <th scope="col"><i class="fas fa-share" > Forward</i></th>
+          <th scope="col"><i class="fas fa-clock" > Delay</i></th>
 
         </tr>
       </thead>
@@ -332,13 +332,13 @@ function remarkfunct(){
       </div>
 
 
-      <table class="table" id="comptable" style="font-size: 18px;">
+      <table class="table" id="comptable" style="font-size: 18px; text-align: center">
       <thead id="comthead">
         <tr>
-          <th scope="col">FileID</th>
-          <th scope="col">Arrival Time</th>
-          <th scope="col">Time Completed</th>
-          <th scope="col">Delay</th>
+          <th scope="col"><i class="fas fa-file-alt" > File ID</i></th>
+          <th scope="col"><i class="fas fa-clock" > Arrival Time</i></th>
+          <th scope="col"><i class="fas fa-hourglass-end" > Time Completed</i></th>
+          <th scope="col"><i class="fas fa-clock" > Delay</i></th>
 
         </tr>
       </thead>
@@ -366,7 +366,7 @@ function remarkfunct(){
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Forwarded To Next Stage</h5>
+          <h5 class="modal-title" id="staticBackdropLabel"><i class="fas fa-share fa-lg" >Forwarded To Next Stage</i></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -378,7 +378,7 @@ function remarkfunct(){
             <!-- remark ip-->
             
                 <div class="form-group">
-                                 <label for="remark">Remark:</label>
+                                 <label for="remark"><i class="fas fa-sticky-note "> Remark:</i></label>
                                 <!--<input type="text" id="remark" class="form-control" placeholder="Remark"  value="" required />-->
                                 <textarea class="form-control" rows="5" id="remark"  value="" required></textarea>
                     </div>
@@ -403,7 +403,7 @@ function remarkfunct(){
   <div class="modal-dialog  modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">Scan File Barcode</h5>
+        <h5 class="modal-title" id="exampleModalCenterTitle"><i class="fas fa-qrcode fa-lg"> Scan File Barcode</i></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
