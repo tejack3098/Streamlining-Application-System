@@ -1,11 +1,53 @@
 {% extends "admin_sidebar.html" %}
 {% block body %}
 
-<style type="text/css">
-  #show_no_result{
-    display: none;
-  }
-</style>
+
+<!----Attended Modal------>
+
+<div class="modal fade" id="stagedetailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="detailsModalCenterTitle">Stage Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body row" id="detailsContainer"  style="padding-bottom: 1rem;padding-left:3rem;padding-right: 3rem;">
+          
+          
+        <div class="container shadow p-3 mb-5 bg-white rounded">
+      <table class="table" id="stageDetailstable" style="font-size: 18px;">
+      <thead>
+        <tr>
+          <th scope="col">Stage No</th>
+          <th scope="col">Stage ID</th>
+          <th scope="col">No. of Days</th>
+
+        </tr>
+      </thead>
+      <tbody id='stageTablebody'>
+        <tr>
+          <th scope="row">id3u40</th>
+          <td>11:34</td>
+          <td><button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#staticBackdrop">Scan</button></td>
+          <td>--</td>
+        </tr> 
+      </tbody>
+    </table>
+
+
+     </div>  
+      </div>
+      <div class="modal-footer text-center">
+       <button type="button" class="btn btn-success" data-dismiss="modal">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!----AttendedModal------>
+
 
 
 <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -43,25 +85,6 @@
         </tr> -->
       </tbody>
     </table>
-
-      <button id="myBtn" style="display: none;"></button>
-<!-- ye button nhi hoga to javascript problem dega-->
-<!-- The Modal -->
-<div id="myModal" class="modalt" >
-
-  <!-- Modal content -->
-  <div class="modal-contentt" style="background-color: gray;">
-    <span id= "span_close" class="close" onclick="span_close()"></span>
-    <div class="timelinet" id="time"></div>
-  </div>
-
-</div>
-
-<div class="col-sm shadow p-3 mb-5 bg-white rounded" style="margin-left: 10px;" id="show_no_result">
-  
-</div>
-
-
 
 
      </div>
@@ -154,77 +177,87 @@
 </div>
 
 
-<script>
-        
-//  var url= localStorage.getItem("url");   
+<script>  
+     
+      
+    
            
   function loadapplications(){
       var table = document.getElementById("apptable").getElementsByTagName('tbody')[0];
       table.innerHTML="";
-      
-       var elem =document.getElementById('time');
-      
-      console.log("calllled");
+       
+       console.log("calllled");
 
 
        $.post("{{url_for('backendapp.get_app_types')}}",
                 
-                function(response){
-                  //check if what response is   
-                    console.log(response);
-                   var applist = response["appids"];
-                   console.log(applist[0]['stageList'][0]['dept_id']);
-                    
-                    var codeblock="";
+            function(response){
+                //check if what response is   
+                console.log(response);
+                var applist = response["appids"];
  
                     for (i = 0; i < applist.length; i++) {
-
-                      
-                        //console.log(currFiles[i]['fid']);
+                        
+                        
+                        
                         var row = table.insertRow(0);
                         var cell1 = row.insertCell(0);
                         var cell2 = row.insertCell(1);
                         var cell3 = row.insertCell(2);
                         
-                        
                         cell1.innerHTML = applist[i]['appid'];
-                        cell2.innerHTML = applist[i]['appname'];
-                        cell3.innerHTML = '<button id="myBtn1" class="btn btn-primary" onclick="modal_display()">Stage Details</button>'; 
-
-                        var stage_list = applist[i]['stageList'];
-                        console.log(stage_list);
-
-        
-        //var not_scaned = response["lastScanTime"]
+                        cell2.innerHTML = applist[i]['appname'];//appids[0].stageList[0].dept_id
                         
-             
-       
-            for (var j = 0; j < stage_list.length; j++) {
-               console.log(stage_list.length);
-
-              if(j%2==0)
-                    {
-                      codeblock = codeblock+'<div class="containert leftt"><div class="contentt"><p><b>Department ID:'+stage_list[j]['dept_id']+'</b></p><p><b>No. Of Days: </b>'+stage_list[j]['no_of_days']+'</p></div></div>';
-                  }
-                else
-                  {
-                  codeblock = codeblock+'<div class="containert rightt"><div class="contentt"><p><b>Department ID:'+stage_list[j]['dept_id']+'</b></p><p><b>No. Of Days: </b>'+stage_list[j]['no_of_days']+'</p></div></div>';
-                 }
-                  
-              }
-
-              elem.innerHTML=codeblock;
-
-
-
- }
-                    
-                    //alert(response);
-                
-              },"json");
+                        
+                        var btn = document.createElement("button");
+                        btn.innerHTML ='View';
+                        btn.classList.add("btn", "btn-primary");
+                        btn.setAttribute("role", "button");
+                        btn.setAttribute("data-toggle", "modal");
+                        btn.setAttribute("data-target", "#stagedetailsModal");
+                        
+                        (function () {
+                            var stage_list =JSON.stringify(applist[i]['stageList']); 
+                            console.log(stage_list);
+                            btn.addEventListener("click", function() {  loadStageDetails(stage_list); }, false);
+                            
+                        }()); // immediate invocation
+                        
+                        cell3.append(btn);
+    
+                    }   
+       },"json");
   
 }
-    loadapplications();
+    
+loadapplications();
+    
+    
+function loadStageDetails(stage_list)
+    {
+        var stagetable = document.getElementById("stageDetailstable").getElementsByTagName('tbody')[0];
+        stagetable.innerHTML="";
+        var stageobj = JSON.parse(stage_list);
+        
+       
+        for (i = 0; i < stageobj.length ; i++) {
+
+            var row = stagetable.insertRow();
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+
+            cell1.innerHTML = i;
+            cell2.innerHTML = stageobj[i]['dept_id'];//appids[0].stageList[0].dept_id
+            cell3.innerHTML = stageobj[i]['no_of_days'];//appids[0].stageList[0].no_of_days
+    
+            }
+            
+    }
+    
+    
+    
+    
         
     var dept_id_count = 0;    
     function loaddepts(){
@@ -292,13 +325,10 @@
     }
 
 
-    </script>
+</script>
 
 
-
-
-
-  		
+		
 <script type="text/javascript">
   document.getElementById("appid").addEventListener("focusout", check_deptId);
   var deptValid = false;
@@ -514,45 +544,6 @@ function enable_add(){
         });
 </script>	
 
-<script>
-// Get the modal
-var modal = document.getElementById("myModal");
 
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
-
-// Get the <span> element that closes the modal
-var span1 = document.getElementById("span_close");
-
-// When the user clicks the button, open the modal 
-btn.onclick = function() {
-  console.log('gsghjshvfkjhsf');
-  modal.style.display = "block";
-}
-
-function modal_display(){
-  
-  modal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-
-span1.onclick = function() {
-  modal.style.display = "none";
-}
-
-function span_close(){
-  console.log('gsghjshvfkjhsf');
-  modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
-</script>
 
 {% endblock %}
