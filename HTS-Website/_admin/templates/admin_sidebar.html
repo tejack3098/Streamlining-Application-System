@@ -385,13 +385,13 @@
         }
         
        function change_lang(){
-           Overview.textContent = language.nep.overview;
-           AddEmp.textContent = language.nep.add_emp;
-           App.textContent = language.nep.applications;
-           Dept.textContent = language.nep.departments;
-           AddFile.textContent = language.nep.add_file;
-           EmpStat.textContent = language.nep.emp_stats;
-           Calender.textContent = language.nep.calender;
+           Overview.innerHTML= language.nep.overview;
+           AddEmp.innerHTML = '<i class="fas fa-user-tie">&nbsp;&nbsp;</i>'+ language.nep.add_emp;
+           App.innerHTML = '<i class="fas fa-envelope">&nbsp;&nbsp;</i>'+language.nep.applications;
+           Dept.innerHTML = '<i class="fas fa-building">&nbsp;&nbsp;</i>'+language.nep.departments;
+           AddFile.innerHTML = '<i class="fas fa-file-alt">&nbsp;&nbsp;</i>'+language.nep.add_file;
+           EmpStat.innerHTML = '<i class="fas fa-chart-bar">&nbsp;&nbsp;</i>'+language.nep.emp_stats;
+           Calender.innerHTML = '<i class="fas fa-calendar-alt">&nbsp;&nbsp;</i>'+language.nep.calender;
            SeachFile.textContent = language.nep.search_file;
            ProFiles.textContent = language.nep.process_files;
            DelayFiles.textContent = language.nep.delay_files;
