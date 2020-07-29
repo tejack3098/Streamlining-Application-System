@@ -1457,9 +1457,9 @@ def get_applications_stats():
         details={}
         for i in applications :
             cnt={}
-            cnt['processfcnt'] = files.find({"applicationType":i,"fileDone":True}).count() 
+            cnt['processfcnt'] = files.find({"applicationType":i,"fileDone":False}).count() 
             cnt['delayfcnt'] = files.find({"applicationType":i,"delayed":True}).count() 
-            cnt['completedfcnt'] = files.find({"applicationType":i,"fileDone":False}).count() 
+            cnt['completedfcnt'] = files.find({"applicationType":i,"fileDone":True}).count() 
             details[i]=cnt
             
         response = {"status":"1","message":details,"applist":applications}
