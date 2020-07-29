@@ -22,21 +22,13 @@
   "email_id": "tejas.choudhari15@gmail.com",
   "dept_id": "01",
   "incomingFiles": {
-    "ADC48499": {
-      "time": {
-        "$date": "2020-01-28T17:03:57.485Z"
-      },
-      "remark": "",
-      "from": "OLd therefore Nothing",
-      "alert": false
-    },
-    "ADC36419": {
+    "ADC08644": {
       "time": {
         "$date": "2020-01-29T14:47:56.364Z"
       },
       "remark": "",
-      "from": "OLd therefore Nothing",
-      "alert": false
+      "from": "Bcode generation department",
+      "alert": true
     },
     "PAN06966": {
       "time": {
@@ -44,14 +36,14 @@
       },
       "from": "OLd therefore Nothing",
       "remark": "ccc",
-      "alert": false
+      "alert": true
     },
-    "ADC1580629269824328": {
+    "ADC1580736059": {
       "time": {
-        "$date": "2020-02-02T13:11:09.824Z"
+        "$date": "2020-02-03T18:50:59.017Z"
       },
+      "from": "Barcode Generation Dept",
       "remark": "",
-      "from": "OLd therefore Nothing",
       "alert": false
     }
   },
@@ -209,6 +201,16 @@
       "timeCompleted": {
         "$date": "2020-02-01T01:26:38.392Z"
       }
+    },
+    {
+      "fid": "ADC29288",
+      "delay": 0,
+      "timeArrived": {
+        "$date": "2020-02-03T14:12:48.992Z"
+      },
+      "timeCompleted": {
+        "$date": "2020-02-03T14:17:56.501Z"
+      }
     }
   ]
 },{
@@ -218,29 +220,13 @@
   "email_id": "chavanrachit16e@student.mes.ac.in",
   "dept_id": "01",
   "incomingFiles": {
-    "ADC14734": {
-      "time": {
-        "$date": "2020-01-29T14:37:38.147Z"
-      },
-      "remark": "",
-      "from": "OLd therefore Nothing",
-      "alert": false
-    },
-    "ADC26872": {
-      "time": {
-        "$date": "2020-01-29T14:39:40.268Z"
-      },
-      "remark": "",
-      "from": "OLd therefore Nothing",
-      "alert": false
-    },
     "ADC65953": {
       "time": {
         "$date": "2020-01-29T14:46:08.659Z"
       },
       "remark": "",
       "from": "OLd therefore Nothing",
-      "alert": false
+      "alert": true
     },
     "ADC63358": {
       "time": {
@@ -266,12 +252,12 @@
       "from": "OLd therefore Nothing",
       "alert": false
     },
-    "ADC78504": {
+    "ADC28029": {
       "time": {
         "$date": "2020-01-29T19:57:38.785Z"
       },
       "remark": "",
-      "from": "OLd therefore Nothing",
+      "from": "Bcode generation Department.",
       "alert": false
     }
   },
@@ -281,6 +267,18 @@
       "fid": "PAN99384",
       "timeArrived": {
         "$date": "2020-01-30T12:44:34.971Z"
+      }
+    },
+    {
+      "fid": "ADC56610",
+      "timeArrived": {
+        "$date": "2020-02-03T14:37:36.982Z"
+      }
+    },
+    {
+      "fid": "ADC64216",
+      "timeArrived": {
+        "$date": "2020-02-03T14:37:49.099Z"
       }
     }
   ],
@@ -439,6 +437,16 @@
       "timeCompleted": {
         "$date": "2020-02-01T01:55:04.020Z"
       }
+    },
+    {
+      "fid": "ADC29288",
+      "delay": 0,
+      "timeArrived": {
+        "$date": "2020-02-03T14:20:14.674Z"
+      },
+      "timeCompleted": {
+        "$date": "2020-02-03T14:21:04.559Z"
+      }
     }
   ]
 },{
@@ -514,6 +522,16 @@
     }
   },
   "outgoingFiles": [],
+  "currFiles": [],
+  "prevFiles": []
+},{
+  "_id": {
+    "$oid": "5e381dcaa8701a23db8a7eb7"
+  },
+  "email_id": "tejas.choudhari158@gmail.com",
+  "dept_id": "123",
+  "incomingFiles": {},
+  "outgoingFiles": {},
   "currFiles": [],
   "prevFiles": []
 }]

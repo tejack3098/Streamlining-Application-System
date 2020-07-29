@@ -8,8 +8,8 @@
     "$date": "2019-02-24T17:07:13.566Z"
   },
   "fileDone": true,
-  "currDept": null,
-  "currEmp": null,
+  "currDept": "02",
+  "currEmp": "shaileshgupta596@gmail.com",
   "delayed": false,
   "delayedDays": 0,
   "expectedTimeline": {
@@ -53,15 +53,33 @@
       },
       "remark": "gg",
       "delay": 0
+    },
+    {
+      "deptID": "02",
+      "empID": "shaileshgupta596@gmail.com",
+      "timeArrived": {
+        "$date": "2020-02-09T13:44:56.599Z"
+      },
+      "remark": "",
+      "delay": 0
+    },
+    {
+      "deptID": "02",
+      "empID": "shaileshgupta596@gmail.com",
+      "timeArrived": {
+        "$date": "2020-02-09T13:45:05.565Z"
+      },
+      "remark": "",
+      "delay": 0
     }
   ],
   "firstDept": "01",
   "lastDept": "02",
   "delayNotificationSent": null,
   "lastScanTime": {
-    "$date": "2020-02-01T01:42:48.716Z"
+    "$date": "2020-02-09T13:45:05.565Z"
   },
-  "scanned": false,
+  "scanned": true,
   "prevDept": "02",
   "prevEmp": "shaileshgupta596@gmail.com"
 },{
@@ -130,12 +148,12 @@
   "timeCreated": {
     "$date": "2020-01-25T15:55:59.619Z"
   },
-  "fileDone": false,
-  "currDept": "01",
-  "currEmp": "chavanrachit16e@student.mes.ac.in",
-  "prevDept": "02",
-  "prevEmp": "shaileshgupta596@gmail.com",
-  "scanned": true,
+  "fileDone": true,
+  "currDept": null,
+  "currEmp": null,
+  "prevDept": "01",
+  "prevEmp": "chavanrachit16e@student.mes.ac.in",
+  "scanned": false,
   "delayed": false,
   "delayedDays": 0,
   "expectedTimeline": {
@@ -148,10 +166,10 @@
   },
   "expectedTimelineDuplicate": {
     "02": {
-      "$date": "2020-01-30T15:55:59.619Z"
+      "$date": "2020-02-11T15:55:59.619Z"
     },
     "01": {
-      "$date": "2020-02-05T15:55:59.619Z"
+      "$date": "2020-02-01T15:55:59.619Z"
     }
   },
   "stageList": [
@@ -169,8 +187,8 @@
       "timeArrived": {
         "$date": "2020-01-30T12:44:34.971Z"
       },
-      "remark": "",
-      "delay": 0
+      "remark": "All good",
+      "delay": 8
     }
   ],
   "firstDept": "02",
@@ -254,7 +272,7 @@
   "prevEmp": null,
   "scanned": false,
   "delayed": true,
-  "delayedDays": 3,
+  "delayedDays": 4,
   "expectedTimeline": {
     "02": {
       "$date": "2020-01-30T16:12:49.948Z"
@@ -330,16 +348,16 @@
   "_id": {
     "$oid": "5e301c0d17726d7711b904b7"
   },
-  "fid": "ADC16611",
+  "fid": "ADC29288",
   "applicationType": "ADC",
   "timeCreated": {
     "$date": "2020-01-28T17:03:33.166Z"
   },
-  "fileDone": false,
-  "currDept": "01",
-  "currEmp": "tejas.choudhari15@gmail.com",
-  "prevDept": null,
-  "prevEmp": null,
+  "fileDone": true,
+  "currDept": null,
+  "currEmp": null,
+  "prevDept": "02",
+  "prevEmp": "shaileshgupta596@gmail.com",
   "scanned": false,
   "delayed": false,
   "delayedDays": 0,
@@ -359,11 +377,32 @@
       "$date": "2020-02-05T17:03:33.166Z"
     }
   },
-  "stageList": [],
+  "stageList": [
+    {
+      "deptID": "01",
+      "empID": "tejas.choudhari15@gmail.com",
+      "timeArrived": {
+        "$date": "2020-02-03T14:12:48.992Z"
+      },
+      "remark": "All good 3 feb",
+      "delay": 0
+    },
+    {
+      "deptID": "02",
+      "empID": "shaileshgupta596@gmail.com",
+      "timeArrived": {
+        "$date": "2020-02-03T14:20:14.674Z"
+      },
+      "remark": "done 3 feb",
+      "delay": 0
+    }
+  ],
   "firstDept": "01",
   "lastDept": "02",
   "delayNotificationSent": null,
-  "lastScanTime": "Not Scanned yet."
+  "lastScanTime": {
+    "$date": "2020-02-03T14:20:14.674Z"
+  }
 },{
   "_id": {
     "$oid": "5e301c2517726d7711b904b8"
@@ -374,11 +413,11 @@
     "$date": "2020-01-28T17:03:57.485Z"
   },
   "fileDone": true,
-  "currDept": null,
-  "currEmp": null,
+  "currDept": "01",
+  "currEmp": "chavanrachit16e@student.mes.ac.in",
   "prevDept": "02",
   "prevEmp": "shaileshgupta596@gmail.com",
-  "scanned": false,
+  "scanned": true,
   "delayed": false,
   "delayedDays": 0,
   "expectedTimeline": {
@@ -415,13 +454,22 @@
       },
       "remark": "Abhay Chutya",
       "delay": 2
+    },
+    {
+      "deptID": "01",
+      "empID": "chavanrachit16e@student.mes.ac.in",
+      "timeArrived": {
+        "$date": "2020-02-03T14:37:49.099Z"
+      },
+      "remark": "",
+      "delay": 0
     }
   ],
   "firstDept": "01",
   "lastDept": "02",
   "delayNotificationSent": null,
   "lastScanTime": {
-    "$date": "2020-01-29T21:03:29.601Z"
+    "$date": "2020-02-03T14:37:49.099Z"
   }
 },{
   "_id": {
@@ -591,7 +639,7 @@
   "_id": {
     "$oid": "5e314b5a2609a2a4839ae62d"
   },
-  "fid": "ADC14734",
+  "fid": "ADC64216",
   "applicationType": "ADC",
   "timeCreated": {
     "$date": "2020-01-29T14:37:38.147Z"
@@ -688,7 +736,7 @@
   "_id": {
     "$oid": "5e314bd42609a2a4839ae62f"
   },
-  "fid": "ADC26872",
+  "fid": "ADC56610",
   "applicationType": "ADC",
   "timeCreated": {
     "$date": "2020-01-29T14:39:40.268Z"
@@ -698,7 +746,7 @@
   "currEmp": "chavanrachit16e@student.mes.ac.in",
   "prevDept": null,
   "prevEmp": null,
-  "scanned": false,
+  "scanned": true,
   "delayed": false,
   "delayedDays": 0,
   "expectedTimeline": {
@@ -717,11 +765,23 @@
       "$date": "2020-02-06T14:39:40.268Z"
     }
   },
-  "stageList": [],
+  "stageList": [
+    {
+      "deptID": "01",
+      "empID": "chavanrachit16e@student.mes.ac.in",
+      "timeArrived": {
+        "$date": "2020-02-03T14:37:36.982Z"
+      },
+      "remark": "",
+      "delay": 0
+    }
+  ],
   "firstDept": "01",
   "lastDept": "02",
   "delayNotificationSent": null,
-  "lastScanTime": "Not Scanned yet."
+  "lastScanTime": {
+    "$date": "2020-02-03T14:37:36.982Z"
+  }
 },{
   "_id": {
     "$oid": "5e314d4b2609a2a4839ae630"
@@ -1193,7 +1253,7 @@
   "_id": {
     "$oid": "5e31965a78ad5b5022a4c52a"
   },
-  "fid": "ADC78504",
+  "fid": "ADC28029",
   "applicationType": "ADC",
   "timeCreated": {
     "$date": "2020-01-29T19:57:38.785Z"
@@ -1267,7 +1327,7 @@
       "timeArrived": {
         "$date": "2020-01-29T22:07:07.235Z"
       },
-      "remark": "Abhay Chutya...........",
+      "remark": "All good. Pay special attention to credit score.",
       "delay": 0
     },
     {
@@ -1398,6 +1458,44 @@
   "stageList": [],
   "firstDept": "02",
   "lastDept": "01",
+  "delayNotificationSent": null,
+  "lastScanTime": "Not Scanned yet."
+},{
+  "_id": {
+    "$oid": "5e381e3ba8701a23db8a7eb9"
+  },
+  "fid": "ADC1580736059",
+  "applicationType": "ADC",
+  "timeCreated": {
+    "$date": "2020-02-03T18:50:59.017Z"
+  },
+  "fileDone": false,
+  "currDept": "01",
+  "currEmp": "tejas.choudhari15@gmail.com",
+  "prevDept": null,
+  "prevEmp": null,
+  "scanned": false,
+  "delayed": false,
+  "delayedDays": 0,
+  "expectedTimeline": {
+    "01": {
+      "$date": "2020-02-07T18:50:59.017Z"
+    },
+    "02": {
+      "$date": "2020-02-11T18:50:59.017Z"
+    }
+  },
+  "expectedTimelineDuplicate": {
+    "01": {
+      "$date": "2020-02-07T18:50:59.017Z"
+    },
+    "02": {
+      "$date": "2020-02-11T18:50:59.017Z"
+    }
+  },
+  "stageList": [],
+  "firstDept": "01",
+  "lastDept": "02",
   "delayNotificationSent": null,
   "lastScanTime": "Not Scanned yet."
 }]

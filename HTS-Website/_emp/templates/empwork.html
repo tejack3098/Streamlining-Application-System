@@ -181,7 +181,7 @@
   bar = document.getElementById("result").textContent;
  
   var d = new Date();
-  var dept_id = "{{ session.get(email+'_dept_id')}}";
+  var dept_id = "{{ session.get(email[:-10]+'_dept_id')}}";
 console.log("DEPARTMENT ID");
 console.log(dept_id);
   var email = '{{email}}';

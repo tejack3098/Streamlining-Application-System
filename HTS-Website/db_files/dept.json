@@ -7,10 +7,18 @@
   "timeCreated": {
     "$date": "2020-01-24T17:36:44.941Z"
   },
-  "count": 4,
+  "count": 5,
   "delayedCount": 0,
-  "completedCount": 14,
-  "currFiles": [],
+  "completedCount": 15,
+  "currFiles": [
+    {
+      "fid": "ADC56610",
+      "timeArrived": {
+        "$date": "2020-02-03T14:37:36.982Z"
+      },
+      "emp_id": "chavanrachit16e@student.mes.ac.in"
+    }
+  ],
   "delayedFiles": [],
   "prevFiles": [
     {
@@ -135,13 +143,23 @@
     },
     {
       "fid": "ADC48789",
-      "emp_id": "tejas.choudhari15@gmail.com",
       "delay": 0,
       "timeArrived": {
         "$date": "2020-02-01T01:26:29.611Z"
       },
       "timeCompleted": {
         "$date": "2020-02-01T01:26:38.392Z"
+      }
+    },
+    {
+      "fid": "ADC29288",
+      "emp_id": "tejas.choudhari15@gmail.com",
+      "delay": 0,
+      "timeArrived": {
+        "$date": "2020-02-03T14:12:48.992Z"
+      },
+      "timeCompleted": {
+        "$date": "2020-02-03T14:17:56.501Z"
       }
     }
   ]
@@ -154,9 +172,9 @@
   "timeCreated": {
     "$date": "2020-01-24T17:36:54.176Z"
   },
-  "count": 11,
+  "count": 12,
   "delayedCount": 0,
-  "completedCount": 12,
+  "completedCount": 13,
   "currFiles": [],
   "delayedFiles": [],
   "prevFiles": [
@@ -272,7 +290,6 @@
     },
     {
       "fid": "ADC10885",
-      "emp_id": "shaileshgupta596@gmail.com",
       "delay": 0,
       "timeArrived": {
         "$date": "2020-02-01T01:54:54.687Z"
@@ -280,111 +297,17 @@
       "timeCompleted": {
         "$date": "2020-02-01T01:55:04.020Z"
       }
+    },
+    {
+      "fid": "ADC29288",
+      "emp_id": "shaileshgupta596@gmail.com",
+      "delay": 0,
+      "timeArrived": {
+        "$date": "2020-02-03T14:20:14.674Z"
+      },
+      "timeCompleted": {
+        "$date": "2020-02-03T14:21:04.559Z"
+      }
     }
   ]
-},{
-  "_id": {
-    "$oid": "5e30249f86df1d57bfd28625"
-  },
-  "dept_id": "333",
-  "dept_name": "HR1",
-  "timeCreated": {
-    "$date": "2020-01-28T17:40:07.154Z"
-  },
-  "count": 0,
-  "delayedCount": 0,
-  "completedCount": 0,
-  "currFiles": [],
-  "delayedFiles": [],
-  "prevFiles": []
-},{
-  "_id": {
-    "$oid": "5e3024b486df1d57bfd28626"
-  },
-  "dept_id": "44",
-  "dept_name": "HR1",
-  "timeCreated": {
-    "$date": "2020-01-28T17:40:28.772Z"
-  },
-  "count": 0,
-  "delayedCount": 0,
-  "completedCount": 0,
-  "currFiles": [],
-  "delayedFiles": [],
-  "prevFiles": []
-},{
-  "_id": {
-    "$oid": "5e30258386df1d57bfd28627"
-  },
-  "dept_id": "55",
-  "dept_name": "sxsd",
-  "timeCreated": {
-    "$date": "2020-01-28T17:43:55.900Z"
-  },
-  "count": 0,
-  "delayedCount": 0,
-  "completedCount": 0,
-  "currFiles": [],
-  "delayedFiles": [],
-  "prevFiles": []
-},{
-  "_id": {
-    "$oid": "5e30263286df1d57bfd28628"
-  },
-  "dept_id": "555",
-  "dept_name": "HR1",
-  "timeCreated": {
-    "$date": "2020-01-28T17:46:50.956Z"
-  },
-  "count": 0,
-  "delayedCount": 0,
-  "completedCount": 0,
-  "currFiles": [],
-  "delayedFiles": [],
-  "prevFiles": []
-},{
-  "_id": {
-    "$oid": "5e343d9bd2fa4d6245bedbeb"
-  },
-  "dept_id": "3677",
-  "dept_name": "tejack",
-  "timeCreated": {
-    "$date": "2020-01-31T20:15:47.980Z"
-  },
-  "count": 0,
-  "delayedCount": 0,
-  "completedCount": 0,
-  "currFiles": [],
-  "delayedFiles": [],
-  "prevFiles": []
-},{
-  "_id": {
-    "$oid": "5e343db4d2fa4d6245bedbec"
-  },
-  "dept_id": "r",
-  "dept_name": "df",
-  "timeCreated": {
-    "$date": "2020-01-31T20:16:12.466Z"
-  },
-  "count": 0,
-  "delayedCount": 0,
-  "completedCount": 0,
-  "currFiles": [],
-  "delayedFiles": [],
-  "prevFiles": []
-},{
-  "_id": {
-    "$oid": "5e343e494903f5e604e246a8"
-  },
-  "dept_id": "3435656",
-  "dept_name": "asaads",
-  "timeCreated": {
-    "$date": "2020-01-31T20:18:41.429Z"
-  },
-  "count": 0,
-  "delayedCount": 0,
-  "completedCount": 0,
-  "currFiles": [],
-  "delayedFiles": [],
-  "prevFiles": []
 }]

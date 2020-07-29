@@ -56,4 +56,16 @@
   "date_created": {
     "$date": "2020-01-24T16:38:00.326Z"
   }
+},{
+  "_id": {
+    "$oid": "5e381dcaa8701a23db8a7eb6"
+  },
+  "email_id": "tejas.choudhari158@gmail.com",
+  "password": "123",
+  "fname": "Tejas",
+  "lname": "Choudhari",
+  "dept_id": "123",
+  "date_created": {
+    "$date": "2020-02-03T18:49:06.542Z"
+  }
 }]
