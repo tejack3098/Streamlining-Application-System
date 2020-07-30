@@ -1,0 +1,66 @@
+[{
+  "_id": {
+    "$oid": "5f21a99a225b7e3f201d4d0e"
+  },
+  "email_id": "tejas.choudhari15@gmail.com",
+  "password": "123",
+  "fname": "Tejas",
+  "lname": "Choudhari",
+  "mno": "8879385690",
+  "dept_id": "01",
+  "date_created": {
+    "$date": "2020-07-29T22:23:46.083Z"
+  }
+},{
+  "_id": {
+    "$oid": "5f21aa08225b7e3f201d4d10"
+  },
+  "email_id": "shaileshgupta596@gmail.com",
+  "password": "123",
+  "fname": "Shailesh",
+  "lname": "Gupta",
+  "mno": "8452042116",
+  "dept_id": "02",
+  "date_created": {
+    "$date": "2020-07-29T22:25:36.486Z"
+  }
+},{
+  "_id": {
+    "$oid": "5f21aa5a225b7e3f201d4d14"
+  },
+  "email_id": "chavanrachit16e@student.mes.ac.in",
+  "password": "123",
+  "fname": "Rahul",
+  "lname": "Chavan",
+  "mno": "7045815501",
+  "dept_id": "01",
+  "date_created": {
+    "$date": "2020-07-29T22:26:58.374Z"
+  }
+},{
+  "_id": {
+    "$oid": "5f21aa7a225b7e3f201d4d16"
+  },
+  "email_id": "abygpta@gmail.com",
+  "password": "123",
+  "fname": "Abhay",
+  "lname": "Gupta",
+  "mno": "7506303749",
+  "dept_id": "02",
+  "date_created": {
+    "$date": "2020-07-29T22:27:30.318Z"
+  }
+},{
+  "_id": {
+    "$oid": "5f22636b225b7e3684fac97f"
+  },
+  "email_id": "sahilkadu12@gmail.com",
+  "password": "123",
+  "fname": "SAHIL",
+  "lname": "Choudhari",
+  "mno": "9930894939",
+  "dept_id": "02",
+  "date_created": {
+    "$date": "2020-07-30T11:36:35.922Z"
+  }
+}]

@@ -1,0 +1,29 @@
+[{
+  "_id": {
+    "$oid": "5f21b102225b7e04f0ad2a91"
+  },
+  "notificationID": "PAN1596042204shaileshgupta596@gmail.com",
+  "emp_id": "shaileshgupta596@gmail.com",
+  "message": "shaileshgupta596@gmail.com has not received File: PAN1596042204 sent from Barcode_Generation_Dept at 2020-07-29 22:33:24 !",
+  "timeCreated": {
+    "$date": "2020-07-29T22:55:22.643Z"
+  },
+  "read": true,
+  "timeAttended": {
+    "$date": "2020-07-30T15:03:02.444Z"
+  }
+},{
+  "_id": {
+    "$oid": "5f22a9a5225b7e548c4c2532"
+  },
+  "notificationID": "PAN1596106351shaileshgupta596@gmail.com",
+  "emp_id": "shaileshgupta596@gmail.com",
+  "message": "shaileshgupta596@gmail.com has not received File: PAN1596106351 sent from Barcode_Generation_Dept at 2020-07-30 16:22:31 !",
+  "timeCreated": {
+    "$date": "2020-07-30T16:36:13.185Z"
+  },
+  "read": true,
+  "timeAttended": {
+    "$date": "2020-07-30T16:36:42.771Z"
+  }
+}]

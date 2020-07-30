@@ -1,0 +1,90 @@
+[{
+  "_id": {
+    "$oid": "5e2addd400a25c9ed536db3d"
+  },
+  "dept_id": "01",
+  "dept_name": "Doc collection",
+  "timeCreated": {
+    "$date": "2020-01-24T17:36:44.941Z"
+  },
+  "count": 8,
+  "delayedCount": 0,
+  "completedCount": 17,
+  "currFiles": [],
+  "delayedFiles": [],
+  "prevFiles": [
+    {
+      "fid": "ADC1596042155",
+      "emp_id": "tejas.choudhari15@gmail.com",
+      "delay": 0,
+      "timeArrived": {
+        "$date": "2020-07-30T14:24:05.744Z"
+      },
+      "timeCompleted": {
+        "$date": "2020-07-30T14:24:30.557Z"
+      }
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5e2addde00a25c9ed536db3e"
+  },
+  "dept_id": "02",
+  "dept_name": "Police verification",
+  "timeCreated": {
+    "$date": "2020-01-24T17:36:54.176Z"
+  },
+  "count": 14,
+  "delayedCount": 0,
+  "completedCount": 17,
+  "currFiles": [],
+  "delayedFiles": [],
+  "prevFiles": [
+    {
+      "fid": "PAN1596042204",
+      "delay": 0,
+      "timeArrived": {
+        "$date": "2020-07-30T09:37:50.439Z"
+      },
+      "timeCompleted": {
+        "$date": "2020-07-30T10:26:45.890Z"
+      }
+    },
+    {
+      "fid": "DLC1596089203",
+      "delay": 0,
+      "timeArrived": {
+        "$date": "2020-07-30T12:15:55.209Z"
+      },
+      "timeCompleted": {
+        "$date": "2020-07-30T15:01:59.913Z"
+      }
+    },
+    {
+      "fid": "PAN1596106351",
+      "emp_id": "shaileshgupta596@gmail.com",
+      "delay": 0,
+      "timeArrived": {
+        "$date": "2020-07-30T17:03:37.546Z"
+      },
+      "timeCompleted": {
+        "$date": "2020-07-30T17:04:09.982Z"
+      }
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f226d48225b7e3684fac982"
+  },
+  "dept_id": "03",
+  "dept_name": "payment collection",
+  "timeCreated": {
+    "$date": "2020-07-30T12:18:40.961Z"
+  },
+  "count": 0,
+  "delayedCount": 0,
+  "completedCount": 0,
+  "currFiles": [],
+  "delayedFiles": [],
+  "prevFiles": []
+}]

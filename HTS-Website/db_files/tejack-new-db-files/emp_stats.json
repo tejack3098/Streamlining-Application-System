@@ -1,0 +1,153 @@
+[{
+  "_id": {
+    "$oid": "5f21a99a225b7e3f201d4d0f"
+  },
+  "email_id": "tejas.choudhari15@gmail.com",
+  "mno": "8879385690",
+  "dept_id": "01",
+  "count": 2,
+  "incomingFiles": {
+    "DLC1596089203": {
+      "time": {
+        "$date": "2020-07-30T15:01:59.913Z"
+      },
+      "from": "shaileshgupta596@gmail.com",
+      "remark": "all done",
+      "alert": false
+    },
+    "PAN1596106351": {
+      "time": {
+        "$date": "2020-07-30T17:04:09.982Z"
+      },
+      "from": "shaileshgupta596@gmail.com",
+      "remark": "look at line 11",
+      "alert": false
+    }
+  },
+  "outgoingFiles": {},
+  "currFiles": [],
+  "prevFiles": [
+    {
+      "fid": "ADC1596042155",
+      "delay": 0,
+      "timeArrived": {
+        "$date": "2020-07-30T14:24:05.744Z"
+      },
+      "timeCompleted": {
+        "$date": "2020-07-30T14:24:30.557Z"
+      }
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f21aa08225b7e3f201d4d11"
+  },
+  "email_id": "shaileshgupta596@gmail.com",
+  "mno": "8452042116",
+  "dept_id": "02",
+  "count": 0,
+  "incomingFiles": {},
+  "outgoingFiles": {
+    "PAN1596042204": {
+      "time": {
+        "$date": "2020-07-30T10:26:45.890Z"
+      },
+      "to": "chavanrachit16e@student.mes.ac.in",
+      "remark": "check out line no 12"
+    },
+    "DLC1596089203": {
+      "time": {
+        "$date": "2020-07-30T15:01:59.913Z"
+      },
+      "to": "tejas.choudhari15@gmail.com",
+      "remark": "all done"
+    },
+    "PAN1596106351": {
+      "time": {
+        "$date": "2020-07-30T17:04:09.982Z"
+      },
+      "to": "tejas.choudhari15@gmail.com",
+      "remark": "look at line 11"
+    }
+  },
+  "currFiles": [],
+  "prevFiles": [
+    {
+      "fid": "PAN1596042204",
+      "delay": 0,
+      "timeArrived": {
+        "$date": "2020-07-30T09:37:50.439Z"
+      },
+      "timeCompleted": {
+        "$date": "2020-07-30T10:26:45.890Z"
+      }
+    },
+    {
+      "fid": "DLC1596089203",
+      "delay": 0,
+      "timeArrived": {
+        "$date": "2020-07-30T12:15:55.209Z"
+      },
+      "timeCompleted": {
+        "$date": "2020-07-30T15:01:59.913Z"
+      }
+    },
+    {
+      "fid": "PAN1596106351",
+      "delay": 0,
+      "timeArrived": {
+        "$date": "2020-07-30T17:03:37.546Z"
+      },
+      "timeCompleted": {
+        "$date": "2020-07-30T17:04:09.982Z"
+      }
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f21aa5a225b7e3f201d4d15"
+  },
+  "email_id": "chavanrachit16e@student.mes.ac.in",
+  "mno": "7045815501",
+  "dept_id": "01",
+  "count": 1,
+  "incomingFiles": {},
+  "outgoingFiles": {},
+  "currFiles": [],
+  "prevFiles": []
+},{
+  "_id": {
+    "$oid": "5f21aa7a225b7e3f201d4d17"
+  },
+  "email_id": "abygpta@gmail.com",
+  "mno": "7506303749",
+  "dept_id": "02",
+  "count": 1,
+  "incomingFiles": {},
+  "outgoingFiles": {},
+  "currFiles": [],
+  "prevFiles": [
+    {
+      "fid": "ADC1596042155",
+      "delay": 0,
+      "timeArrived": {
+        "$date": "2020-07-30T14:26:09.821Z"
+      },
+      "timeCompleted": {
+        "$date": "2020-07-30T14:26:22.003Z"
+      }
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f22636b225b7e3684fac980"
+  },
+  "email_id": "sahilkadu12@gmail.com",
+  "mno": "9930894939",
+  "dept_id": "02",
+  "count": 0,
+  "incomingFiles": {},
+  "outgoingFiles": {},
+  "currFiles": [],
+  "prevFiles": []
+}]

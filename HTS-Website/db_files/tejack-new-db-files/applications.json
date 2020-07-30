@@ -1,0 +1,61 @@
+[{
+  "_id": {
+    "$oid": "5e2ad243d7d866eb62d3d4ae"
+  },
+  "appname": "Aadhar Card",
+  "appid": "ADC",
+  "stageList": [
+    {
+      "dept_id": "01",
+      "no_of_days": "4"
+    },
+    {
+      "dept_id": "02",
+      "no_of_days": "2"
+    }
+  ],
+  "lastDept": "01",
+  "timeCreated": {
+    "$date": "2020-01-24T16:47:23.241Z"
+  }
+},{
+  "_id": {
+    "$oid": "5e2ad25fd7d866eb62d3d4af"
+  },
+  "appname": "Pan Card",
+  "appid": "PAN",
+  "stageList": [
+    {
+      "dept_id": "02",
+      "no_of_days": "3"
+    },
+    {
+      "dept_id": "01",
+      "no_of_days": "4"
+    }
+  ],
+  "lastDept": "02",
+  "timeCreated": {
+    "$date": "2020-01-24T16:47:51.041Z"
+  }
+},{
+  "_id": {
+    "$oid": "5e2adf1c00a25c9ed536db3f"
+  },
+  "appname": "Driving Lnc",
+  "appid": "DLC",
+  "stageList": [
+    {
+      "dept_id": "02",
+      "no_of_days": "4"
+    },
+    {
+      "dept_id": "01",
+      "no_of_days": "2"
+    }
+  ],
+  "lastDept": "02",
+  "timeCreated": {
+    "$date": "2020-01-24T17:42:12.859Z"
+  }
+}]
