@@ -90,6 +90,7 @@ except:
     print("MongoDB error: adminInbox Table might not exist")
     adminInbox = None
 
+    
 def chk_db():
     if myclient == None:
         #Connection error
@@ -153,6 +154,7 @@ del(r)
 def index():
     return "SIKKIM is the only truth right now!"
 
+
 @backendapp.route("/add_application",methods=["GET","POST"])
 def add_application():
     if request.method == "POST":
@@ -184,6 +186,7 @@ def add_application():
         return "GET method not allowed"
 
     
+    
 @backendapp.route("/get_app_types",methods=["GET","POST"])
 def get_app_types():
     '''
@@ -203,6 +206,7 @@ def get_app_types():
     '''
     response = {"appids":appids}
     return jsonify(response)
+
 
 
 
@@ -230,6 +234,7 @@ def add_dept():
     return  jsonify(response)
 
 
+
 @backendapp.route("/get_dept_ids",methods=["GET","POST"])
 def get_dept_ids():
     '''
@@ -253,6 +258,7 @@ def get_dept_ids():
 #ADD HOLIDAY IN COUNTING
 
 
+
 def date_by_adding_business_days(from_date, add_days):
     business_days_to_add = add_days
     current_date = from_date
@@ -271,6 +277,7 @@ def date_by_adding_business_days(from_date, add_days):
     return current_date
 
 
+
 def least_file_emp(dept_id):
     results = emp_stats.find({"dept_id":dept_id},{"email_id":True,"count":True,"_id":False})
     resultsDict = {}
@@ -278,6 +285,7 @@ def least_file_emp(dept_id):
         resultsDict[i["email_id"]]=i["count"]
     Dic = {k: v for k, v in sorted(resultsDict.items(), key=lambda item: item[1])}
     return list(Dic)[0]
+
 
 
 
@@ -336,6 +344,7 @@ def generate_barcode():
         return "POST method not allowed"
 
     
+    
 @backendapp.route("/chk_email", methods=["GET"])
 def chk_email():
     email = request.args.get('q')
@@ -347,6 +356,7 @@ def chk_email():
         return "0"
 
     
+    
 @backendapp.route("/chk_appid", methods=["GET"])
 def chk_appid():
     appid = request.args.get('q')
@@ -357,6 +367,7 @@ def chk_appid():
     else:
         return "0"
 
+    
     
 @backendapp.route("/emp_create",methods=["GET","POST"])
 def emp_create():
@@ -380,6 +391,7 @@ def emp_create():
     else:
         return "GET method is not allowed"
 
+    
     
 @backendapp.route("/emp_login",methods=["POST","GET"])
 def emp_login():
@@ -408,6 +420,7 @@ def emp_login():
         return jsonify(response)
 
     
+    
 @backendapp.route("/bcode_entry",methods=["GET","POST","OPTIONS"]) #TEST for PC
 def bcode_entry():
     if request.method == "POST":
@@ -418,10 +431,10 @@ def bcode_entry():
             postData = request.get_json()
         print("PostData : "+str(postData))
         bcode = postData["bcodeTxt"]
-        print(bcode)
+        #print(bcode)
         dept_id = postData["deptID"]
         email_id = postData["email"] #Jo scan kar raha hai; Iske incoming se file nikalna hai
-        print(email_id)
+        #print(email_id)
         d=datetime.now()
         file_query_result = files.find_one({"fid": bcode})
 
@@ -476,6 +489,7 @@ def bcode_entry():
         return jsonify(response)
 
     
+    
 def chk_delayed(file):
     today = datetime.now().date()
     result = files.find_one({"fid":file})
@@ -528,6 +542,7 @@ def get_emp_notifications():
         return "POST method not allowed"
 
     
+    
 @backendapp.route("/update_all_notifications_status",methods=["GET","POST"])
 def update_all_notifications_status():
     if request.method == "POST":
@@ -543,6 +558,7 @@ def update_all_notifications_status():
         return "POST method not allowed"
 
     
+    
 @backendapp.route("/update_notification_status",methods=["GET","POST"]) #Not Complete
 def update_notification_status():
     if request.method == "GET":
@@ -555,6 +571,7 @@ def update_notification_status():
         return "POST method not allowed"
 
 
+    
     
 @backendapp.route("/file_not_arrived_complain",methods=["GET","POST"])
 def file_not_arrived_complain():
@@ -596,6 +613,7 @@ def file_not_arrived_complain():
         return "GET not allowed!"
 
     
+    
 @backendapp.route("/get_file_complaints",methods=["GET","POST"])
 def get_file_complaints():
     if request.method =="GET":
@@ -610,6 +628,7 @@ def get_file_complaints():
     else:
         return "POST not allowed"
 
+    
     
 @backendapp.route("/update_file_complaint_notification",methods=["GET","POST"])
 def update_file_complaint_notification():
@@ -640,19 +659,19 @@ def forward():
             print("POSTDATA : {}".format(postData))
             fid = postData["filename"]
             remark = postData["remark"]
-        print("fid : {}".format(fid))
+        #print("fid : {}".format(fid))
         d = datetime.now()
         result = files.find_one({"fid": fid})
         dept_id = result["currDept"]
         fileStageList = result["stageList"]
-        print("Filestage : {} ".format(fileStageList))
+        #print("Filestage : {} ".format(fileStageList))
         applicationType = result["applicationType"]
         applications_query_result = applications.find_one({"appid":applicationType})
         appStageList = applications_query_result["stageList"]
         expectedTimelineDuplicate = result["expectedTimelineDuplicate"]
         currDept = result["currDept"]
         email_id = result["currEmp"]
-        print("email id :  {}".format(email_id))
+        #print("email id :  {}".format(email_id))
 
         emp_stats_query_result=emp_stats.find_one({"email_id":email_id})
         dept_stats_query_result = emp_stats.find_one({"dept_id": dept_id})
@@ -663,8 +682,8 @@ def forward():
         prevFilesDept = dept_stats_query_result["prevFiles"]
 
         delay = chk_delayed(fid)
-        print("Currfiles : {}".format(currFiles))
-        print("Length of currfiles : {}".format(len(currFiles)))
+        #print("Currfiles : {}".format(currFiles))
+        #print("Length of currfiles : {}".format(len(currFiles)))
         for i in range(len(currFiles)):
             if currFiles[i]['fid']==fid:
                 index_in_curr_file = i
@@ -680,7 +699,7 @@ def forward():
         next_ = False
         nextDept = None
         for i in appStageList:
-            print(i["dept_id"]+" "+currDept)
+            #print(i["dept_id"]+" "+currDept)
             if next_ ==False:
                 if i["dept_id"]==currDept:
                     fileStageList[len(fileStageList)-1]["remark"]=remark
@@ -714,7 +733,9 @@ def forward():
                                           {"$set":{"currFiles":currFiles,"prevFiles":prevFiles},"$inc":{"count":-1}})
             dept.find_one_and_update({"dept_id": dept_id}, {"$inc": {"count": -1,"completedCount":1}, "$set":{"currFiles":currFilesDept,"prevFiles":prevFilesDept}})
 
-            return {"status":"1"}
+            r = {"status": "1"}
+            
+            return jsonify(r)
         else:
             #FileNotDone
             #UpdateCurrdept
@@ -753,7 +774,8 @@ def forward():
 
             dept.find_one_and_update({"dept_id": nextDept}, {"$inc": {"count": 1}})
 
-            return {"status": "1"}
+            r = {"status": "1"}
+            return jsonify(r)
     else:
         return "POST not allowed"
 '''                                                        Forward                                               '''
@@ -823,6 +845,7 @@ def get_dashboard_stats():
         return "POST method not allowed"
 
     
+    
 @backendapp.route("/get_all_files",methods=["GET","POST"])
 def get_all_files():
     if request.method == "GET":
@@ -833,6 +856,7 @@ def get_all_files():
     else:
         return "POST method not allowed"
 
+    
     
 @backendapp.route("/get_completed_files",methods=["GET","POST"])
 def get_completed_files():
@@ -845,6 +869,7 @@ def get_completed_files():
         return "POST method not allowed"
 
     
+    
 @backendapp.route("/get_processing_files",methods=["GET","POST"])
 def get_processing_files():
     if request.method == "GET":
@@ -856,6 +881,7 @@ def get_processing_files():
         return "POST method not allowed"
 
     
+    
 @backendapp.route("/get_delayed_files",methods=["GET","POST"])
 def get_delayed_files():
     if request.method == "GET":
@@ -866,6 +892,7 @@ def get_delayed_files():
     else:
         return "POST method not allowed"
 
+    
     
 def chk_delayed_dept(file):
     today = datetime.now().date()
@@ -880,8 +907,8 @@ def chk_delayed_dept(file):
     else:
         return [None,result["currEmp"]]
 
+    
 @backendapp.route("/get_dept_stats",methods=["GET","POST"])
-
 def get_dept_stats():
     if request.method == "GET":
         dept_id = request.args.get('dept_id')
@@ -897,6 +924,7 @@ def get_dept_stats():
     else:
         return ("Post method not allowed")
 
+    
     
 @backendapp.route("/get_dept_stats_current_month",methods=["GET","POST"])
 def get_dept_stats_current_month():
@@ -929,6 +957,7 @@ def get_dept_stats_current_month():
     else:
         return "POST not allowed"
 
+    
     
 @backendapp.route("/get_dept_stats_quarter",methods=["GET","POST"])
 def get_dept_stats_quarter():
@@ -978,6 +1007,7 @@ def get_dept_stats_quarter():
         return "POST not allowed"
 
     
+    
 @backendapp.route("/get_dept_stats_year",methods=["GET","POST"])
 def get_dept_stats_year():
     if request.method == "GET":
@@ -1012,6 +1042,7 @@ def get_dept_stats_year():
     else:
         return "POST not allowed"
 
+    
     
 @backendapp.route("/get_dept_stats_date_range",methods=["GET","POST"])
 def get_dept_stats_date_range():
@@ -1056,6 +1087,7 @@ def get_dept_stats_date_range():
 
 
     
+    
 @backendapp.route("/get_dept_cmp_stats_current_month",methods=["GET","POST"])
 def get_dept_cmp_stats_current_month():
     if request.method=="GET":
@@ -1088,6 +1120,7 @@ def get_dept_cmp_stats_current_month():
     else:
         return "POST not allowed"
 
+    
     
 @backendapp.route("/get_dept_cmp_stats_quarter",methods=["GET","POST"])
 def get_dept_cmp_stats_quarter():
@@ -1132,6 +1165,7 @@ def get_dept_cmp_stats_quarter():
         return "POST not allowed"
 
     
+    
 @backendapp.route("/get_dept_cmp_stats_year",methods=["GET","POST"])
 def get_dept_cmp_stats_year():
     if request.method == "GET":
@@ -1166,6 +1200,7 @@ def get_dept_cmp_stats_year():
     else:
         return "POST not allowed"
 
+    
     
 @backendapp.route("/get_dept_cmp_stats_date_range",methods=["GET","POST"])
 def get_dept_cmp_stats_date_range():
@@ -1209,6 +1244,7 @@ def get_dept_cmp_stats_date_range():
 
 
     
+    
 @backendapp.route("/get_emp_stats",methods=["GET","POST"]) #TEST
 def get_emp_stats():
     if request.method == "POST":
@@ -1218,7 +1254,7 @@ def get_emp_stats():
             postData = request.get_json()
         print("postdata = {0}".format(postData))
         email_id = postData["email_id"]
-        print(email_id)
+        #print(email_id)
         results = emp_stats.find_one({"email_id":email_id})
         if results == None :
             response = {"status": "0", "details": "error"}
@@ -1227,7 +1263,7 @@ def get_emp_stats():
         currFilesWithDelay = []
         for i in currFiles:
             delay = chk_delayed(i["fid"])
-            print("{0} --> {1}".format(i,delay))
+            #print("{0} --> {1}".format(i,delay))
             if delay[0] == None:
                 delay[0] = 0
             if delay[1]==delay[2]:
@@ -1240,11 +1276,13 @@ def get_emp_stats():
         outgoingFiles = results["outgoingFiles"]
         details = {"currFiles":currFilesWithDelay,"prevFiles":prevFiles,"incomingFiles":incomingFiles,"outgoingFiles":outgoingFiles}
         response= {"status":"1","details":details}
-        print(response)
+        #print(response)
         return jsonify(response)
     else:
         return "GET is not allowed"
 
+    
+    
     
 @backendapp.route("/get_emp_dashboard_stats",methods=["GET","POST"])
 def get_emp_dashboard_stats():
@@ -1273,6 +1311,7 @@ def get_emp_dashboard_stats():
 
 
     
+    
 def chk_delayed_rating(file):
     print(file)
     today = datetime.now().date()
@@ -1287,6 +1326,7 @@ def chk_delayed_rating(file):
     else:
         return [None,currDept,result["lastDept"]]
 
+    
     
 @backendapp.route("/get_dept_emp_data_for_rating",methods=["GET","POST"])
 def get_dept_emp_data_for_rating():
@@ -1332,6 +1372,7 @@ def get_dept_emp_data_for_rating():
 
 
     
+    
 @backendapp.route("/get_emp_data_for_rating",methods=["GET","POST"])
 def get_emp_data_for_rating():
     if request.method == "POST":
@@ -1376,6 +1417,7 @@ def get_emp_data_for_rating():
         return "POST is not allowed"
 
     
+    
 @backendapp.route("/get_overall_stats",methods=["GET","POST"])
 def get_overall_stats():
     if request.method == "GET":
@@ -1390,6 +1432,7 @@ def get_overall_stats():
         return "POST method not allowed"
 
 
+    
     
 '''                                                      Department Comparison                                   '''
 
@@ -1418,6 +1461,7 @@ def get_calendar():
     else:
         return ("POST not allowed")
 
+    
     
 @backendapp.route("/update_calendar",methods=["GET","POST"])
 def update_calendar():
@@ -1457,9 +1501,9 @@ def get_applications_stats():
         details={}
         for i in applications :
             cnt={}
-            cnt['processfcnt'] = files.find({"applicationType":i,"fileDone":True}).count() 
+            cnt['processfcnt'] = files.find({"applicationType":i,"fileDone":False}).count() 
             cnt['delayfcnt'] = files.find({"applicationType":i,"delayed":True}).count() 
-            cnt['completedfcnt'] = files.find({"applicationType":i,"fileDone":False}).count() 
+            cnt['completedfcnt'] = files.find({"applicationType":i,"fileDone":True}).count() 
             details[i]=cnt
             
         response = {"status":"1","message":details,"applist":applications}

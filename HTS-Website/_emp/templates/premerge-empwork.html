@@ -1,28 +1,39 @@
-{% extends "emp_sidebar.html" %}
+{% extends "emp/emp_sidebar.html" %}
 {% block body %}
 
+<!--Script for add new row for a file-->
+    <script src="{{ url_for('static',filename='js/link.js')}}"></script>
 
-<script>
-         
-var bar;
+    <script>
+        
+  var url= localStorage.getItem("url");;   
+  var bar;
   /*********************************ABHAY****************************************************************/  
-function alertAdmin(element,notificationid,email,file,from,time)
+        function alertAdmin(element,notificationid,email,file,from,time)
         {
-            console.log("function alertAdmin Called");
-            $.post("{{url_for('backendapp.file_not_arrived_complain')}}",{notificationid:notificationid,email:email,file:file,from:from,time:time},
-                   function(response){
-                    //check if what response is  
-                    if(response["status"]==="1")
-                        {
-                            //element.target.parentNode.removeEventListener;
-                            element.parentNode.innerHTML='<i class="fas fa-check-square"> Alerted</i>';
-                        }
+            console.log(element.innerHTML);
+            console.log(notificationid);
+            console.log(email);
+            console.log(from);
+            console.log(time);
+            
+               $.post(url+"file_not_arrived_complain",{notificationid:notificationid,email:email,file:file,from:from,time:time},
+                    function(response){
+                      //check if what response is  
+                        if(response["status"]==="1")
+                            {
+                                console.log(element.innerHTML);
+                                //element.target.parentNode.removeEventListener;
+                                element.parentNode.innerHTML="Alerted";
+                            }
 
-            },"json");
+                        //alert(response);
+
+                  },"json");
         }
   /*********************************ABHAY****************************************************************/        
-function loadfiles(){
-      var email = '{{email}}';
+  function loadfiles(){
+      var email = '{{user}}';
       var table = document.getElementById("worktable").getElementsByTagName('tbody')[0];
       var table2 = document.getElementById("comptable").getElementsByTagName('tbody')[0];
       var table3 = document.getElementById("arrfiles").getElementsByTagName('tbody')[0];
@@ -31,20 +42,20 @@ function loadfiles(){
       table3.innerHTML="";
       var d = new Date();
       
-      console.log("function loadfiles calllled");
-       $.post("{{url_for('backendapp.get_emp_stats')}}",{email_id:email},
+      console.log("calllled");
+       $.post(url+"get_emp_stats",{email_id:email},
                 
                 function(response){
                   //check if what response is   
-                   console.log(" load files response received");
+                    console.log(response);
                     var currFiles = response["details"]["currFiles"];
                     var prevFiles = response["details"]["prevFiles"];
                     var arrfiles = response["details"]["incomingFiles"];
-                    //console.log(response["details"]["incomingFiles"]);
+                    console.log(response["details"]["incomingFiles"]);
                    // console.log(prevFiles);
                   if(currFiles.length==0)
                   {
-                    //  console.log(currFiles.length); 
+                      console.log(currFiles.length); 
                       var processthead = document.getElementById("processthead");
                       processthead.innerHTML='<th scope="col">No files currently.</th>';
                   }
@@ -62,11 +73,12 @@ function loadfiles(){
                         cell1.innerHTML = currFiles[i]['fid'];
                         cell2.innerHTML = currFiles[i]['timeArrived'];
 
-                    //    console.log(currFiles[i]["lastStep"]);
+                        console.log(currFiles[i]["lastStep"]);
 
                         if(currFiles[i]["lastStep"]== true){
 
                            cell3.innerHTML = '<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#staticBackdrop" onclick="setfilename(\''+ currFiles[i]['fid'] +'\')">Done</button>';
+                           /* cell3.innerHTML = '<p>DONE</p>';*/
 
                         }else{
 
@@ -84,7 +96,7 @@ function loadfiles(){
 
                     if(prevFiles.length == 0)
                     {
-                       // console.log(prevFiles.length); 
+                        console.log(prevFiles.length); 
                         var comthead = document.getElementById("comthead");
                         comthead.innerHTML='<th scope="col">No files currently.</th>';
 
@@ -107,10 +119,16 @@ function loadfiles(){
                     }
                   }
                     
+                    //console.log("arrived:"+response["details"]["incomingFiles"])
+                    /*for (var key in arrfiles){
+                        console.log(key)
+                        console.log(arrfiles[key]["remark"])
+                        console.log(arrfiles[key]["time"])
+                    }*/
 
-                    if(Object.keys(arrfiles).length === 0 && arrfiles.constructor === Object){
+                    if(arrfiles.length==0){
 
-                      //console.log(prevFiles.length); 
+                      console.log(prevFiles.length); 
                         var arrthead = document.getElementById("arrthead");
                         arrthead.innerHTML='<th scope="col">No files currently.</th>';
 
@@ -135,47 +153,63 @@ function loadfiles(){
                        cell3.innerHTML = '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Scan File</button>';
                        if(arrfiles[key]['alert']===false)
                            {
-                               cell4.innerHTML = '<button type="button" class="btn btn-primary"'+ 'onclick=alertAdmin(this,"'+key+email+'","'+email+'","'+key+'","'+from+'","'+time+'")>Send Alert</button>';
+                               cell4.innerHTML = '<button type="button" class="btn btn-primary"'+ 'onclick=alertAdmin(this,"'+key+email+'","'+email+'","'+key+'","'+from+'","'+time+'")>Alert</button>';
                                //cell4.addEventListener('click',alertAdmin());
                            
                            }
                        else
                            {
-                               cell4.innerHTML = '<i class="fas fa-check-square "> Alerted</i>';
+                               cell4.innerHTML = "Alerted";
                            }
-                         
+                           //cell4.innerHTML = arrfiles[i]['recived']; 
                     }
                   }
+
+                    
+                    //alert(response);
                 
               },"json");
   
 }
         
         
-function myFunctionScan() {
+  function myFunctionScan() {
 
-    console.log("my function Scan Called"); 
-    //var xmlhttp = new XMLHttpRequest();
-    var table = document.getElementById("worktable");
-    bar = document.getElementById("result").textContent;
+   console.log("in my fic") 
+  var xmlhttp = new XMLHttpRequest();
+  var table = document.getElementById("worktable");
+  bar = document.getElementById("result").textContent;
  
-    var d = new Date();
-    var dept_id = "{{ session.get(email[:-10]+'_dept_id')}}";
-    var email = '{{email}}';
+  var d = new Date();
+  var dept_id = '{{ dept_id }}';
+  var email = '{{user}}';
 
-    var dataString = {'bcodeTxt':bar,'deptID':dept_id,'email':email};
-    console.log('Data String......');
-    console.log(dataString);
+  var dataString = {'bcodeTxt':bar,'deptID':dept_id,'email':email};
+  console.log(dataString);
       
-      $.post("{{url_for('backendapp.bcode_entry')}}",{bcodeTxt:bar,deptID:dept_id,email:email},
+      $.post(url+"bcode_entry",{bcodeTxt:bar,deptID:dept_id,email:email},
                 
                 function(response){
                   //check if what response is   
-                    console.log('function bcode entry response');
+                    console.log(response);
                     if(response["status"]==="1"){
+                        console.log(table);
+                        /*var row = table.insertRow(1);
+                        var cell1 = row.insertCell(0);
+                        var cell2 = row.insertCell(1);
+                        var cell3 = row.insertCell(2);
+                        var cell4 = row.insertCell(3);
+      
+                        
+                        cell1.innerHTML = bar;
+                        cell2.innerHTML = d.getHours()+":"+d.getMinutes();
+                        cell3.innerHTML = '<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#staticBackdrop" onclick="setfilename(\''+ bar +'\')">Forward</button>';
+                        cell4.innerHTML = "Warning"; */ 
                         loadfiles();
                     }
-
+                    
+                    //alert(response);
+                
               },"json");
   
 }
@@ -187,9 +221,9 @@ function setfilename(filename){
         
 function remarkfunct(){
     var remarksend = document.getElementById("remark").value;
-    console.log("forward request send");
-
-    $.get("{{url_for('backendapp.forward')}}",{remark:remarksend,filename:bar},
+    console.log(remarksend);
+//    bar = document.getElementById("result").textContent;
+    $.get(url+"forward",{remark:remarksend,filename:bar},
                 
                 function(response){
                   //check if what response is   
@@ -198,6 +232,7 @@ function remarkfunct(){
                         loadfiles();
                     }
                     
+                    //alert(response);
                 
               },"json");
     
@@ -211,6 +246,10 @@ function remarkfunct(){
 
 <div class="container shadow p-3 mb-5 bg-white rounded">
 		
+
+			<!--<div class ="row justify-content-md-center shadow p-3 mb-5 bg-white rounded">
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Scan File</button>
+			</div>-->
 <ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item">
     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" style="text-decoration: none; padding-top: 10px;" onclick="loadfiles();">Arrived File</a>
@@ -229,21 +268,21 @@ function remarkfunct(){
       </div>
 
 
-      <table class="table" id="arrfiles" style="font-size: 16px; text-align: center">
+      <table class="table" id="arrfiles" style="font-size: 18px">
       <thead id="arrthead">
         <tr>
-          <th scope="col"><i class="fas fa-file-alt" > File ID</i></th>
-          <th scope="col"><i class="fas fa-clock" > Arrival Time</i></th>
-          <th scope="col"><i class="fas fa-qrcode" > Scan File</i></th>
-          <th scope="col"><i class="fas fa-exclamation-triangle"> Not Received</i></th>
+          <th scope="col">FileID</th>
+          <th scope="col">Arrival Time</th>
+          <th scope="col">Received</th>
+          <th scope="col">Not Received</th>
 
         </tr>
       </thead>
       <tbody id='workTbdy'>
         <tr>
-          <td id="loading"><i class="fas fa-spinner fa-lg"> Loading...</i></td>
+          <td id="loading">Loading...</td>
         </tr>
-        <!--  <tr>
+  <!--      <tr>
           <th scope="row">id3u40</th>
           <td>11:34</td>
           <td><button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#staticBackdrop">Scan</button></td>
@@ -262,18 +301,18 @@ function remarkfunct(){
       </div>
 
 
-      <table class="table" id="worktable" style="font-size: 18px; text-align: center">
+      <table class="table" id="worktable" style="font-size: 18px;">
       <thead id="processthead">
         <tr>
-          <th scope="col"><i class="fas fa-file-alt" > File ID</i></th>
-          <th scope="col"><i class="fas fa-clock" > Arrival Time</i></th>
-          <th scope="col"><i class="fas fa-share" > Forward</i></th>
-          <th scope="col"><i class="fas fa-clock" > Delay</i></th>
+          <th scope="col">FileID</th>
+          <th scope="col">Arrival Time</th>
+          <th scope="col">Forward</th>
+          <th scope="col">Delay</th>
 
         </tr>
       </thead>
       <tbody id='workTbdy'>
-          <!--  <tr>
+    <!--    <tr>
           <th scope="row">id3u40</th>
           <td>11:34</td>
           <td><button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#staticBackdrop">Forward</button></td>
@@ -291,13 +330,13 @@ function remarkfunct(){
       </div>
 
 
-      <table class="table" id="comptable" style="font-size: 18px; text-align: center">
+      <table class="table" id="comptable" style="font-size: 18px;">
       <thead id="comthead">
         <tr>
-          <th scope="col"><i class="fas fa-file-alt" > File ID</i></th>
-          <th scope="col"><i class="fas fa-clock" > Arrival Time</i></th>
-          <th scope="col"><i class="fas fa-hourglass-end" > Time Completed</i></th>
-          <th scope="col"><i class="fas fa-clock" > Delay</i></th>
+          <th scope="col">FileID</th>
+          <th scope="col">Arrival Time</th>
+          <th scope="col">Time Completed</th>
+          <th scope="col">Delay</th>
 
         </tr>
       </thead>
@@ -325,7 +364,7 @@ function remarkfunct(){
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel"><i class="fas fa-share fa-lg" >Forwarded To Next Stage</i></h5>
+        <h5 class="modal-title" id="staticBackdropLabel">Forwarded To Next Stage</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -337,7 +376,8 @@ function remarkfunct(){
             <!-- remark ip-->
             
                 <div class="form-group">
-                                 <label for="remark"><i class="fas fa-sticky-note "> Remark:</i></label>
+                                 <label for="remark">Remark:</label>
+                                <!--<input type="text" id="remark" class="form-control" placeholder="Remark"  value="" required />-->
                                 <textarea class="form-control" rows="5" id="remark"  value="" required></textarea>
                     </div>
             
@@ -361,7 +401,7 @@ function remarkfunct(){
   <div class="modal-dialog  modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle"><i class="fas fa-qrcode fa-lg"> Scan File Barcode</i></h5>
+        <h5 class="modal-title" id="exampleModalCenterTitle">Scan File Barcode</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
