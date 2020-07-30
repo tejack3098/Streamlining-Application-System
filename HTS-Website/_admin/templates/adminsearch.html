@@ -132,10 +132,22 @@
                         var timeline_response=response['list'];
                         //console.log("djfbkdjbfkjbfksj"+timeline_response);
                         cell1.innerHTML = bar;
-                        cell2.innerHTML = response['currDept'];//['list'][i-1]
+        
+                        if(response['fileDone']==true)
+                        {
+                            cell2.innerHTML = "<b>-</b>";
+                            cell5.innerHTML = "<b>-</b>";
+                        }
+                        else
+                        {
+                            cell2.innerHTML = response['currDept'];//['list'][i-1]
+                            cell5.innerHTML=response['estimate_date']
+                        }
+
+
                         cell3.innerHTML = response['delayedBy'];
                         cell4.innerHTML = '<button id="myBtn1" class="btn btn-primary" onclick="modal_display()">Track</button>';
-                        cell5.innerHTML=response['estimate_date']
+              
 
                           
                     //}
