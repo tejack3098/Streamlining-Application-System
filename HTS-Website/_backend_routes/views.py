@@ -655,7 +655,8 @@ def forward():
         print("email id :  {}".format(email_id))
 
         emp_stats_query_result=emp_stats.find_one({"email_id":email_id})
-        dept_stats_query_result = emp_stats.find_one({"dept_id": dept_id})
+        #dept_stats_query_result = emp_stats.find_one({"dept_id": dept_id})
+        dept_stats_query_result = dept.find_one({"dept_id": dept_id})
 
         currFiles = emp_stats_query_result["currFiles"]
         prevFiles = emp_stats_query_result["prevFiles"]
