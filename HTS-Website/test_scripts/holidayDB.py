@@ -42,6 +42,7 @@ def date_by_adding_business_days(from_date, add_days):
     business_days_to_add = add_days
     current_date = from_date
     l = list(holidays.find({}, {"dateDay": True, "_id": False}))
+    print(l)
     hh = [datetime.strptime(d['dateDay'], "%Y-%m-%d").date() for d in l]
     #print(hh)
     while business_days_to_add > 0:

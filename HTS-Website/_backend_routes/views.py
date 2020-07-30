@@ -1466,6 +1466,7 @@ def get_calendar():
 @backendapp.route("/update_calendar",methods=["GET","POST"])
 def update_calendar():
     print("Request method : {}".format(request.method))
+    print("Request headers : {}".format(request.headers))
     if request.method == "POST":
         if "application/x-www-form-urlencoded" in request.headers["Content-Type"]:
             postData = request.form
