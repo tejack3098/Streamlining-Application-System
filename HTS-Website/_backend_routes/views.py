@@ -1512,7 +1512,12 @@ def get_applications_stats():
     else:
         return ("Post method not allowed")
 
-
+@backendapp.route("/download_file", methods=["GET", "POST"])
+def download_file():
+    '''if request.method == "GET":
+        fid = request.args.get('q')
+        print(fid)'''
+    pass
 
 
 
