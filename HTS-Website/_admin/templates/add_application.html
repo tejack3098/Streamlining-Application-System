@@ -109,18 +109,18 @@
 
                 <div class="form-content">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <input type="text" class="form-control" placeholder="Application Name" name="appname" id = "appname" value="" onkeyup="enable_add()" required />
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <input type="text" class="form-control" placeholder="Application ID" name="appid" id = "appid"  value="" required/>
                             </div>
                            
                         </div>
-                        <div class="col-md-4">
+                        <!--<div class="col-md-4">
                              <select type="text" class="form-control priority" placeholder="Priority" id="priority" value="" required style="height: 48px;"   >
                                 <option value="default" id="set_pri">Set Priority</option>
                                 <option value="Normal" id="norm">Normal</option>
@@ -128,7 +128,7 @@
                                 </select>
                                 
                            
-                        </div>
+                        </div>-->
                     </div>
                     <fieldset>
                         <legend align="left" id="add_stages">Add Stages</legend>
@@ -248,7 +248,7 @@ function loadStageDetails(stage_list)
             var cell2 = row.insertCell(1);
             var cell3 = row.insertCell(2);
 
-            cell1.innerHTML = i+1;
+            cell1.innerHTML = i;
             cell2.innerHTML = stageobj[i]['dept_id'];//appids[0].stageList[0].dept_id
             cell3.innerHTML = stageobj[i]['no_of_days'];//appids[0].stageList[0].no_of_days
     
@@ -333,8 +333,6 @@ function loadStageDetails(stage_list)
 <script type="text/javascript">
   document.getElementById("appid").addEventListener("focusout", check_deptId);
   var deptValid = false;
-  var priority = document.getElementById("priority");
-  var pcheck = false;
   
     function check_deptId(){
 
@@ -371,24 +369,6 @@ function loadStageDetails(stage_list)
     });
 }
 
-
- $("#priority").on("click",function myfunctpriority(e){
-
-     console.log("click_________inchkpriority");
-
-  if(priority.value == "default"){
-    pcheck=false;
-    add.setAttribute("class","btn btn-primary disabled");
-    add.setAttribute("aria-disabled",true);
-
-  }else{
-    pcheck=true;
-    enable_add();
-  }
-  console.log(priority.value);
-  console.log(pcheck);
-  
-  });
  
 
 function enable_add(){
@@ -420,10 +400,9 @@ function enable_add(){
   console.log(AllDept);
   console.log(AllNoDays);
   console.log(appname.value);
-  console.log(pcheck);
   console.log(deptValid);
   
-        if(AllNoDays && AllDept &&  appname.value && deptValid && pcheck == true){
+        if(AllNoDays && AllDept &&  appname.value && deptValid){
             add.setAttribute("class","btn btn-primary active");
             add.setAttribute("aria-disabled",false);
             
@@ -478,8 +457,7 @@ function enable_add(){
             e.preventDefault();
             var appid = document.getElementById("appid"); 
             var appname = document.getElementById("appname");
-            var priority = document.getElementById("priority");
-            pvalue = priority.value;
+            pvalue = "Normal";
             var selectDept = document.getElementsByClassName("deptSelect");
             var no_of_days = document.getElementsByClassName("no_of_days");
             //console.log(selectDept);
