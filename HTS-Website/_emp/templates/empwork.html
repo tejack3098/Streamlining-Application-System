@@ -38,6 +38,7 @@ function loadfiles(){
                   //check if what response is   
                    console.log(" load files response received");
                     var currFiles = response["details"]["currFiles"];
+                    console.log("heowiwwwjeew"+currFiles.length)
                     var prevFiles = response["details"]["prevFiles"];
                     var arrfiles = response["details"]["incomingFiles"];
                     //console.log(response["details"]["incomingFiles"]);
@@ -50,6 +51,8 @@ function loadfiles(){
                   }
                   else
                   {
+                    var processthead = document.getElementById("processthead");
+                      processthead.innerHTML='';
                     for (i = 0; i < currFiles.length; i++) {
                         //console.log(currFiles[i]['fid']);
                         var row = table.insertRow(0);
@@ -91,6 +94,9 @@ function loadfiles(){
 
                     }
                     else{
+
+                      var comthead = document.getElementById("comthead");
+                        comthead.innerHTML='';
                     for (i = 0; i < prevFiles.length; i++) {
                         //console.log(prevFiles[i]);
                         var row = table2.insertRow(0);
@@ -116,6 +122,8 @@ function loadfiles(){
 
                     }
                     else{
+                      var arrthead = document.getElementById("arrthead");
+                        arrthead.innerHTML='';
                     console.log(arrfiles); 
                     for (var key in arrfiles) {
                         console.log(key);
