@@ -46,13 +46,12 @@ function loadfiles(){
                   if(currFiles.length==0)
                   {
                     //  console.log(currFiles.length); 
-                      var processthead = document.getElementById("processthead");
-                      processthead.innerHTML='<th scope="col">No files currently.</th>';
+                      //var processthead = document.getElementById("processthead");
+                      table.innerHTML='<th scope="col">No files currently.</th>';
                   }
                   else
                   {
-                    var processthead = document.getElementById("processthead");
-                      processthead.innerHTML='';
+                    
                     for (i = 0; i < currFiles.length; i++) {
                         //console.log(currFiles[i]['fid']);
                         var row = table.insertRow(0);
@@ -88,15 +87,14 @@ function loadfiles(){
                     if(prevFiles.length == 0)
                     {
                        // console.log(prevFiles.length); 
-                        var comthead = document.getElementById("comthead");
-                        comthead.innerHTML='<th scope="col">No files currently.</th>';
+                        //var comthead = document.getElementById("comthead");
+                        table2.innerHTML='<th scope="col">No files currently.</th>';
 
 
                     }
                     else{
 
-                      var comthead = document.getElementById("comthead");
-                        comthead.innerHTML='';
+                     
                     for (i = 0; i < prevFiles.length; i++) {
                         //console.log(prevFiles[i]);
                         var row = table2.insertRow(0);
@@ -117,13 +115,12 @@ function loadfiles(){
                     if(Object.keys(arrfiles).length === 0 && arrfiles.constructor === Object){
 
                       //console.log(prevFiles.length); 
-                        var arrthead = document.getElementById("arrthead");
-                        arrthead.innerHTML='<th scope="col">No files currently.</th>';
+                        //var arrthead = document.getElementById("arrthead");
+                        table3.innerHTML='<th scope="col">No files currently.</th>';
 
                     }
                     else{
-                      var arrthead = document.getElementById("arrthead");
-                        arrthead.innerHTML='';
+                     
                     console.log(arrfiles); 
                     for (var key in arrfiles) {
                         console.log(key);
