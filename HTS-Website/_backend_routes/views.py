@@ -330,7 +330,7 @@ def generate_barcode():
 
             emp_stats_result = emp_stats.find_one({"email_id":emp},{"incomingFiles":True,"_id":False})
             emp_incoming_files=emp_stats_result["incomingFiles"]
-            emp_incoming_files[bcode_string]={"time":d,"from":"Barcode Generation Dept","remark":"","alert":False}
+            emp_incoming_files[bcode_string]={"digital": False,"time":d,"from":"Barcode Generation Dept","remark":"","alert":False}
 
             emp_result = emp_stats.find_one_and_update({"email_id":emp},{"$set":{"incomingFiles":emp_incoming_files},"$inc":{"count":1}})
 
@@ -382,7 +382,8 @@ def generate_digital_file():
             return jsonify(response)
 
         try:
-            uploaded_file.save("files/{}/{}_admin.{}".format(bcode_string,bcode_string,file_ext))
+            file_name="files/{}/{}_admin.{}".format(bcode_string,bcode_string,file_ext)
+            uploaded_file.save(file_name)
         except:
             response = {"status": 0, "message": "Digital_file_Failed_To_SAVE"}
             return jsonify(response)
@@ -409,7 +410,7 @@ def generate_digital_file():
 
             emp_stats_result = emp_stats.find_one({"email_id":emp},{"incomingFiles":True,"_id":False})
             emp_incoming_files=emp_stats_result["incomingFiles"]
-            emp_incoming_files[bcode_string]={"time":d,"from":"Barcode Generation Dept","remark":"","alert":False}
+            emp_incoming_files[bcode_string]={"digital": True,"fileName":file_name,"time":d,"from":"Barcode Generation Dept","remark":"","alert":False}
 
             emp_result = emp_stats.find_one_and_update({"email_id":emp},{"$set":{"incomingFiles":emp_incoming_files},"$inc":{"count":1}})
 
@@ -858,6 +859,174 @@ def forward():
     else:
         return "POST not allowed"
 '''                                                        Forward                                               '''
+'''                                                     Digital Forward                                               '''
+
+
+@backendapp.route("/digitalFileForward", methods=["GET", "POST"])  # TEST
+def digitalFileForward():
+    if request.method == "POST":
+        if "application/x-www-form-urlencoded" in request.headers["Content-Type"]:
+            postData = request.form
+        else:
+            postData = request.get_json()
+        fid = request.form['q']
+
+        remark = request.form['remark']
+        currFileName = request.form['currFileName']
+        uploaded_file = request.files['file']
+        file_ext = uploaded_file.filename.split('.')[1]
+
+        if uploaded_file == None:
+            response = {"status":0,"message":"No file found"}
+            return jsonify(response)
+        if file_ext == None:
+            response = {"status":1,"message":"No File extension."}
+            return jsonify(response)
+
+        d = datetime.now()
+        result = files.find_one({"fid": fid})
+        dept_id = result["currDept"]
+        fileStageList = result["stageList"]
+        # print("Filestage : {} ".format(fileStageList))
+        applicationType = result["applicationType"]
+        applications_query_result = applications.find_one({"appid": applicationType})
+        appStageList = applications_query_result["stageList"]
+        expectedTimelineDuplicate = result["expectedTimelineDuplicate"]
+        currDept = result["currDept"]
+        email_id = result["currEmp"]
+        # print("email id :  {}".format(email_id))
+
+        emp_stats_query_result = emp_stats.find_one({"email_id": email_id})
+        dept_stats_query_result = dept.find_one({"dept_id": dept_id})
+
+        currFiles = emp_stats_query_result["currFiles"]
+        prevFiles = emp_stats_query_result["prevFiles"]
+        currFilesDept = dept_stats_query_result["currFiles"]
+        prevFilesDept = dept_stats_query_result["prevFiles"]
+
+        delay = chk_delayed(fid)
+        # print("Currfiles : {}".format(currFiles))
+        # print("Length of currfiles : {}".format(len(currFiles)))
+
+
+        try:
+            folder = os.path.join("files", fid)
+            os.mkdir(folder)
+        except:
+            response = {"status":0,"message":"Error while folder creation : {}".format(sys.exc_info()[0])}
+            return jsonify(response)
+
+        try:
+            file_name="files/{}/{}_{}.{}".format(fid,fid,email_id,file_ext)
+            uploaded_file.save(file_name)
+        except:
+            response = {"status": 0, "message": "Digital_file_Failed_To_SAVE"}
+            return jsonify(response)
+
+        for i in range(len(currFiles)):
+            if currFiles[i]['fid'] == fid:
+                index_in_curr_file = i
+        for i in range(len(currFiles)):
+            if currFiles[i]['fid'] == fid:
+                index_in_curr_file_dept = i
+        if (delay[0] != None):
+            for i in expectedTimelineDuplicate.keys():
+                if i != currDept:
+                    expectedTimelineDuplicate[i] = date_by_adding_business_days(expectedTimelineDuplicate[i], delay[0])
+        else:
+            delay[0] = 0
+        next_ = False
+        nextDept = None
+        for i in appStageList:
+            # print(i["dept_id"]+" "+currDept)
+            if next_ == False:
+                if i["dept_id"] == currDept:
+                    fileStageList[len(fileStageList) - 1]["remark"] = remark
+
+                    fileStageList[len(fileStageList) - 1]["delay"] = delay[0]  # CheckThis
+                    # print("filestageList update :")
+                    # print("\t {}".format(str(fileStageList)))
+                    next_ = True
+            else:
+                # print("Next found")
+                nextDept = i["dept_id"]
+                break
+        if nextDept == None:
+            # FileDone
+            fileDone = True
+            files.find_one_and_update({"fid": fid}, {
+                "$set": {"expectedTimelineDuplicate": expectedTimelineDuplicate, "stageList": fileStageList,
+                         "currDept": None, "currEmp": None, "prevDept": currDept, "prevEmp": email_id,
+                         "delayed": False, "delayedDays": 0, "fileDone": fileDone, "scanned": False}})
+
+            prevFiles.append(
+                {"fid": fid, "delay": delay[0], "timeArrived": currFiles[index_in_curr_file]["timeArrived"],
+                 "timeCompleted": d,"digital":True,"fileName":currFileName})
+            prevFilesDept.append({"fid": fid, "emp_id": email_id, "delay": delay[0],
+                                  "timeArrived": currFiles[index_in_curr_file]["timeArrived"],
+                                  "timeCompleted": d,"digital":True,"fileName":currFileName})
+            # currFiles.remove(fid)
+            currFiles.pop(index_in_curr_file)
+            currFilesDept.pop(index_in_curr_file_dept)
+
+            emp_stats.find_one_and_update({"email_id": email_id},
+                                          {"$set": {"currFiles": currFiles, "prevFiles": prevFiles},
+                                           "$inc": {"count": -1}})
+            dept.find_one_and_update({"dept_id": dept_id}, {"$inc": {"count": -1, "completedCount": 1},
+                                                            "$set": {"currFiles": currFilesDept,
+                                                                     "prevFiles": prevFilesDept}})
+
+            r = {"status": "1"}
+
+            return jsonify(r)
+        else:
+            # FileNotDone
+            # UpdateCurrdept
+            emp = least_file_emp(nextDept)
+            files.find_one_and_update({"fid": fid}, {
+                "$set": {"expectedTimelineDuplicate": expectedTimelineDuplicate, "stageList": fileStageList,
+                         "currDept": nextDept, "currEmp": emp, "prevDept": currDept, "prevEmp": email_id,
+                         "delayed": False, "delayedDays": 0, "scanned": False}})
+
+            prevFiles.append(
+                {"fid": fid, "delay": delay[0], "timeArrived": currFiles[index_in_curr_file]["timeArrived"],
+                 "timeCompleted": d,"digital":True,"fileName":currFileName})
+            prevFilesDept.append({"fid": fid, "emp_id": email_id, "delay": delay[0],
+                                  "timeArrived": currFiles[index_in_curr_file]["timeArrived"],
+                                  "timeCompleted": d,"digital":True,"fileName":currFileName})
+            # currFiles.remove(fid)
+            currFiles.pop(index_in_curr_file)
+            currFilesDept.pop(index_in_curr_file_dept)
+
+            # email_id ke outcoming mein entry
+            emp_outgoing_result = emp_stats.find_one({"email_id": email_id}, {"outgoingFiles": True, "_id": False})
+            emp_outgoing_files = emp_outgoing_result["outgoingFiles"]
+            emp_outgoing_files[fid] = {"time": d, "to": emp, "remark": remark,"digital":True,"fileName":currFileName}
+
+            emp_stats.find_one_and_update({"email_id": email_id},
+                                          {"$set": {"currFiles": currFiles, "prevFiles": prevFiles,
+                                                    "outgoingFiles": emp_outgoing_files}, "$inc": {"count": -1}})
+            # email_id ke outcoming mein entry
+            # emp ke incoming mein entry
+            emp_incoming_result = emp_stats.find_one({"email_id": emp}, {"incomingFiles": True, "_id": False})
+            emp_incoming_files = emp_incoming_result["incomingFiles"]
+            emp_incoming_files[fid] = {"time": d, "from": email_id, "remark": remark, "alert": False,"digital":True,"fileName":file_name}
+            emp_stats.find_one_and_update({"email_id": emp},
+                                          {"$set": {"incomingFiles": emp_incoming_files}, "$inc": {"count": 1}})
+            # emp ke incoming mein entry
+            dept.find_one_and_update({"dept_id": dept_id}, {"$inc": {"count": -1, "completedCount": 1},
+                                                            "$set": {"currFiles": currFilesDept,
+                                                                     "prevFiles": prevFilesDept}})
+
+            dept.find_one_and_update({"dept_id": nextDept}, {"$inc": {"count": 1}})
+
+            r = {"status": "1"}
+            return jsonify(r)
+    else:
+        return "POST not allowed"
+
+
+'''                                                       Digital Forward                                          '''
 
 '''                                                       ALL STATS                                             '''
 '''                                                       FileTrack                                             '''
