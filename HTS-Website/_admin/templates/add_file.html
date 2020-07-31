@@ -21,6 +21,8 @@
 
     <script>
         
+        var formdata;
+        
         $('#file_picker').change(function(){    
             //on change event  
             formdata = new FormData();
@@ -84,7 +86,7 @@
                         
                         <div class="col-md-5 align-self-center" style="text-align: center">
                         
-                        <button type="button"class="btn btn-primary" id="fileuploadbtn" onclick="">Upload File</button>
+                        <button type="button"class="btn btn-primary" id="fileuploadbtn" onclick="upload_file();">Upload File</button>
                             
                         </div>
                             
@@ -168,15 +170,15 @@
 
 <script>
     
-var fileselected = 
-    
-    
-    
+
+   
 function upload_file(){
     
     var application = document.getElementById('appid');
     var label = document.getElementById("Success");
     label.innerHTML="";
+    
+    var value = $("#appid").val();
     
     if(value == "Choose Application ID"){
                 console.log("No value")
