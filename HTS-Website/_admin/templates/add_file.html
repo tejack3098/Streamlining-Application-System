@@ -19,6 +19,23 @@
     </script> 
 
 
+    <script>
+        
+        $('#file_picker').change(function(){    
+            //on change event  
+            formdata = new FormData();
+            if($(this).prop('files').length > 0)
+        {
+            file =$(this).prop('files')[0];
+            formdata.append("file", file);
+            var value = $("#appid").val();
+            formdata.append("q", value);
+        }
+        });
+        
+    </script>    
+
+
 
 
   	<div class="container register-form">
@@ -28,32 +45,74 @@
                 </div>
                 <form action="" method="post">
                 <div class="form-content">
+                    
                     <div class="row">
+                        <div class="col-md-3 align-self-center"></div>                       
                         <div class="col-md-6 align-self-center">
                             <div class="form-group">
+                                
                                 <select type="text" class="form-control" placeholder="Application ID" id="appid" value="" required style="height: 48px;" >
                                 <option>Choose Application ID</option>
                                 </select>
                                 
                             </div>
-                            </div>
+                        </div>      
+                        <div class="col-md-3 align-self-center"></div>
+                    </div>
+                    
+                    <div class="row" style=" padding-top: 50px;">
+                        <div class="col-md-5 align-self-center" style="text-align: center">
                             
-                        
-                        <div class="col-md-6 text-center">
-                          <!-- <button type="button" class="btnSubmit" style="width: auto; padding: 0.5rem;" onclick="get_barcode();">Generate Barcode &  Save</button>-->
                             <button type="button"class="btn btn-primary" id="gen_code" onclick="get_barcode();">Generate Barcode &  Save</button>
+                        
                         </div>
+                        <div class="col-md-2 align-self-center" style="vertical-align: middle; text-align: center"> OR </div>
+                        <div class="col-md-5 align-self-center">
+                        
+                            <input type="file"class="form-control-file" id="file_picker" >
+                            
+                        </div>
+                            
                     </div>
-                    <div class="row">
-                    <div class="col-md-6 text-center">
-                         <div id = "barcode"></div>
-                         <div id ="Success"></div>
+                    
+                    <div class="row" style=" padding-top: 50px;">
+                        <div class="col-md-5 align-self-center" style="text-align: center">                           
+                             <div id = "barcode"></div>
+                        </div>
+                        
+                        <div class="col-md-2 align-self-center"> </div>
+                        
+                        <div class="col-md-5 align-self-center" style="text-align: center">
+                        
+                        <button type="button"class="btn btn-primary" id="fileuploadbtn" onclick="">Upload File</button>
+                            
+                        </div>
+                            
                     </div>
-                    <div class="col-md-6 text-center" style="vertical-align: middle">
-                     <!--<button type="button" class="btnSubmit" style="width: 100px; padding: 0.6rem; vertical-align: middle;" onclick="printDiv()">Print</button>-->
-                        <button type="button"class="btn btn-primary" onclick="printDiv()"><i class="fas fa-print" id="prit"> Print</i></button>
+                    
+                    <div class="row" style=" padding-top: 30px;">
+                        <div class="col-md-5 align-self-center" style="text-align: center">                           
+                             <button type="button"class="btn btn-primary" onclick="printDiv()" style="display: none"><i class="fas fa-print" id="prit" > Print</i></button>
+                        </div>
+                        
+                        <div class="col-md-2 align-self-center"> </div>
+                        
+                        <div class="col-md-5 align-self-center" style="text-align: center">
+                        
+                            <div id ="loader">Uploading File...</div>
+                            
+                        </div>
+                            
                     </div>
-                </div>
+                    
+                    <div class="row" style=" padding-top: 20px;">
+                        
+                        <div class="col-md-12 align-self-center" style="">                           
+                             <div id ="Success"></div>
+                        </div>
+                            
+                    </div>
+                    
                     </div>
                 </form>
         </div>
@@ -105,12 +164,56 @@
         
 </script>
 
+<!-- -------------------Script for Digital File--------------------------------------->
+
+<script>
+    
+var fileselected = 
+    
+    
+    
+function upload_file(){
+    
+    var application = document.getElementById('appid');
+    var label = document.getElementById("Success");
+    label.innerHTML="";
+    
+    if(value == "Choose Application ID"){
+                console.log("No value")
+                 document.getElementById("Success").innerHTML = '<p type="text" id="Success" style="color: red; padding: 35px 70px;" >Please Select Application ID</p> ';
+            }
+    
+              $.ajax({
+                type: "Post",
+                url: "{{url_for('backendapp.generate_digital_file')}}",
+                data: formdata,
+                processData: false,
+                contentType: false,
+                success: function(response){
+                  //check if what response is   
+                    console.log(response);
+                    if(response["status"]==="1"){
+                        
+                        label.innerHTML="File Uploaded Successfully!";
+
+                    }
+                    
+                    //alert(response);
+                } 
+              });
+    
+}    
+    
+    
+</script>
+
+
+<!-- -------------------Script for Digital File--------------------------------------->
+
 <script>
 
 function loaddepts(){
-        
-        
-        
+               
     var select =  document.getElementById("appid");  
       
       console.log("calllled");
@@ -146,8 +249,6 @@ function loaddepts(){
     
     loaddepts();
 
-
-
 </script>
 
 <script src="{{ url_for('adminapp.static',filename='js/change_language.js')}}"></script>
@@ -160,11 +261,7 @@ function loaddepts(){
           add_file.innerHTML = language.nep.add_file;
           gen_code.innerHTML = language.nep.generate_bcode_save;
           prit.innerHTML = language.nep.print;
-          
-          
-          
-          
-          
+    
       }
  </script>
 
