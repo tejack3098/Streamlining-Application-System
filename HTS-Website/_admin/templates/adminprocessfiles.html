@@ -15,7 +15,7 @@
     <div class="container register-form" >
             <div class="form">
                 <div class="note">
-                    <p>PROCESSING FILES</p>
+                    <p id="p_file">PROCESSING FILES</p>
                 </div>
 
                 <div class="form-content">
@@ -37,10 +37,10 @@
                         <table class="table" id="worktable" style="font-size: 16px; text-align: center">
 		              <thead>
                           <tr>
-                              <th scope="col"><i class="fas fa-file-alt" > File ID</i></th>
-                              <th scope="col"><i class="fas fa-clock" > Arrival Time</i></th>
-                              <th scope="col"><i class="fas fa-building" > Current Dept</i></th>
-                              <th scope="col"><i class="fas fa-user-tie" > Current Employee</i></th> 
+                              <th scope="col"><i class="fas fa-file-alt" id="f_id"> File ID</i></th>
+                              <th scope="col"><i class="fas fa-clock" id="a_time"> Arrival Time</i></th>
+                              <th scope="col"><i class="fas fa-building" id="c_dept"> Current Dept</i></th>
+                              <th scope="col"><i class="fas fa-user-tie" id="c_emp"> Current Employee</i></th> 
                           </tr>
                             </thead>
                             <tbody>
@@ -52,7 +52,7 @@
 
  
 
-<div class="row justify-content-md-center shadow-sm p-3 mb-5 bg-white rounded font-weight-light" style="font-style:Andale ; font-size: 30px;margin:auto" id="error_show"><p align="center">No Records to Show</p></div>
+<div class="row justify-content-md-center shadow-sm p-3 mb-5 bg-white rounded font-weight-light" style="font-style:Andale ; font-size: 30px;margin:auto" id="error_show"><p align="center" id="no_r">No Records to Show</p></div>
   
                     
                 </div>
@@ -153,4 +153,26 @@ function loadDropDown()
 loadDropDown();
    
 </script>
+
+<script src="{{ url_for('adminapp.static',filename='js/change_language.js')}}"></script>
+ <script type="text/javascript">
+      var lang = sessionStorage.getItem("lang");
+      if(lang === "nepali"){
+                change_lang();
+                }
+      function change_lang(){
+          p_file.innerHTML = language.nep.process_files;
+          f_id.innerHTML = language.nep.file_id;
+          a_time.innerHTML = language.nep.arr_time;
+          c_dept.innerHTML = language.nep.curr_dept;
+          c_emp.innerHTML = language.nep.curr_emp;
+          no_r.innerHTML = language.nep.no_r;
+        
+          
+          
+          
+          
+      }
+ </script>
+
 {% endblock %}

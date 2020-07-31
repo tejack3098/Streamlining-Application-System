@@ -54,10 +54,10 @@
 
 <ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item ">
-    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" style="text-decoration: none;" onclick="loadapplications()">Applications List</a>
+    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" style="text-decoration: none;" onclick="loadapplications()"><span id="app_l">Applications List</span></a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" style="text-decoration: none;">Create New Application</a>
+    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" style="text-decoration: none;"><span id="create_n">Create New Application </span></a>
   </li>
 
 </ul>
@@ -72,9 +72,9 @@
       <table class="table" id="apptable" style="font-size: 18px; text-align: center">
       <thead>
         <tr>
-          <th scope="col"><i class="fas fa-folder" title="Application ID"> Application ID</i></th>
-          <th scope="col"><i class="fas fa-folder" title="Application Name"> Application Name</i></th>
-          <th scope="col"><i class="fas fa-stream" title="Stage List"> Stage List</i></th>
+          <th scope="col"><i class="fas fa-folder" title="Application ID" id="app_ID"> Application ID</i></th>
+          <th scope="col"><i class="fas fa-folder" title="Application Name" id="app_name"> Application Name</i></th>
+          <th scope="col"><i class="fas fa-stream" title="Stage List" id="stage_list"> Stage List</i></th>
 
         </tr>
       </thead>
@@ -104,7 +104,7 @@
   	<div class="container register-form">
             <div class="form">
                 <div class="note">
-                    <p>CREATE APPLICATION</p>
+                    <p id="create_app">CREATE APPLICATION</p>
                 </div>
 
                 <div class="form-content">
@@ -122,23 +122,23 @@
                         </div>
                         <div class="col-md-4">
                              <select type="text" class="form-control priority" placeholder="Priority" id="priority" value="" required style="height: 48px;"   >
-                                <option value="default">Set Priority</option>
-                                <option value="Normal">Normal</option>
-                                <option value="High">High</option>
+                                <option value="default" id="set_pri">Set Priority</option>
+                                <option value="Normal" id="norm">Normal</option>
+                                <option value="High" id="high">High</option>
                                 </select>
                                 
                            
                         </div>
                     </div>
                     <fieldset>
-                        <legend align="left">Add Stages</legend>
+                        <legend align="left" id="add_stages">Add Stages</legend>
                     <div class="row" id="mainRow">
                         <div class = "stage_list w-100 row" style="margin-right:0px;margin-left:0px;">
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <select type="text" class="form-control deptSelect" placeholder="Department ID" onselect="enable_add()" 
                                     id="deptid" name = "dept_id[]" value=""  required style="height: 48px;">
-                                    <option value="default" >Choose Department</option>
+                                    <option value="default" id="choose_dept">Choose Department</option>
                                     </select>
                                 </div>
                             </div>
@@ -544,6 +544,26 @@ function enable_add(){
           }
         });
 </script>	
+
+<script src="{{ url_for('adminapp.static',filename='js/change_language.js')}}"></script>
+ <script type="text/javascript">
+      var lang = sessionStorage.getItem("lang");
+      if(lang === "nepali"){
+                change_lang();
+                }
+      function change_lang(){
+          app_ID.innerHTML = language.nep.appl_id;
+           app_name.innerHTML = language.nep.appl_name;
+           stage_list.innerHTML = language.nep.stage_list;
+           app_l.innerHTML = language.nep.appl_list;
+           add_stages.innerHTML = language.nep.add_stages;
+           
+           create_app.innerHTML = language.nep.create_app;
+           create_n.innerHTML = language.nep.create_new_app;
+           add.innerHTML = language.nep.create_app;
+          
+      }
+ </script>
 
 
 

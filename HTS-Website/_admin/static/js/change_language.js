@@ -68,7 +68,17 @@ var language =
         delayed_by :  "Delayed by",
         track_details : "Track Details",
         est_date : "Estimated Date",
-        
+        create_app : "Create Application",
+        create_new_app : "Create New Application",
+        set_pri : "Set priority",
+        normal : "Normal",
+        high : "High",
+        over_stats : "Overall Stats",
+        filter : "Filters",
+        total_files : "Total Files",
+        file_on_time : "Files Processed on Time",
+
+
         
         
         
@@ -138,6 +148,24 @@ var language =
         delayed_by :  "ढिलाइ",
         track_details : "ट्र्याक विवरणहरू",
         est_date : "आपेक्षित समय",
+        create_app : "एउटा अनुप्रयोग सिर्जना गर्नुहोस्",
+        create_new_app : "एउटा अनुप्रयोग सिर्जना गर्नुहोस्",
+        set_pri : "प्राथमिकता सेट गर्नुहोस्",
+        normal : "सामान्य",
+        high : "उच्च",
+        over_stats : "समग्र तथ्या .्क",
+        filter : "फिल्टरहरू",
+        total_files : "कुल फाईलहरू",
+        file_on_time : "फाईलहरू समयमै प्रशोधन गरि",
+        create_dept : "विभाग सिर्जना गर्नुहोस्",
+        emp_profile : "कर्मचारी प्रोफाइल",
+        emp_name : "कर्मचारीको नाम",
+        curr_emp : "वर्तमान कर्मचारी",
+        arr_time : "आगमन समय",
+        no_r : "देखाउनको लागि रेकर्ड छैन",
+        delay_days : "ढिला दिनहरू",
+        prev_dept : "अघिल्लो विभाग",
+        last_scan : "अन्तिम स्क्यान समय",
         
         
     }

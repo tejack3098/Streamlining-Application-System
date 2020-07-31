@@ -7,7 +7,7 @@
   	<div class="container register-form">
             <div class="form">
                 <div class="note">
-                    <p>ADD Employee</p>
+                    <p id="add_emp">ADD Employee</p>
                 </div>
 
                 <div class="form-content">
@@ -178,6 +178,21 @@
     </script>
 
 
+<script src="{{ url_for('adminapp.static',filename='js/change_language.js')}}"></script>
+ <script type="text/javascript">
+      var lang = sessionStorage.getItem("lang");
+      if(lang === "nepali"){
+                change_lang();
+                }
+      function change_lang(){
+          add_emp.innerHTML = language.nep.add_emp;
+          add.innerHTML = language.nep.add_emp;
+          
+          
+          
+          
+      }
+ </script>
 
 {% endblock %}
 
