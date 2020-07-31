@@ -382,8 +382,9 @@ def generate_digital_file():
             return jsonify(response)
 
         try:
-            file_name="files/{}/{}_admin.{}".format(bcode_string,bcode_string,file_ext)
-            uploaded_file.save(file_name)
+            file_path="files/{}/{}_admin.{}".format(bcode_string,bcode_string,file_ext)
+            file_name="{}_admin.{}".format(bcode_string,file_ext)
+            uploaded_file.save(file_path)
         except:
             response = {"status": 0, "message": "Digital_file_Failed_To_SAVE"}
             return jsonify(response)
@@ -917,8 +918,9 @@ def digitalFileForward():
             return jsonify(response)
 
         try:
-            file_name="files/{}/{}_{}.{}".format(fid,fid,email_id,file_ext)
-            uploaded_file.save(file_name)
+            file_path="files/{}/{}_{}.{}".format(fid,fid,email_id,file_ext)
+            file_name="{}_{}.{}".format(fid,email_id,file_ext)
+            uploaded_file.save(file_path)
         except:
             response = {"status": 0, "message": "Digital_file_Failed_To_SAVE"}
             return jsonify(response)
