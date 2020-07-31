@@ -78,14 +78,14 @@
                     
                     <div class="row" style=" padding-top: 30px;">
                         <div class="col-md-5 align-self-center" style="text-align: center">                           
-                             <button type="button"class="btn btn-primary" onclick="printDiv()" style="display: none"><i class="fas fa-print" id="prit" > Print</i></button>
+                             <button type="button"class="btn btn-primary" onclick="printDiv()" style="display: none" id="printbtn"><i class="fas fa-print" id="prit" > Print</i></button>
                         </div>
                         
                         <div class="col-md-2 align-self-center"> </div>
                         
                         <div class="col-md-5 align-self-center" style="text-align: center">
                         
-                            <div id ="loader">Uploading File...</div>
+                            <div id ="loader" style="display: none">Uploading File...</div>
                             
                         </div>
                             
@@ -93,7 +93,7 @@
                     
                     <div class="row" style=" padding-top: 20px;">
                         
-                        <div class="col-md-12 align-self-center" style="">                           
+                        <div class="col-md-12 align-self-center" style="text-align: center">                           
                              <div id ="Success"></div>
                         </div>
                             
@@ -112,6 +112,7 @@
             var application = document.getElementById('appid');
             var val = document.getElementById("barcode");
             var label = document.getElementById("Success");
+            var printbtn = document.getElementById("printbtn");
             label.innerHTML="";
             val.innerHTML="";
         
@@ -138,7 +139,7 @@
                         
                         realData = response["image"];
                         val.innerHTML="<img src='data:image/png;base64,"+realData+"'/>";
-
+                        printbtn.style.display = "block";
                     }
                     
                     //alert(response);
@@ -174,6 +175,8 @@ function upload_file(){
     
     var application = document.getElementById('appid');
     var label = document.getElementById("Success");
+    var loader = document.getElementById("loader");
+    loader.style.display ="block";
     label.innerHTML="";
     
     var value = $("#appid").val();
@@ -182,7 +185,6 @@ function upload_file(){
                 console.log("No value")
                  document.getElementById("Success").innerHTML = '<p type="text" id="Success" style="color: red; padding: 35px 70px;" >Please Select Application ID</p> ';
             }
-            console.log("Formdata on Ajax : ",formdata)
               $.ajax({
                 type: "Post",
                 url: "{{url_for('backendapp.generate_digital_file')}}",
@@ -195,6 +197,8 @@ function upload_file(){
                     if(response["status"]==="1"){
                         
                         label.innerHTML="File Uploaded Successfully!";
+                        label.style.color = "green";
+                        loader.style.display = "none";
 
                     }
                     
