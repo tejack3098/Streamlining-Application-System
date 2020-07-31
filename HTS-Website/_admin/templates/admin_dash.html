@@ -28,7 +28,8 @@
   td,th
   {
     text-align: center;
-    font-size: 10px;
+    font-size: 15px;
+    font-weight: bolder;
 
   }
 
@@ -53,10 +54,10 @@
 
 <ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item">
-    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" style="text-decoration: none"><span id="over_stats">Overall Stats</span></a>
+    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" style="text-decoration: none">Overall Stats</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" style="text-decoration: none"><span id="filter">Filters</span></a>
+    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" style="text-decoration: none">Filters</a>
   </li>
   <!--
   <li class="nav-item">
@@ -73,23 +74,11 @@
 
 <!-- overall stats of file -->
   <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-      <div class="row justify-content-md-center shadow-sm p-3 mb-5 bg-white rounded font-weight-light" >
 
 
-      <div class="col-sm">
-        <p align='center' style='font-size:24px;font-weight:bold;top:50px;position:relative'>Overall Stats Pie Graph</p>
-        <div id="overall_stats_chart" style="position:relative;height: 300px; width: 100%;top:50px"></div>
-      </div>
 
-      <div class="col-sm" >
-        <!--<p align='center' style='font-size:22px;font-weight:bold;top:50px;position:relative'>Overall Stats Bar Graph</p>-->
-        <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
-        <div id='myDiv' style="width: 400px;height: 400px"><!-- Plotly chart will be drawn inside this DIV --></div>
-      </div>
-          
-      </div>
-      
-       <div class="row justify-content-md-center shadow-sm p-3 mb-5 bg-white rounded font-weight-light" >
+
+    <div class="row justify-content-md-center shadow-sm p-3 mb-5 bg-white rounded font-weight-light" style="margin-top: 10px;">
 
       <div class="col-sm-12">
         <div class ="main">
@@ -97,17 +86,17 @@
           <table class="table" id="worktable">
             <thead class="thead-dark">
            <tr>           
-           <th id="comp_files">Completed Files</th>
-           <th id="file_on_time">Files Processed on Time</th>
-           <th id="delay_files">Delayed Files</th> 
+           <th>Completed Files</th>
+           <th>Files Processed on Time</th>
+           <th>Delayed Files</th> 
          </tr>
         </thead>
 
         <thead class="thead-light">
          <tr>          
-           <td class="count2"></td>
-           <td class="count3"></td>  
-           <td class="count4"></td>
+           <th class="count2"></th>
+           <th class="count3"></th>  
+           <th class="count4"></th>
          </tr>
         </thead>
           </table>
@@ -116,19 +105,43 @@
       </div>
            
       </div>
+
+
+    <div class="row justify-content-md-center shadow-sm p-3 mb-5 bg-white rounded font-weight-light" >     
+      <div class="col-sm-6">    
+          <div id="applications_chart" style="position:relative;width:auto"></div>  
+      </div>
+       <div class="col-sm-6 " style="text-align: center">    
+          <div id="applications_cnt_pie" style="position:relative;width: auto;"></div>  
+      </div> 
+    </div>   
+
+
+
+
+
+
+      <div class="row justify-content-md-center" >
+        <p align='center' style='font-size:24px;font-weight:bold;top:20px;position:relative'>Overall Performance of All Departments.</p>
+      </div>
+      <div class="row justify-content-md-center shadow-sm p-2 mb-5 bg-white rounded font-weight-light" style="margin-top: 20px" >
+
+        <div class="col-sm">
+          <div id="overall_stats_chart" style="position:relative;height: 300px; width: 100%;top:50px"></div>
+        </div>
+
+        <div class="col-sm">
+          <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+          <div id='myDiv' style="width: 400px;height: 400px"><!-- Plotly chart will be drawn inside this DIV --></div>
+        </div>
+          
+      </div>
       
       
-<div class="row justify-content-md-center shadow-sm p-3 mb-5 bg-white rounded font-weight-light" >     
-    <div class="col-sm-12">    
-        <div id="applications_chart" style="position:relative;width:auto"></div>  
-    </div>
-</div>      
       
-<div class="row justify-content-md-center shadow-sm p-3 mb-5 bg-white rounded font-weight-light" >     
-    <div class="col-sm-12 " style="text-align: center">    
-        <div id="applications_cnt_pie" style="position:relative;width: auto;"></div>  
-    </div>    
-</div>
+   
+      
+
       
 
           
@@ -164,9 +177,9 @@
           <table class="table" id="worktable">
             <thead class="thead-dark">
            <tr>           
-           <th id="total_files">Total Files</th>
-           <th id="file_on_time2">Files Processed on Time</th>
-           <th id="delay_files2">Delayed Files</th> 
+           <th>Total Files</th>
+           <th>Files Processed on Time</th>
+           <th>Delayed Files</th> 
          </tr>
         </thead>
 
@@ -772,7 +785,7 @@ var layout = {barmode: 'stack'};
 Plotly.newPlot('myDiv', data, layout);
 
 //document.getElementsByClassName('modebar-container')[0].remove();
-document.getElementsByClassName('modebar-container')[0].innerHTML="<p align='center' style='font-size:22px;font-weight:bold;top:50px;position:relative'>Overall Stats Bar Graph</p>";
+document.getElementsByClassName('modebar-container')[0].innerHTML = '<div style="z-index:-1"></div>';
 
 }
     
@@ -925,28 +938,6 @@ $('#dateRangeDatePickerInputParent').on('click',openModal);
 </script>
 <script src="{{ url_for('static',filename='js/bootstrap.min.js')}}"></script>
 <!-- -->
-
-<script src="{{ url_for('adminapp.static',filename='js/change_language.js')}}"></script>
- <script type="text/javascript">
-      var lang = sessionStorage.getItem("lang");
-      if(lang === "nepali"){
-                change_lang();
-                }
-      function change_lang(){
-          over_stats.innerHTML = language.nep.over_stats;
-          filter.innerHTML = language.nep.filter;
-          comp_files.innerHTML = language.nep.comp_files;
-          delay_files.innerHTML = language.nep.delay_files;
-          delay_files2.innerHTML = language.nep.delay_files;
-          total_files.innerHTML = language.nep.total_files;
-          file_on_time.innerHTML = language.nep.file_on_time;
-          file_on_time2.innerHTML = language.nep.file_on_time;
-          
-          
-          
-      }
- </script>
-
 {% endblock %}
 
 <!--
