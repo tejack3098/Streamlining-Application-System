@@ -149,12 +149,12 @@ function move(m) {
   	<div class="container register-form">
             <div class="form">
                 <div class="note">
-                    <p>Employee Ratings</p>
+                    <p id="emp_r">Employee Ratings</p>
                 </div>
 
                 <div class="form-content">
 
-                	<label for="sel1"><b>Department List</b></label>
+                	<label for="sel1"><b id="dept_l">Department List</b></label>
       <select class="form-control" id="sel1" onchange ="Employee()" style="height: 50px;">
       	<option value="">Choose Department</option>
         <!-- <option>01</option>
@@ -178,10 +178,10 @@ function move(m) {
 			<table class="table" id="worktable"  style="font-size: 18px; text-align: center">
 		  <thead>
 		    <tr>
-		      <th scope="col"><i class="fas fa-id-badge" > Employee ID</i></th>
-		      <th scope="col"><i class="fas fa-user-tie" > Employee Name</i></th>
-		      <th scope="col"><i class="fas fa-star-half-alt" > Employee Ratings</i></th>
-		      <th scope="col"><i class="fas fa-id-card" > Employee Profile</i></th>
+		      <th scope="col"><i class="fas fa-id-badge" id="emp_i"> Employee ID</i></th>
+		      <th scope="col"><i class="fas fa-user-tie" id="emp_n"> Employee Name</i></th>
+		      <th scope="col"><i class="fas fa-star-half-alt" id="emp_r2"> Employee Ratings</i></th>
+		      <th scope="col"><i class="fas fa-id-card" id="emp_p"> Employee Profile</i></th>
 		    </tr>
 		  </thead>
 		  <tbody >
@@ -424,6 +424,27 @@ loadDropDown();
 
 
 </script>
+
+<script src="{{ url_for('adminapp.static',filename='js/change_language.js')}}"></script>
+ <script type="text/javascript">
+      var lang = sessionStorage.getItem("lang");
+      if(lang === "nepali"){
+                change_lang();
+                }
+      function change_lang(){
+          emp_r.innerHTML = language.nep.emp_ratings;
+          emp_r2.innerHTML = language.nep.emp_ratings;
+          emp_i.innerHTML = language.nep.emp_id;
+          emp_n.innerHTML = language.nep.emp_name;
+          emp_p.innerHTML = language.nep.emp_profile;
+          dept_l.innerHTML = language.nep.dept_list;
+          
+          
+          
+          
+      }
+ </script>
+
 
 <!--<script>
 

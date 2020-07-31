@@ -28,12 +28,12 @@
 <!--end modal for Notification-->
 
 <a href="#" class="btn btn-primary a-btn-slide-text" id="edit">
-    <span><strong>Edit</strong></span>    
+    <span><strong id="e">Edit</strong></span>    
     <span><img src="{{url_for('adminapp.static',filename='img/edit_button.png')}}" style="padding: 2px;height: 19px; width: 19px; margin-left: 3px;"></span>
                     
 </a>
 <a href="#" class="btn btn-primary a-btn-slide-text" id="done">
-        <span><strong>Save</strong></span> 
+        <span><strong id="s">Save</strong></span> 
         <span><img src="{{url_for('adminapp.static',filename='img/save.png')}}" style="padding: 2px;height: 19px; width: 19px; margin-left: 3px;"></span>
 </a>
 <!--<button id="edit">Edit</button>-->
@@ -185,7 +185,22 @@
     
 
 
-
+<script src="{{ url_for('adminapp.static',filename='js/change_language.js')}}"></script>
+ <script type="text/javascript">
+      var lang = sessionStorage.getItem("lang");
+      if(lang === "nepali"){
+                change_lang();
+                }
+      function change_lang(){
+          e.innerHTML = language.nep.edit;
+          s.innerHTML = language.nep.save;
+        
+          
+          
+          
+          
+      }
+ </script>
 
 {% endblock %}
 

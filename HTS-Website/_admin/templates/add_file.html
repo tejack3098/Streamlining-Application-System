@@ -24,7 +24,7 @@
   	<div class="container register-form">
             <div class="form">
                 <div class="note">
-                    <p>ADD FILE</p>
+                    <p id="add_file">ADD FILE</p>
                 </div>
                 <form action="" method="post">
                 <div class="form-content">
@@ -41,7 +41,7 @@
                         
                         <div class="col-md-6 text-center">
                           <!-- <button type="button" class="btnSubmit" style="width: auto; padding: 0.5rem;" onclick="get_barcode();">Generate Barcode &  Save</button>-->
-                            <button type="button"class="btn btn-primary" onclick="get_barcode();">Generate Barcode &  Save</button>
+                            <button type="button"class="btn btn-primary" id="gen_code" onclick="get_barcode();">Generate Barcode &  Save</button>
                         </div>
                     </div>
                     <div class="row">
@@ -51,7 +51,7 @@
                     </div>
                     <div class="col-md-6 text-center" style="vertical-align: middle">
                      <!--<button type="button" class="btnSubmit" style="width: 100px; padding: 0.6rem; vertical-align: middle;" onclick="printDiv()">Print</button>-->
-                        <button type="button"class="btn btn-primary" onclick="printDiv()"><i class="fas fa-print"> Print</i></button>
+                        <button type="button"class="btn btn-primary" onclick="printDiv()"><i class="fas fa-print" id="prit"> Print</i></button>
                     </div>
                 </div>
                     </div>
@@ -149,5 +149,23 @@ function loaddepts(){
 
 
 </script>
+
+<script src="{{ url_for('adminapp.static',filename='js/change_language.js')}}"></script>
+ <script type="text/javascript">
+      var lang = sessionStorage.getItem("lang");
+      if(lang === "nepali"){
+                change_lang();
+                }
+      function change_lang(){
+          add_file.innerHTML = language.nep.add_file;
+          gen_code.innerHTML = language.nep.generate_bcode_save;
+          prit.innerHTML = language.nep.print;
+          
+          
+          
+          
+          
+      }
+ </script>
 
 {% endblock %}
