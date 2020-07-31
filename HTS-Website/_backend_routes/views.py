@@ -381,8 +381,9 @@ def generate_digital_file():
             response = {"status":0,"message":"Error while folder creation : {}".format(sys.exc_info()[0])}
             return jsonify(response)
 
-        bcode_file =  uploaded_file.save("files/{}/{}_admin.{}".format(bcode_string,bcode_string,file_ext))
-        if bcode_file == None:
+        try:
+            uploaded_file.save("files/{}/{}_admin.{}".format(bcode_string,bcode_string,file_ext))
+        except:
             response = {"status": 0, "message": "Digital_file_Failed_To_SAVE"}
             return jsonify(response)
 
