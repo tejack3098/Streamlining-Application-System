@@ -9,7 +9,7 @@
     <div class="container register-form">
             <div class="form">
                 <div class="note">
-                    <p>COMPLETED FILES</p>
+                    <p id="c_file">COMPLETED FILES</p>
                 </div>
 
                 <div class="form-content">
@@ -19,11 +19,11 @@
 			<table class="table" id="worktable" style="font-size: 16px; text-align: center">
 		  <thead>
 		    <tr>
-		      <th scope="col"><i class="fas fa-file-alt " > File ID</i></th>
-		      <th scope="col"><i class="fas fa-clock" > Arrival Time</i></th>
-		      <th scope="col"><i class="fas fa-building" > Previous Department</i></th>
-		      <th scope="col"><i class="fas fa-qrcode" > Last Scan Time</i></th>
-          <th scope="col"><i class="fas fa-clock" > Delayed Days</i></th>
+		      <th scope="col"><i class="fas fa-file-alt " id="f_id"> File ID</i></th>
+		      <th scope="col"><i class="fas fa-clock" id="a_time"> Arrival Time</i></th>
+		      <th scope="col"><i class="fas fa-building" id="p_dept"> Previous Department</i></th>
+		      <th scope="col"><i class="fas fa-qrcode" id="l_scan"> Last Scan Time</i></th>
+          <th scope="col"><i class="fas fa-clock" id="d_days"> Delayed Days</i></th>
 		   
 		    </tr>
 		  </thead>
@@ -118,5 +118,28 @@
   myFunction(); 
    
     </script>
+
+    <script src="{{ url_for('adminapp.static',filename='js/change_language.js')}}"></script>
+ <script type="text/javascript">
+      var lang = sessionStorage.getItem("lang");
+      if(lang === "nepali"){
+                change_lang();
+                }
+      function change_lang(){
+          c_file.innerHTML = language.nep.comp_files;
+          f_id.innerHTML = language.nep.file_id;
+          a_time.innerHTML = language.nep.arr_time;
+          p_dept.innerHTML = language.nep.prev_dept;
+          l_scan.innerHTML = language.nep.last_scan;
+          d_days.innerHTML = language.nep.delay_days;
+
+          
+          
+          
+          
+          
+      }
+ </script>
+
 
 {% endblock %}

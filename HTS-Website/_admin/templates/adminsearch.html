@@ -12,7 +12,7 @@
     <div class="container1 register-form">
             <div class="form">
                 <div class="note">
-                    <p>SEARCH FILE</p>
+                    <p id="s_file">SEARCH FILE</p>
                 </div>
 
                 <div class="form-content">
@@ -24,17 +24,17 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group" style="">
-                                <button type="button" class="btn btn-primary"  onclick="myfunctinp()"><i class="fas fa-search" title="Search File"> Search</i></button>
+                                <button type="button" class="btn btn-primary"  onclick="myfunctinp()"><i class="fas fa-search" title="Search File" id="srch"> Search</i></button>
                             </div>    
                         </div>
                         <div class="col-md-2">
                             <div class="form-group" style="">
-                               <p>OR</p>
+                               <p id="or">OR</p>
                             </div>    
                         </div>
                         <div class="col-md-2">
                             <div class="form-group" style="">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-qrcode" title="Scan File"> Scan File</i></button>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-qrcode" title="Scan File" id="sc_file"> Scan File</i></button>
 
                             </div>
                             
@@ -47,11 +47,11 @@
 			<table class="table" id="worktable">
 		  <thead>
 		    <tr>
-		      <th scope="col"><i class="fas fa-file-alt" > File ID</i></th>
-		      <th scope="col"><i class="fas fa-building" > Current Dept</i></th>
-		      <th scope="col"><i class="fas fa-clock" > Delayed By</i></th>
-		      <th scope="col"><i class="fas fa-stream" > Track Details</i></th>
-          <th scope="col"><i class="fas fa-calendar-day" > Estimated Date</i></th>
+		      <th scope="col"><i class="fas fa-file-alt" id="f_id"> File ID</i></th>
+		      <th scope="col"><i class="fas fa-building" id="c_dept"> Current Dept</i></th>
+		      <th scope="col"><i class="fas fa-clock" id="d_by"> Delayed By</i></th>
+		      <th scope="col"><i class="fas fa-stream" id="t_details"> Track Details</i></th>
+          <th scope="col"><i class="fas fa-calendar-day" id="e_date"> Estimated Date</i></th>
 		    </tr>
 		  </thead>
 		  <tbody>
@@ -374,6 +374,30 @@ window.onclick = function(event) {
 <script type="text/javascript" src="{{ url_for('static',filename='js/bootstrap.js')}}"></script> 
     
     
+
+<script src="{{ url_for('adminapp.static',filename='js/change_language.js')}}"></script>
+ <script type="text/javascript">
+      var lang = sessionStorage.getItem("lang");
+      if(lang === "nepali"){
+                change_lang();
+                }
+      function change_lang(){
+          s_file.innerHTML = language.nep.search_file;
+          //sc_file.innerHTML = language.nep.scan_file;
+          or.innerHTML = language.nep.or;
+          //srch.innerHTML = language.nep.search;
+          f_id.innerHTML = language.nep.file_id;
+          c_dept.innerHTML = language.nep.curr_dept;
+          d_by.innerHTML =language.nep.delayed_by;
+          t_details.innerHTML = language.nep.track_details;
+          e_date.innerHTML = language.nep.est_date;
+        
+          
+          
+          
+          
+      }
+ </script>
 
 
 

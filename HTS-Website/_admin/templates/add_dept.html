@@ -4,10 +4,10 @@
     
 <ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item ">
-    <a class="nav-link active" id="dept-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" onclick="loadapplications()" style="text-decoration: none;">Department List</a>
+    <a class="nav-link active" id="dept-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" onclick="loadapplications()" style="text-decoration: none;"><span id="dept_l">Department List</span></a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="add-dept-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" style="text-decoration: none;">Create New Department</a>
+    <a class="nav-link" id="add-dept-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" style="text-decoration: none;"><span id="create_new_dept">Create New Department</span></a>
   </li>
 
 </ul>
@@ -23,9 +23,9 @@
       <table class="table" id="depttable" style="font-size: 18px; text-align: center" >
       <thead >
         <tr>
-          <th scope="col"><i class="fas fa-building" title="Department Name"> Department Name</i></th>
-          <th scope="col"><i class="fas fa-building" title="Department ID"> Department ID</i></th>
-          <th scope="col"><i class="fas fa-clock" title="Time Created"> Time Created</i></th>
+          <th scope="col"><i class="fas fa-building" title="Department Name" id="dept__n"> Department Name</i></th>
+          <th scope="col"><i class="fas fa-building" title="Department ID" id="dept__i"> Department ID</i></th>
+          <th scope="col"><i class="fas fa-clock" title="Time Created" id="time_c"> Time Created</i></th>
           
 
         </tr>
@@ -54,7 +54,7 @@
   	<div class="container register-form">
             <div class="form">
                 <div class="note">
-                    <p>CREATE DEPARTMENT</p>
+                    <p id="create_dept">CREATE DEPARTMENT</p>
                 </div>
 
                 <div class="form-content">
@@ -76,7 +76,7 @@
                         <div class="col-md-12 text-center">
                            
                                <!-- <button class="btnSubmit" type="submit" id="add">Add</button>-->
-                            <button type="submit"class="btn btn-primary disabled" role="button" aria-disabled="true" id="add"><i class="fas fa-plus" title="Create Department"> Create Department</i></button>
+                            <button type="submit"class="btn btn-primary disabled" role="button" aria-disabled="true" id="add"><i class="fas fa-plus" title="Create Department" id="create_dept2"> Create Department</i></button>
                         </div>
                        
                     </div>
@@ -201,7 +201,26 @@ function enable_add(){
     
     </script>
 
-
+<script src="{{ url_for('adminapp.static',filename='js/change_language.js')}}"></script>
+ <script type="text/javascript">
+      var lang = sessionStorage.getItem("lang");
+      if(lang === "nepali"){
+                change_lang();
+                }
+      function change_lang(){
+          create_dept.innerHTML = language.nep.create_dept;
+          create_dept2.innerHTML = language.nep.create_dept;
+          create_new_dept.innerHTML = language.nep.create_dept;
+          dept__i.innerHTML = language.nep.dept_id;
+          dept__n.innerHTML = language.nep.dept_name;
+          time_c.innerHTML = language.nep.time_created;
+          dept_l.innerHTML = language.nep.dept_list;
+          
+          
+          
+          
+      }
+ </script>
 
 {% endblock %}
 
