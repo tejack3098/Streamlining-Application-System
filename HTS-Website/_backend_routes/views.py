@@ -6,7 +6,8 @@ import calendar, pickle
 from flask_cors import CORS
 from barcode import generate
 from barcode.writer import ImageWriter
-
+import os
+import sys
 from . import backendapp
 
 iwriter = ImageWriter()
@@ -320,7 +321,8 @@ def generate_barcode():
 
         try:
             emp = least_file_emp(firstDept)
-            result = files.insert_one({"fid": bcode_string, "applicationType": appid, "timeCreated": d, \
+            result = files.insert_one({"fid": bcode_string, "applicationType": appid, "timeCreated": d,
+                                       "digital": False, "fileExtension": None,                                       \
                                        "fileDone": False, "currDept": firstDept, "currEmp": emp,"prevDept":None,"prevEmp":None,"scanned":False, "delayed": False, \
                                        "delayedDays": 0, "expectedTimeline": file_expected,
                                        "expectedTimelineDuplicate": file_expected, \
@@ -343,7 +345,76 @@ def generate_barcode():
     else:
         return "POST method not allowed"
 
-    
+@backendapp.route("/generate_digital_file", methods=["GET", "POST"])
+def generate_digital_file():
+    if request.method == "POST":
+        appid = request.args.get('q')
+        uploaded_file = request.files['file']
+        file_ext = uploaded_file.content_type
+        print("APP ID : " + appid)
+        d = datetime.now()
+        t = d.timestamp()
+        bcode_string = appid + str(t).split('.')[0]
+        bcode = generate(name="code128", code=bcode_string, writer=ImageWriter(),
+                         output="bcodes/{}".format(bcode_string))
+        if uploaded_file == None:
+            response = {"status":0,"message":"No file found"}
+            return jsonify(response)
+        if file_ext == None:
+            response = {"status":1,"message":"No File extension."}
+            return jsonify(response)
+        if bcode == None:
+            response = {"status": 0, "message": "Barcode_Generation_Failed"}
+            return jsonify(response)
+
+        try:
+            folder = os.path.join("files", bcode_string)
+            os.mkdir(folder)
+        except:
+            response = {"status":0,"message":"Error while folder creation : {}".format(sys.exc_info()[0])}
+            return jsonify(response)
+
+        bcode_file =  uploaded_file.save("files/{}/{}_admin.{}".format(bcode_string,bcode_string,file_ext))
+        if bcode_file == None:
+            response = {"status": 0, "message": "Digital_file_Failed_To_SAVE"}
+            return jsonify(response)
+
+        app_stagelist = applications.find_one({"appid": appid})["stageList"]
+
+        firstDept= app_stagelist[0]["dept_id"]
+        lastDept = app_stagelist[len(app_stagelist) - 1]["dept_id"]
+
+        file_expected = {}
+        total = 0
+        for i in app_stagelist:
+            file_expected[i["dept_id"]] = date_by_adding_business_days(d, total + int(i["no_of_days"]))
+            total += int(i["no_of_days"])
+
+        try:
+            emp = least_file_emp(firstDept)
+            result = files.insert_one({"fid": bcode_string, "applicationType": appid, "timeCreated": d,
+                                       "digital": True, "fileExtension": file_ext,                                       \
+                                       "fileDone": False, "currDept": firstDept, "currEmp": emp,"prevDept":None,"prevEmp":None,"scanned":False, "delayed": False, \
+                                       "delayedDays": 0, "expectedTimeline": file_expected,
+                                       "expectedTimelineDuplicate": file_expected, \
+                                       "stageList": [],"firstDept":firstDept,"lastDept":lastDept, "delayNotificationSent": None, "lastScanTime": "Not Scanned yet."})
+
+            emp_stats_result = emp_stats.find_one({"email_id":emp},{"incomingFiles":True,"_id":False})
+            emp_incoming_files=emp_stats_result["incomingFiles"]
+            emp_incoming_files[bcode_string]={"time":d,"from":"Barcode Generation Dept","remark":"","alert":False}
+
+            emp_result = emp_stats.find_one_and_update({"email_id":emp},{"$set":{"incomingFiles":emp_incoming_files},"$inc":{"count":1}})
+
+            #data = base64.b64encode(bcode_file.read()).decode("utf-8")
+            response = {"status": "1", "message": "Success","fid":bcode_string}
+            print("response")
+            return jsonify(response)
+        except:
+            response = {"status": "0", "message": "DB insert Failed"}
+            raise
+            return jsonify(response)
+    else:
+        return "GET method not allowed"
     
 @backendapp.route("/chk_email", methods=["GET"])
 def chk_email():
