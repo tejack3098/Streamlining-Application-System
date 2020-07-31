@@ -19,23 +19,7 @@
     </script> 
 
 
-    <script>
-        
-        var formdata;
-        
-        $('#file_picker').change(function(){    
-            //on change event  
-            formdata = new FormData();
-            if($(this).prop('files').length > 0)
-        {
-            file =$(this).prop('files')[0];
-            formdata.append("file", file);
-            var value = $("#appid").val();
-            formdata.append("q", value);
-        }
-        });
-        
-    </script>    
+
 
 
 
@@ -169,7 +153,21 @@
 <!-- -------------------Script for Digital File--------------------------------------->
 
 <script>
-    
+var formdata = new FormData();
+
+$('#file_picker').change(function(){
+    //on change event
+    if($(this).prop('files').length > 0)
+    {
+        file =$(this).prop('files')[0];
+        formdata.append("file", file);
+        var value = $("#appid").val();
+        formdata.append("q", value);
+        for (var key of formdata.entries()) {
+        console.log(key[0] + ', ' + key[1]);
+    }
+    }
+});
 
    
 function upload_file(){
@@ -184,7 +182,7 @@ function upload_file(){
                 console.log("No value")
                  document.getElementById("Success").innerHTML = '<p type="text" id="Success" style="color: red; padding: 35px 70px;" >Please Select Application ID</p> ';
             }
-    
+            console.log("Formdata on Ajax : ",formdata)
               $.ajax({
                 type: "Post",
                 url: "{{url_for('backendapp.generate_digital_file')}}",

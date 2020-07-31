@@ -348,13 +348,14 @@ def generate_barcode():
 @backendapp.route("/generate_digital_file", methods=["GET", "POST"])
 def generate_digital_file():
     if request.method == "POST":
-        print(request.headers)
-        print(request.form)
+        #print(request.headers['fid'])
+        #print(request.form)
+        #print(request.get_json())
         if "application/x-www-form-urlencoded" in request.headers["Content-Type"]:
             postData = request.form
         else:
             postData = request.get_json()
-        appid = postData['q']
+        appid = request.form['q']
         uploaded_file = request.files['file']
         file_ext = uploaded_file.filename.split('.')[1]
         print("APP ID : " + appid)
