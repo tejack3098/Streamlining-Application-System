@@ -24,6 +24,7 @@
         <tr>
           <th scope="col"><i class="fas fa-stream" title="Stage No."> Stage No.</i></th>
           <th scope="col"><i class="fas fa-building" title="Department ID"> Dept ID</i></th>
+          <th scope="col"><i class="fas fa-building" title="Department Name"> Dept Name</i></th>
           <th scope="col"><i class="fas fa-clock" title="Number of Days to complete"> No. of Days</i></th>
 
         </tr>
@@ -207,6 +208,7 @@
                         var cell2 = row.insertCell(1);
                         var cell3 = row.insertCell(2);
                         
+                        
                         cell1.innerHTML = applist[i]['appid'];
                         cell2.innerHTML = applist[i]['appname'];//appids[0].stageList[0].dept_id
                         
@@ -247,10 +249,17 @@ function loadStageDetails(stage_list)
             var cell1 = row.insertCell(0);
             var cell2 = row.insertCell(1);
             var cell3 = row.insertCell(2);
-
-            cell1.innerHTML = i;
-            cell2.innerHTML = stageobj[i]['dept_id'];//appids[0].stageList[0].dept_id
-            cell3.innerHTML = stageobj[i]['no_of_days'];//appids[0].stageList[0].no_of_days
+            var cell4 = row.insertCell(3);
+            
+            var dept_stageId = stageobj[i]['dept_id'];
+            var dept_stageName = stageobj[i]['dept_name'];
+            
+            console.log("----------------");
+            console.log(stageobj[i]['dept_name']);
+            cell1.innerHTML = i+1;
+            cell2.innerHTML = dept_stageId;
+            cell3.innerHTML = dept_stageName;
+            cell4.innerHTML = stageobj[i]['no_of_days'];
     
             }
             

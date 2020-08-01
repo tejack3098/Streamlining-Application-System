@@ -1,6 +1,7 @@
 {% extends "admin_sidebar.html" %}
 {% block body %}
 
+<!-- get_dept_ids -->
     
     
    <form action="" method="post">
@@ -20,7 +21,15 @@
                                 <input id = "txtEmail" type="email" class="form-control" placeholder="Email ID" name="email" required />
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Department ID" name = "dept_id" id = "dept_id" value="" onkeyup="enable_add()" required/>
+                                <!--<input type="text" class="form-control" placeholder="Department ID" name = "dept_id" id = "dept_id" value="" onkeyup="enable_add()" required/>-->
+                                <select class="form-control" id="dept_id" onchange="" style="height: 45px">
+                                    <option value="" disabled selected>Select Department</option>
+                                    <!--    <option>01</option>
+                                            <option>02</option>
+                                            <option>03</option>
+                                            <option>04</option> -->
+                                </select>
+                                
                             </div>
 
                         </div>
@@ -193,6 +202,54 @@
           
       }
  </script>
+
+
+<!-- ----------------------------- script for loading dpartment nmaes--------------->
+
+
+<script>
+
+function loadDropDown()
+{
+    
+  var dropdown=document.getElementById("dept_id");
+  $.post("{{url_for('backendapp.get_dept_ids')}}",
+                
+                function(response){
+                  //check if what response is 
+           
+                    
+                var details = response["dept_ids"];
+                
+                    console.log(details);
+                
+                    
+ 
+                     for(var i = 0;i < details.length;i++)
+                     {
+                         var opt = details[i]['dept_name']+' ('+details[i]['dept_id']+')';
+                         var el = document.createElement("option");
+                         el.textContent = opt;
+                         el.value =details[i]['dept_id'];
+                         dropdown.appendChild(el);
+                     }
+
+                    
+                    //alert(response);
+                
+              },"json");
+}
+loadDropDown();
+
+
+
+</script>
+
+
+
+
+<!-- ----------------------------- script for loading dpartment nmaes---------------->
+
 
 {% endblock %}
 
