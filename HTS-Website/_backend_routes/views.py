@@ -505,6 +505,7 @@ def bcode_entry():
             prevDeptID = emp_data.find_one({"emp_id":prevEmp},{"dept_id":True})["dept_id"]
             prev_dept_name = dept.find_one({"dept_id": prevDeptID}, {"dept_name": True})["dept_name"]
         else:
+            prevDeptID = "Barcode Generation Dept"
             prev_dept_name = "Barcode Generation Dept"
         lst =  file_query_result["stageList"]
         if(len(lst)==0):
