@@ -112,21 +112,59 @@ result = files.find({"fileDone":False},{"fid":True,"currEmp":True,"currDept":Tru
 
 for i in result:
     fid = i["fid"]
+
     delayNotificationSent = i["delayNotificationSent"]
+    '''i["delayNotificationSent"] = ["hello"]
+    if (delayNotificationSent == None):
+        print("message sent")
+    else:
+        print("not send")'''
     delay = chk_delayed(fid)
     d = datetime.now()
     t= d.timestamp()
     if delay != None:
-        notifications.insert_one({"notificationID":i["currEmp"].split("@")[0]+str(t).split('.')[0],"email_id": i["currEmp"], "message": delayMessage.format(fid, delay),"timeCreated":d,"read":False})
-        mno_result = emp_data.find_one({"email_id": i["currEmp"]}, {"mno": True, "_id": False})
-        mno = mno_result['mno']
-        print(mno)
-        delayUpdate = True
+        if (delayNotificationSent == None):
+            notifications.insert_one({"notificationID":i["currEmp"].split("@")[0]+str(t).split('.')[0],"email_id": i["currEmp"], "message": delayMessage.format(fid, delay),"timeCreated":d,"read":False})
+            mno_result = emp_data.find_one({"email_id": i["currEmp"]}, {"mno": True, "_id": False})
+            mno = mno_result['mno']
+            print(mno)
+            delayUpdate = True
 
-        #dept_count+=1
+            #dept_count+=1
 
-        send_mail(i["currEmp"],fid,delay)#email pass i["currEmp"]
-        send_sms(mno,fid,delay)#sms pass mno
+            send_mail(i["currEmp"],fid,delay)#email pass i["currEmp"]
+            send_sms(mno,fid,delay)#sms pass mno
+
+            emplst = {i["currEmp"]:d}
+            files.find_one_and_update({"fid": fid}, {"$set": {"delayNotificationSent": emplst}})
+
+        else:
+            '''print(delayNotificationSent[i["currEmp"]].date())
+            print(d.date())'''
+
+            if i["currEmp"] in delayNotificationSent:
+                if(d.date()>delayNotificationSent[i["currEmp"]].date()):
+                    notifications.insert_one(
+                        {"notificationID": i["currEmp"].split("@")[0] + str(t).split('.')[0], "email_id": i["currEmp"],
+                         "message": delayMessage.format(fid, delay), "timeCreated": d, "read": False})
+                    mno_result = emp_data.find_one({"email_id": i["currEmp"]}, {"mno": True, "_id": False})
+                    mno = mno_result['mno']
+                    print(mno)
+                    delayUpdate = True
+
+                    # dept_count+=1
+
+                    send_mail(i["currEmp"], fid, delay)  # email pass i["currEmp"]
+                    send_sms(mno, fid, delay)  # sms pass mno
+
+                    emplst = {i["currEmp"]: d}
+                    files.find_one_and_update({"fid": fid}, {"$set": {"delayNotificationSent": emplst}})
+                else:
+                    delayUpdate = True
+
+            else:
+                pass
+
     else:
         delay = 0
         delayUpdate = False
