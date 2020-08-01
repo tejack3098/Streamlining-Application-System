@@ -6,7 +6,8 @@ import calendar, pickle
 from flask_cors import CORS
 from barcode import generate
 from barcode.writer import ImageWriter
-
+import qrcode
+from qrcode.image.pure import PymagingImage
 from . import backendapp
 
 iwriter = ImageWriter()
@@ -288,7 +289,7 @@ def least_file_emp(dept_id):
 
 
 
-
+'''                 Codes Generation Barcode QRcode             '''
 @backendapp.route("/generate_barcode", methods=["GET", "POST"])
 def generate_barcode():
     if request.method == "GET":
@@ -343,8 +344,66 @@ def generate_barcode():
     else:
         return "POST method not allowed"
 
-    
-    
+@backendapp.route("/generate_qrcode", methods=["GET","POST"])
+def generate_qrcode():
+    if request.method == "GET":
+        appid = request.args.get('q')
+        print("APP ID : " + appid)
+        d = datetime.now()
+        t = d.timestamp()
+        bcode_string = appid + str(t).split('.')[0]
+        qr_code = qrcode.make('bcode_string', image_factory=PymagingImage)
+        try:
+            with open("bcodes/{}.png".format(bcode_string), "wb") as f:
+                qr_code.save(f)
+        except:
+            response = {"status": 0, "message": "QRCode_ImageSave_Failed"}
+            return jsonify(response)
+        if qr_code == None:
+            response = {"status": 0, "message": "Barcode_Generation_Failed"}
+            return jsonify(response)
+        bcode_image = open("bcodes/{}.png".format(bcode_string), 'rb')
+        if bcode_image == None:
+            response = {"status": 0, "message": "Barcode_Image_Failed_To_LOAD"}
+            return jsonify(response)
+
+        app_stagelist = applications.find_one({"appid": appid})["stageList"]
+
+        firstDept= app_stagelist[0]["dept_id"]
+        lastDept = app_stagelist[len(app_stagelist) - 1]["dept_id"]
+
+        file_expected = {}
+        total = 0
+        for i in app_stagelist:
+            file_expected[i["dept_id"]] = date_by_adding_business_days(d, total + int(i["no_of_days"]))
+            total += int(i["no_of_days"])
+
+        try:
+            emp = least_file_emp(firstDept)
+            result = files.insert_one({"fid": bcode_string, "applicationType": appid, "timeCreated": d, \
+                                       "fileDone": False, "currDept": firstDept, "currEmp": emp,"prevDept":None,"prevEmp":None,"scanned":False, "delayed": False, \
+                                       "delayedDays": 0, "expectedTimeline": file_expected,
+                                       "expectedTimelineDuplicate": file_expected, \
+                                       "stageList": [],"firstDept":firstDept,"lastDept":lastDept, "delayNotificationSent": None, "lastScanTime": "Not Scanned yet."})
+
+            emp_stats_result = emp_stats.find_one({"email_id":emp},{"incomingFiles":True,"_id":False})
+            emp_incoming_files=emp_stats_result["incomingFiles"]
+            emp_incoming_files[bcode_string]={"time":d,"from":"Barcode Generation Dept","remark":"","alert":False}
+
+            emp_result = emp_stats.find_one_and_update({"email_id":emp},{"$set":{"incomingFiles":emp_incoming_files},"$inc":{"count":1}})
+
+            data = base64.b64encode(bcode_image.read()).decode("utf-8")
+            response = {"status": "1", "message": "Success", "image": data}
+            print("response")
+            return jsonify(response)
+        except:
+            response = {"status": "0", "message": "DB insert Failed"}
+            raise
+            return jsonify(response)
+    else:
+        return "POST method not allowed"
+'''                 Codes Generation Barcode QRcode             '''
+
 @backendapp.route("/chk_email", methods=["GET"])
 def chk_email():
     email = request.args.get('q')
