@@ -770,6 +770,7 @@ def forward():
             else:
                 #print("Next found")
                 nextDept = i["dept_id"]
+                nextDeptName = dept.find_one({"dept_id":dept_id},{"dept_name":True})["dept_name"]
                 break
         if nextDept == None:
             #FileDone
@@ -781,7 +782,8 @@ def forward():
 
 
             prevFiles.append({"fid": fid, "delay": delay[0],"timeArrived":currFiles[index_in_curr_file]["timeArrived"],
-                              "timeCompleted":d})
+                              "timeCompleted":d, "remark":remark , "to":"PREVIOUS STAGE WAS LAST STAGE "
+                              ,"nextDeptID":"PREVIOUS STAGE WAS LAST STAGE ","nextDeptName":"PREVIOUS STAGE WAS LAST STAGE "})
             prevFilesDept.append({"fid": fid,"emp_id":email_id,"delay": delay[0],"timeArrived":currFiles[index_in_curr_file]["timeArrived"],
                               "timeCompleted":d})
             #currFiles.remove(fid)
@@ -805,7 +807,8 @@ def forward():
                          "delayed":False,"delayedDays":0,"scanned":False}})
 
             prevFiles.append({"fid": fid, "delay": delay[0], "timeArrived": currFiles[index_in_curr_file]["timeArrived"],
-                              "timeCompleted": d})
+                              "timeCompleted": d , "remark":remark , "to":emp,"nextDeptID":nextDept,
+                              "nextDeptName":nextDeptName})
             prevFilesDept.append({"fid": fid, "emp_id": email_id, "delay": delay[0],
                                   "timeArrived": currFiles[index_in_curr_file]["timeArrived"],
                                   "timeCompleted": d})
@@ -816,15 +819,17 @@ def forward():
             #email_id ke outcoming mein entry
             emp_outgoing_result = emp_stats.find_one({"email_id":email_id},{"outgoingFiles":True,"_id":False})
             emp_outgoing_files = emp_outgoing_result["outgoingFiles"]
-            emp_outgoing_files[fid]={"time":d,"to":emp,"remark":remark}
+            emp_outgoing_files[fid]={"time":d,"to":emp,"remark":remark,"nextDeptID":nextDept,
+                                     "nextDeptName":nextDeptName}
 
             emp_stats.find_one_and_update({"email_id": email_id},
-                                          {"$set": {"currFiles": currFiles, "prevFiles": prevFiles,"outgoingFiles": emp_outgoing_files},"$inc":{"count":-1}})
+                                          {"$set": {"currFiles": currFiles, "prevFiles": prevFiles,
+                                                    "outgoingFiles": emp_outgoing_files},"$inc":{"count":-1}})
             # email_id ke outcoming mein entry
             # emp ke incoming mein entry
             emp_incoming_result = emp_stats.find_one({"email_id":emp},{"incomingFiles":True,"_id":False})
             emp_incoming_files = emp_incoming_result["incomingFiles"]
-            emp_incoming_files[fid]={"time":d,"from":email_id,"remark":remark,"alert":False}
+            emp_incoming_files[fid]={"time":d,"from":email_id,"fromDept":currDept,"remark":remark,"alert":False}
             emp_stats.find_one_and_update({"email_id":emp},{"$set":{"incomingFiles":emp_incoming_files},"$inc":{"count":1}})
             # emp ke incoming mein entry
             dept.find_one_and_update({"dept_id": dept_id}, {"$inc": {"count": -1, "completedCount": 1},
@@ -869,7 +874,7 @@ def same_dept_forward():
         currDept = result["currDept"]
         email_id = result["currEmp"]
         # print("email id :  {}".format(email_id))
-
+        currDeptName = dept.find_one({"dept_id": currDept}, {"dept_name": True})["dept_name"]
         emp_stats_query_result = emp_stats.find_one({"email_id": email_id})
         #dept_stats_query_result = dept.find_one({"dept_id": dept_id})
 
@@ -905,7 +910,7 @@ def same_dept_forward():
 
         prevFiles.append(
             {"fid": fid, "delay": delay[0], "timeArrived": currFiles[index_in_curr_file]["timeArrived"],
-             "timeCompleted": d})
+             "timeCompleted": d, "remark":remark , "to":nextEmp,"nextDeptID":currDept,"nextDeptName":currDeptName})
 
         # currFiles.remove(fid)
         currFiles.pop(index_in_curr_file)
@@ -913,7 +918,7 @@ def same_dept_forward():
         # email_id ke outcoming mein entry
         emp_outgoing_result = emp_stats.find_one({"email_id": email_id}, {"outgoingFiles": True, "_id": False})
         emp_outgoing_files = emp_outgoing_result["outgoingFiles"]
-        emp_outgoing_files[fid] = {"time": d, "to": nextEmp, "remark": remark}
+        emp_outgoing_files[fid] = {"time": d, "to": nextEmp, "remark": remark ,"nextDeptID":currDept,"nextDeptName":currDeptName}
 
         emp_stats.find_one_and_update({"email_id": email_id},
                                       {"$set": {"currFiles": currFiles, "prevFiles": prevFiles,
@@ -923,7 +928,7 @@ def same_dept_forward():
         # emp ke incoming mein entry
         emp_incoming_result = emp_stats.find_one({"email_id": nextEmp}, {"incomingFiles": True, "_id": False})
         emp_incoming_files = emp_incoming_result["incomingFiles"]
-        emp_incoming_files[fid] = {"time": d, "from": email_id, "remark": remark, "alert": False}
+        emp_incoming_files[fid] = {"time": d, "from": email_id,"fromDept":currDept, "remark": remark, "alert": False}
         emp_stats.find_one_and_update({"email_id": nextEmp},
                                       {"$set": {"incomingFiles": emp_incoming_files}, "$inc": {"count": 1}})
         # emp ke incoming mein entry
