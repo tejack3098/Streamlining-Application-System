@@ -175,10 +175,11 @@ function loadfiles(){
                        cell2.innerHTML = arrfiles[key]["time"];
                         
                         var digital = arrfiles[key]["digital"];
-                        
+
                         if(digital){
                             
-                            cell3.innerHTML = '<button type="button" class="btn btn-primary"'+ 'onclick=downloadFile("'+key+'")>Download File</button>';
+                            var filename = arrfiles[key]["filename"];
+                            cell3.innerHTML = '<button type="button" class="btn btn-primary"'+ 'onclick=downloadFile("'+key+'","'+filename+'")>Download File</button>';
                             
                         }else{
                             
