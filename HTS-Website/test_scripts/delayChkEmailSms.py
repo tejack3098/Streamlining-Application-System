@@ -106,13 +106,13 @@ def chk_delayed(file):
 
     except:
         pass
-result = files.find({"fileDone":False},{"fid":True,"currEmp":True,"currDept":True,"_id":False})
+result = files.find({"fileDone":False},{"fid":True,"currEmp":True,"currDept":True,"delayNotificationSent":True,"_id":False})
 
 #dept_count = 0
 
 for i in result:
     fid = i["fid"]
-
+    delayNotificationSent = i["delayNotificationSent"]
     delay = chk_delayed(fid)
     d = datetime.now()
     t= d.timestamp()
