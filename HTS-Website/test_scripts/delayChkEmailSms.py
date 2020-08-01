@@ -63,8 +63,8 @@ def send_sms(receiver,fid,delay):
 def send_mail(receiver,fid,delay):
     smtp_server = "smtp.gmail.com"
     port = 587  # For starttls
-    sender_email = "foodwastagemanger@gmail.com"
-    password = 'shreyatej93'
+    sender_email = "chavanrachit16e@student.mes.ac.in"
+    password = 'chavan@123'
     receiver_email = receiver  # "kadusaswit16e@student.mes.ac.in"
     message = """\
     Subject: File delay
