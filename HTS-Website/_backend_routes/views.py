@@ -352,7 +352,7 @@ def generate_qrcode():
         d = datetime.now()
         t = d.timestamp()
         bcode_string = appid + str(t).split('.')[0]
-        qr_code = qrcode.make('bcode_string', image_factory=PymagingImage)
+        qr_code = qrcode.make(bcode_string, image_factory=PymagingImage)
         try:
             with open("bcodes/{}.png".format(bcode_string), "wb") as f:
                 qr_code.save(f)
