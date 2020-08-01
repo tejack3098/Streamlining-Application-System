@@ -493,13 +493,19 @@ def bcode_entry():
         bcode = postData["bcodeTxt"]
         #print(bcode)
         dept_id = postData["deptID"]
+        dept_name = dept.find_one({"dept_id": dept_id}, {"dept_name": True})["dept_name"]
         email_id = postData["email"] #Jo scan kar raha hai; Iske incoming se file nikalna hai
         #print(email_id)
-        dept_name = dept.find_one({"dept_id":dept_id},{"dept_name":True})["dept_name"]
+
         d=datetime.now()
         file_query_result = files.find_one({"fid": bcode})
 
         prevEmp = file_query_result["prevEmp"] #Iske outgoing se file nikalna hai
+        if prevEmp !=None:
+            prevDeptID = emp_data.find_one({"emp_id":prevEmp},{"dept_id":True})["dept_id"]
+            prev_dept_name = dept.find_one({"dept_id": prevDeptID}, {"dept_name": True})["dept_name"]
+        else:
+            prev_dept_name = "Barcode Generation Dept"
         lst =  file_query_result["stageList"]
         if(len(lst)==0):
             prevRemark = ""
@@ -515,7 +521,7 @@ def bcode_entry():
                     "empID": email_id, "timeArrived": d,"remark":"","delay":0})
         try:
             files.find_one_and_update({"fid": bcode}, {"$set": {"stageList": lst,"currDept":dept_id,"currEmp":email_id,"lastScanTime":d,"scanned":True}})
-            currFiles.append({"fid":bcode,"timeArrived":d,"fromDept":dept_id,"fromDeptName":dept_name
+            currFiles.append({"fid":bcode,"timeArrived":d,"fromDept":prevDeptID,"fromDeptName":prev_dept_name
                               ,"from_emailID":prevEmp,"prevRemark":prevRemark})
             currFilesDept.append({"fid":bcode,"timeArrived":d,"emp_id":email_id})
             #Removing from incoming of emp scanning
@@ -527,6 +533,7 @@ def bcode_entry():
             # Removing from outgoing of prev emp
             print("EMAIL_ID : {}".format(prevEmp))
             if prevEmp != None:
+
                 emp_outgoing_files_query = emp_stats.find_one({"email_id": prevEmp}, {"outgoingFiles": True, "_id": False})
                 emp_outgoing_files = emp_outgoing_files_query["outgoingFiles"]
                 emp_outgoing_files.pop(bcode)
