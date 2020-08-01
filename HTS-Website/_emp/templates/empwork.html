@@ -5,6 +5,7 @@
 <script>
          
 var bar;
+var filename;
   /*********************************ABHAY****************************************************************/  
 function alertAdmin(element,notificationid,email,file,from,time)
         {
@@ -73,7 +74,7 @@ function loadfiles(){
                         if(currFiles[i]["lastStep"]== true && digital==true){
                             
                             
-                                    cell3.innerHTML ='<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#FileManageModal" onclick="setfilename(\''+ currFiles[i]['fid'] +'\')">Manage File</button>'+'<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#staticBackdrop" onclick="setfilename(\''+ currFiles[i]['fid'] +'\')">Done</button>';
+                                    cell3.innerHTML ='<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#FileManageModal" onclick="setfilename_for_download(\''+ currFiles[i]['fid'] +'\')">Manage File</button>'+'<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#staticBackdrop" onclick="setfilename(\''+ currFiles[i]['fid'] +'\')">Done</button>';
                               
                               
                         }
@@ -88,7 +89,7 @@ function loadfiles(){
                                 
                                 if(digital){
                                     
-                                    cell3.innerHTML ='<button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#FileManageModal" onclick="setfilename(\''+ currFiles[i]['fid'] +'\')">Manage File</button>'+ '<button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#staticBackdrop" onclick="setfilename(\''+ currFiles[i]['fid'] +'\')">Forward</button>';
+                                    cell3.innerHTML ='<button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#FileManageModal" onclick="setfilename_for_download(\''+ currFiles[i]['fid'] +'\')">Manage File</button>'+ '<button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#staticBackdrop" onclick="setfilename(\''+ currFiles[i]['fid'] +'\')">Forward</button>';
                                           
                                     
                                 }else{
@@ -103,7 +104,7 @@ function loadfiles(){
                                 
                                 if(digital){
                                     
-                                    cell3.innerHTML ='<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#FileManageModal" onclick="setfilename(\''+ currFiles[i]['fid'] +'\')">Manage File </button>' +'<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#staticBackdrop" onclick="setfilename(\''+ currFiles[i]['fid'] +'\')">Forward</button>';
+                                    cell3.innerHTML ='<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#FileManageModal" onclick="setfilename_for_download(\''+ currFiles[i]['fid'] +'\')">Manage File </button>' +'<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#staticBackdrop" onclick="setfilename(\''+ currFiles[i]['fid'] +'\')">Forward</button>';
                                           
                                     
                                 }else{
@@ -237,7 +238,11 @@ function myFunctionScan() {
 function setfilename(filename){
     bar=filename;
 }
-        
+  
+function setfilename_for_download(fid,fname){
+    bar=fid;
+    filename = fname;
+}    
         
 function remarkfunct(){
     var remarksend = document.getElementById("remark").value;
@@ -488,14 +493,15 @@ function remarkfunct(){
 <script>
     
 document.getElementById("download_modal_btn").addEventListener("click", function(){
-  downloadFile(bar);
+  downloadFile(bar,filename);
 });    
     
     
-function downloadFile(filename){
+function downloadFile(d_fid,d_filename){
     
     console.log("download file called");
-    console.log(filename);
+    console.log(d_fid);
+    console.log(d_filename);
     
    /* $.post("url",{fif:fileid},
                 
