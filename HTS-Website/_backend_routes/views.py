@@ -329,7 +329,8 @@ def generate_barcode():
 
             emp_stats_result = emp_stats.find_one({"email_id":emp},{"incomingFiles":True,"_id":False})
             emp_incoming_files=emp_stats_result["incomingFiles"]
-            emp_incoming_files[bcode_string]={"time":d,"from":"Barcode Generation Dept","remark":"","alert":False}
+            emp_incoming_files[bcode_string]={"time":d,"from":"Barcode Generation Dept",
+            "fromDeptName":"Barcode Generation Dept","remark":"","alert":False}
 
             emp_result = emp_stats.find_one_and_update({"email_id":emp},{"$set":{"incomingFiles":emp_incoming_files},"$inc":{"count":1}})
 
@@ -494,21 +495,28 @@ def bcode_entry():
         dept_id = postData["deptID"]
         email_id = postData["email"] #Jo scan kar raha hai; Iske incoming se file nikalna hai
         #print(email_id)
+        dept_name = dept.find_one({"dept_id":dept_id},{"dept_name":True})["dept_name"]
         d=datetime.now()
         file_query_result = files.find_one({"fid": bcode})
 
         prevEmp = file_query_result["prevEmp"] #Iske outgoing se file nikalna hai
         lst =  file_query_result["stageList"]
+        if(len(lst)==0):
+            prevRemark = ""
+        else:
+            prevRemark = lst[len(lst)-1]["remark"]
         emp_stats_query_result = emp_stats.find_one({"email_id":email_id})
         currFiles = emp_stats_query_result["currFiles"]
 
         dept_stats_query_result = emp_stats.find_one({"dept_id":dept_id})
         currFilesDept = dept_stats_query_result["currFiles"]
 
-        lst.append({"deptID":dept_id, "empID": email_id, "timeArrived": d,"remark":"","delay":0})
+        lst.append({"deptID":dept_id, "dept_name":dept_name ,
+                    "empID": email_id, "timeArrived": d,"remark":"","delay":0})
         try:
             files.find_one_and_update({"fid": bcode}, {"$set": {"stageList": lst,"currDept":dept_id,"currEmp":email_id,"lastScanTime":d,"scanned":True}})
-            currFiles.append({"fid":bcode,"timeArrived":d})
+            currFiles.append({"fid":bcode,"timeArrived":d,"fromDept":dept_id,"fromDeptName":dept_name
+                              ,"from_emailID":prevEmp,"prevRemark":prevRemark})
             currFilesDept.append({"fid":bcode,"timeArrived":d,"emp_id":email_id})
             #Removing from incoming of emp scanning
             emp_incoming_files_query = emp_stats.find_one({"email_id":email_id},{"incomingFiles":True,"_id":False})
@@ -729,6 +737,7 @@ def forward():
         appStageList = applications_query_result["stageList"]
         expectedTimelineDuplicate = result["expectedTimelineDuplicate"]
         currDept = result["currDept"]
+        currDeptName = dept.find_one({"dept_id":dept_id},{"dept_name":True})["dept_name"]
         email_id = result["currEmp"]
         #print("email id :  {}".format(email_id))
 
@@ -829,7 +838,8 @@ def forward():
             # emp ke incoming mein entry
             emp_incoming_result = emp_stats.find_one({"email_id":emp},{"incomingFiles":True,"_id":False})
             emp_incoming_files = emp_incoming_result["incomingFiles"]
-            emp_incoming_files[fid]={"time":d,"from":email_id,"fromDept":currDept,"remark":remark,"alert":False}
+            emp_incoming_files[fid]={"time":d,"from":email_id,"fromDept":currDept,
+                                     "fromDeptName":currDeptName,"remark":remark,"alert":False}
             emp_stats.find_one_and_update({"email_id":emp},{"$set":{"incomingFiles":emp_incoming_files},"$inc":{"count":1}})
             # emp ke incoming mein entry
             dept.find_one_and_update({"dept_id": dept_id}, {"$inc": {"count": -1, "completedCount": 1},
