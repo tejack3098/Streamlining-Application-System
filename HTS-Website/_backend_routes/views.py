@@ -779,7 +779,7 @@ def forward():
             else:
                 #print("Next found")
                 nextDept = i["dept_id"]
-                nextDeptName = dept.find_one({"dept_id":dept_id},{"dept_name":True})["dept_name"]
+                nextDeptName = dept.find_one({"dept_id":nextDept},{"dept_name":True})["dept_name"]
                 break
         if nextDept == None:
             #FileDone
@@ -938,7 +938,7 @@ def same_dept_forward():
         # emp ke incoming mein entry
         emp_incoming_result = emp_stats.find_one({"email_id": nextEmp}, {"incomingFiles": True, "_id": False})
         emp_incoming_files = emp_incoming_result["incomingFiles"]
-        emp_incoming_files[fid] = {"time": d, "from": email_id,"fromDept":currDept, "remark": remark, "alert": False}
+        emp_incoming_files[fid] = {"time": d, "from": email_id,"fromDept":currDept,"fromDeptName":currDeptName ,"remark": remark, "alert": False}
         emp_stats.find_one_and_update({"email_id": nextEmp},
                                       {"$set": {"incomingFiles": emp_incoming_files}, "$inc": {"count": 1}})
         # emp ke incoming mein entry
