@@ -35,6 +35,9 @@ function loadfiles(){
        $.post("{{url_for('backendapp.get_emp_stats')}}",{email_id:email},
                 
                 function(response){
+           
+                    console.log(response);
+           
                   //check if what response is   
                    console.log(" load files response received");
                     var currFiles = response["details"]["currFiles"];
@@ -65,19 +68,52 @@ function loadfiles(){
                         cell2.innerHTML = currFiles[i]['timeArrived'];
 
                     //    console.log(currFiles[i]["lastStep"]);
+                        var digital = currFiles[i]['digital'];
 
-                        if(currFiles[i]["lastStep"]== true){
-
-                           cell3.innerHTML = '<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#staticBackdrop" onclick="setfilename(\''+ currFiles[i]['fid'] +'\')">Done</button>';
-
-                        }else{
-
-                        if(currFiles[i]['delay'] > 0){
-                            cell3.innerHTML = '<button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#staticBackdrop" onclick="setfilename(\''+ currFiles[i]['fid'] +'\')">Forward</button>';
-                        }else{
-                            cell3.innerHTML = '<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#staticBackdrop" onclick="setfilename(\''+ currFiles[i]['fid'] +'\')">Forward</button>';
+                        if(currFiles[i]["lastStep"]== true && digital==true){
                             
+                            
+                                    cell3.innerHTML ='<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#FileManageModal" onclick="setfilename(\''+ currFiles[i]['fid'] +'\')">Manage File</button>'+'<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#staticBackdrop" onclick="setfilename(\''+ currFiles[i]['fid'] +'\')">Done</button>';
+                              
+                              
                         }
+                        else if(currFiles[i]["lastStep"]== true && digital==false){
+                                
+                                cell3.innerHTML = '<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#staticBackdrop" onclick="setfilename(\''+ currFiles[i]['fid'] +'\')">Done</button>';
+    
+                        }
+                        else{
+
+                            if(currFiles[i]['delay'] > 0 ){
+                                
+                                if(digital){
+                                    
+                                    cell3.innerHTML ='<button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#FileManageModal" onclick="setfilename(\''+ currFiles[i]['fid'] +'\')">Manage File</button>'+ '<button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#staticBackdrop" onclick="setfilename(\''+ currFiles[i]['fid'] +'\')">Forward</button>';
+                                          
+                                    
+                                }else{
+                                    
+                                    cell3.innerHTML = '<button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#staticBackdrop" onclick="setfilename(\''+ currFiles[i]['fid'] +'\')">Forward</button>';
+                                    
+                                }
+
+                                
+                            }else{
+                                
+                                
+                                if(digital){
+                                    
+                                    cell3.innerHTML ='<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#FileManageModal" onclick="setfilename(\''+ currFiles[i]['fid'] +'\')">Manage File </button>' +'<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#staticBackdrop" onclick="setfilename(\''+ currFiles[i]['fid'] +'\')">Forward</button>';
+                                          
+                                    
+                                }else{
+                                    
+                                    cell3.innerHTML = '<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#staticBackdrop" onclick="setfilename(\''+ currFiles[i]['fid'] +'\')">Forward</button>';
+                                    
+                                }
+
+
+                            }
                       }
                         
                         cell4.innerHTML = currFiles[i]['delay']; 
@@ -137,7 +173,19 @@ function loadfiles(){
                         
                        cell1.innerHTML = key;
                        cell2.innerHTML = arrfiles[key]["time"];
-                       cell3.innerHTML = '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Scan File</button>';
+                        
+                        var digital = arrfiles[key]["digital"];
+                        
+                        if(digital){
+                            
+                            cell3.innerHTML = '<button type="button" class="btn btn-primary"'+ 'onclick=downloadFile("'+key+'")>Download File</button>';
+                            
+                        }else{
+                            
+                            cell3.innerHTML = '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Scan File</button>'     
+                        }    
+                        
+                       ;
                        if(arrfiles[key]['alert']===false)
                            {
                                cell4.innerHTML = '<button type="button" class="btn btn-primary"'+ 'onclick=alertAdmin(this,"'+key+email+'","'+email+'","'+key+'","'+from+'","'+time+'")>Send Alert</button>';
@@ -239,7 +287,7 @@ function remarkfunct(){
         <tr>
           <th scope="col"><i class="fas fa-file-alt" > File ID</i></th>
           <th scope="col"><i class="fas fa-clock" > Arrival Time</i></th>
-          <th scope="col"><i class="fas fa-qrcode" > Scan File</i></th>
+          <th scope="col"><i class="fas fa-qrcode" > Update Status</i></th>
           <th scope="col"><i class="fas fa-exclamation-triangle"> Not Received</i></th>
 
         </tr>
@@ -301,7 +349,7 @@ function remarkfunct(){
         <tr>
           <th scope="col"><i class="fas fa-file-alt" > File ID</i></th>
           <th scope="col"><i class="fas fa-clock" > Arrival Time</i></th>
-          <th scope="col"><i class="fas fa-hourglass-end" > Time Completed</i></th>
+          <th scope="col"><i class="fas fa-hourglass-end" > Time Completed</i></th>    
           <th scope="col"><i class="fas fa-clock" > Delay</i></th>
 
         </tr>
@@ -388,6 +436,143 @@ function remarkfunct(){
   </div>
 </div>
 <!--end modal for scan-->
+    
+
+<!-- Model for FileManageModal button ---------------------------------------------------->
+<div class="modal fade" id="FileManageModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel"><i class="fas fa-tasks fa-lg" > Manage Your Digital File</i></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+            
+            <div class="row" style="padding: 20px">
+                    <button type="button" class="btn btn-outline-primary" data-dismiss="modal" id="download_modal_btn">Download</button>
+            </div>
+          
+            <div class="row" style="padding: 20px">   
+                
+                     <input type="file"class="form-control-file" id="file_picker">
+            </div> 
+                
+            <div class="row" style="padding: 20px">
+                    <button type="button" class="btn btn-outline-primary" onclick="">Upload</button>
+            </div>
+            
+            <div class="row" style="padding: 20px">   
+                
+                 <div id="loader" style="display: none">Uploading File...</div>
+            </div> 
+                
+                
+         
+         
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-------------------------------end modal for FileManageModal button--------------------->    
+    
+<!----------------------- Download button Script ------------------------------->    
+    
+    
+<script>
+    
+document.getElementById("download_modal_btn").addEventListener("click", function(){
+  downloadFile(bar);
+});    
+    
+    
+function downloadFile(filename){
+    
+    console.log("download file called");
+    console.log(filename);
+    
+   /* $.post("url",{fif:fileid},
+                
+          function(response){
+                       
+              },"json");
+       */
+    
+}
+    
+    
+    
+    </script>    
+    
+<!----------------------- Download button Script ------------------------------->    
+    
+ 
+<!----------------------- Upload button Script ------------------------------->    
+    
+    
+<script>
+    
+    
+var formdata = new FormData();
+
+/*$('#file_picker').change(function(){
+    //on change event
+    if($(this).prop('files').length > 0)
+    {
+        file =$(this).prop('files')[0];
+        formdata.append("file", file);
+        var value = $("#appid").val();
+        formdata.append("q", value);
+        for (var key of formdata.entries()) {
+        console.log(key[0] + ', ' + key[1]);
+    }
+    }
+});*/
+
+   
+function upload_file(){
+    
+    var application = document.getElementById('appid');
+   // var label = document.getElementById("Success");
+    var loader = document.getElementById("loader");
+    loader.style.display ="block";
+    label.innerHTML="";
+    
+    
+   
+              $.ajax({
+                type: "Post",
+                url: "",
+                data: formdata,
+                processData: false,
+                contentType: false,
+                success: function(response){
+                  //check if what response is   
+                    console.log(response);
+                    if(response["status"]==="1"){
+                        
+                        console.log('file uploaded ');
+                        //label.innerHTML="File Uploaded Successfully!";
+                        //label.style.color = "green";
+                        //loader.style.display = "none";
+
+                    }
+                    
+                    //alert(response);
+                } 
+              });
+    
+}    
+    
+    
+</script>    
+    
+<!----------------------- Upload button Script ------------------------------->     
     
     
   
