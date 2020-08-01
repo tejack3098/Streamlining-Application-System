@@ -172,8 +172,7 @@ def add_application():
 
         stageList=[]
         for i in range(len(dept_ID)):
-            dept_name = dept.find_one({"dept_id":dept_ID[i]},{"dept_name":True})
-            stageList.append({"dept_id":dept_ID[i],"dept_name":dept_name["dept_name"],"no_of_days":no_of_days[i]})
+            stageList.append({"dept_id":dept_ID[i],"no_of_days":no_of_days[i]})
         print(stageList)
         print(type(dept_ID))
         if len(dept_ID)==1:
