@@ -334,7 +334,7 @@ def generate_barcode():
             emp_result = emp_stats.find_one_and_update({"email_id":emp},{"$set":{"incomingFiles":emp_incoming_files},"$inc":{"count":1}})
 
             data = base64.b64encode(bcode_image.read()).decode("utf-8")
-            response = {"status": "1", "message": "Success", "image": data}
+            response = {"status": "1", "message": "Success","code_string":bcode_string ,"image": data}
             print("response")
             return jsonify(response)
         except:
@@ -393,7 +393,7 @@ def generate_qrcode():
             emp_result = emp_stats.find_one_and_update({"email_id":emp},{"$set":{"incomingFiles":emp_incoming_files},"$inc":{"count":1}})
 
             data = base64.b64encode(bcode_image.read()).decode("utf-8")
-            response = {"status": "1", "message": "Success", "image": data}
+            response = {"status": "1", "message": "Success","code_string":bcode_string, "image": data}
             print("response")
             return jsonify(response)
         except:
