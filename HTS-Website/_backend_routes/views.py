@@ -1416,6 +1416,18 @@ def get_emp_data_for_rating():
     else:
         return "POST is not allowed"
 
+
+@backendapp.route("/get_dept_employees",methods=["GET","POST"])
+def get_dept_employees():
+    if request.method == "GET":
+        dept_id = request.args.get('dept_id')
+        employees = emp_stats.find({"dept_id":dept_id},{"email_id":True,"_id":False})
+        employees_list = list(employees)
+        response = {"status": "1", "employees": employees_list}
+        return jsonify(response)
+    else:
+        return "POST is not allowed"
+
     
     
 @backendapp.route("/get_overall_stats",methods=["GET","POST"])
