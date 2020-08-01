@@ -501,7 +501,7 @@ def emp_login():
         return jsonify(response)
 
     
-    
+'''                                 Barcode Scan                                            '''
 @backendapp.route("/bcode_entry",methods=["GET","POST","OPTIONS"]) #TEST for PC
 def bcode_entry():
     if request.method == "POST":
@@ -570,7 +570,8 @@ def bcode_entry():
         return jsonify(response)
 
     
-    
+'''                                 Barcode Scan                                            '''
+
 def chk_delayed(file):
     today = datetime.now().date()
     result = files.find_one({"fid":file})
