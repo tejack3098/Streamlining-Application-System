@@ -29,6 +29,7 @@
                 <form action="" method="post">
                 <div class="form-content">
                     <div class="row">
+                        <div class="col-md-3 align-self-center"></div>
                         <div class="col-md-6 align-self-center">
                             <div class="form-group">
                                 <select type="text" class="form-control" placeholder="Application ID" id="appid" value="" required style="height: 48px;" >
@@ -37,22 +38,39 @@
                                 
                             </div>
                             </div>
-                            
-                        
+                        <div class="col-md-3 align-self-center"></div>
+                    </div>     
+                      <div class="row" style="margin-top: 20px">  
                         <div class="col-md-6 text-center">
+                          <!-- <button type="button" class="btnSubmit" style="width: auto; padding: 0.5rem;" onclick="get_barcode();">Generate Barcode &  Save</button>-->
+                            <button type="button"class="btn btn-primary" id="gen_code" onclick="get_qrcode();">Generate Qrcode &  Save</button>
+                        </div>
+                          <div class="col-md-6 text-center">
                           <!-- <button type="button" class="btnSubmit" style="width: auto; padding: 0.5rem;" onclick="get_barcode();">Generate Barcode &  Save</button>-->
                             <button type="button"class="btn btn-primary" id="gen_code" onclick="get_barcode();">Generate Barcode &  Save</button>
                         </div>
                     </div>
-                    <div class="row">
-                    <div class="col-md-6 text-center">
-                         <div id = "barcode"></div>
-                         <div id ="Success"></div>
+                    
+                    <div class="row" style="text-align: center; margin-top: 20px">
+                        
+                    
+                        <div class="col-md-12 text-center">
+                            <div id = "barcode"></div>
+                            <div id = "barcodeID" style="font-weight: bold"></div>
+                            <div id ="Success"></div>
+                        </div>
+                    
+                    
+                    
                     </div>
-                    <div class="col-md-6 text-center" style="vertical-align: middle">
-                     <!--<button type="button" class="btnSubmit" style="width: 100px; padding: 0.6rem; vertical-align: middle;" onclick="printDiv()">Print</button>-->
-                        <button type="button"class="btn btn-primary" onclick="printDiv()"><i class="fas fa-print" id="prit"> Print</i></button>
+                    
+                    <div class="row"  style="text-align: center; margin-top: 20px">
+                    <div class="col-md-5 align-self-center"></div>
+                    <div class="col-md-2 text-center" style="vertical-align: middle; text-align: center">
+             
+                        <button id="printbtn" type="button"class="btn btn-primary" onclick="printDiv()" style="display: none"><i class="fas fa-print" id="prit"> Print</i></button>
                     </div>
+                    <div class="col-md-5 align-self-center"></div>    
                 </div>
                     </div>
                 </form>
@@ -93,6 +111,56 @@
                         
                         realData = response["image"];
                         val.innerHTML="<img src='data:image/png;base64,"+realData+"'/>";
+                        
+                        document.getElementById("barcodeID").style.display ="none";
+                        var printbtn =document.getElementById("printbtn");
+                        printbtn.style.display="block";
+
+                    }
+                    
+                    //alert(response);
+                } 
+              });
+            
+                
+            }
+    
+     function get_qrcode() {
+            var xmlhttp = new XMLHttpRequest();
+            var application = document.getElementById('appid');
+            var val = document.getElementById("barcode");
+            var label = document.getElementById("Success");
+            label.innerHTML="";
+            val.innerHTML="";
+        
+            value = $("#appid").val();
+            console.log("File Type " + value)
+        
+           /* var x = localStorage.getItem("url");*/
+        
+            if(value == "Choose Application ID"){
+                console.log("No value")
+                 document.getElementById("Success").innerHTML = '<p type="text" id="Success" style="color: red; padding: 35px 70px;" >Please Select Application ID</p> ';
+            }
+               
+            var dataString = 'q=' +value;
+              $.ajax({
+                type: "GET",
+                url: "{{url_for('backendapp.generate_qrcode')}}",
+                data: dataString,
+                cache: false,
+                success: function(response){
+                  //check if what response is   
+                    console.log(response);
+                    if(response["status"]==="1"){
+                        
+                        realData = response["image"];
+                        val.innerHTML="<img src='data:image/png;base64,"+realData+"'/>";
+                        
+                        document.getElementById("barcodeID").style.display = "block";
+                        document.getElementById("barcodeID").innerHTML = response["code_string"];
+                        
+                        document.getElementById("printbtn").style.display ="block";
 
                     }
                     

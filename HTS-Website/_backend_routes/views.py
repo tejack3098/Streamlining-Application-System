@@ -501,8 +501,10 @@ def bcode_entry():
         file_query_result = files.find_one({"fid": bcode})
 
         prevEmp = file_query_result["prevEmp"] #Iske outgoing se file nikalna hai
+        print(file_query_result)
+        print(prevEmp)
         if prevEmp !=None:
-            prevDeptID = emp_data.find_one({"emp_id":prevEmp},{"dept_id":True})["dept_id"]
+            prevDeptID = emp_data.find_one({"email_id":prevEmp},{"dept_id":True})["dept_id"]
             prev_dept_name = dept.find_one({"dept_id": prevDeptID}, {"dept_name": True})["dept_name"]
         else:
             prevDeptID = "Barcode Generation Dept"

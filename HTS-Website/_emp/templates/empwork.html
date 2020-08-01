@@ -38,6 +38,10 @@ function loadfiles(){
                 function(response){
                   //check if what response is   
                    console.log(" load files response received");
+           
+                    console.log("-------------");
+                    console.log(response);
+           
                     var currFiles = response["details"]["currFiles"];
                     console.log("heowiwwwjeew"+currFiles.length)
                     var prevFiles = response["details"]["prevFiles"];

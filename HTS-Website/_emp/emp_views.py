@@ -29,7 +29,7 @@ def emplogin():
                 print("====================================================================")
                 print(session.keys())
                 print("====================================================================")
-                return redirect(url_for("empapp.empDash", email = email, dept_id = dept_id ))
+                return redirect(url_for("empapp.empworkStatus", email = email, dept_id = dept_id ))
             else :
                 error="Invalid Credentials. Please try again."
         except:
