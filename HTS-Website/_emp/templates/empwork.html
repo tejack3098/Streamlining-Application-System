@@ -5,6 +5,7 @@
 <script>
          
 var bar;
+   
   /*********************************ABHAY****************************************************************/  
 function alertAdmin(element,notificationid,email,file,from,time)
         {
@@ -193,8 +194,20 @@ function setfilename(filename){
 function remarkfunct(){
     var remarksend = document.getElementById("remark").value;
     console.log("forward request send");
-
-    $.get("{{url_for('backendapp.forward')}}",{remark:remarksend,filename:bar},
+    
+    var email = document.getElementById("email_drop").value ;
+    
+    console.log("---------geteinninvf");
+    console.log(email);
+ 
+    
+    if(document.getElementById("emp_forward").checked == true){
+        
+      var s =  document.getElementById("emp_forward").value;
+        
+        console.log(s);
+        
+        $.get("{{url_for('backendapp.same_dept_forward')}}",{nextEmp:email,remark:remarksend,filename:bar},
                 
                 function(response){
                   //check if what response is   
@@ -205,6 +218,45 @@ function remarkfunct(){
                     
                 
               },"json");
+        
+        
+        
+    }else{
+        
+        
+        $.get("{{url_for('backendapp.forward')}}",{remark:remarksend,filename:bar},
+                
+            
+            
+                function(response){
+                  //check if what response is   
+                    console.log(response);
+                    if(response["status"]==="1"){
+                        loadfiles();
+                    }
+                    
+                
+              },"json");
+        
+    }
+    
+    
+   /* if(){
+       
+       
+       
+       
+       
+       }else{
+       
+       
+       
+       
+       
+       
+       }*/
+
+    
     
     
 }
@@ -330,7 +382,7 @@ function remarkfunct(){
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel"><i class="fas fa-share fa-lg" >Forwarded To Next Stage</i></h5>
+          <h5 class="modal-title" id="staticBackdropLabel"><i class="fas fa-share fa-lg" > Forward To Next Stage</i></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -342,8 +394,68 @@ function remarkfunct(){
             <!-- remark ip-->
             
                 <div class="form-group">
-                                 <label for="remark"><i class="fas fa-sticky-note "> Remark:</i></label>
-                                <textarea class="form-control" rows="5" id="remark"  value="" required></textarea>
+                    <label for="remark"><i class="fas fa-sticky-note "> Remark:</i></label>
+                        <textarea class="form-control" rows="5" id="remark"  value="" required></textarea>
+                    
+            <div class="row justify-content-md-center shadow-sm p-3 mb-5 bg-white rounded font-weight-light" style="font-style:Andale ; font-size: 30px;">
+                
+                <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>-->
+                
+                <div class="checkbox">
+                <label style="font-size: 16px; font-weight: bold">
+                <input id="emp_forward" name="forward" type="radio" data-toggle="toggle" value="emp_forward" onclick="forwardSelect(this)" checked>
+                    Forward To Employee &nbsp;&nbsp;&nbsp;
+                </label>
+                </div>
+                    
+                <div class="checkbox disabled ">
+                        <label style="font-size: 16px; font-weight: bold;">
+                            <input id="dept_forward" name="forward" type="radio"  data-toggle="toggle" value="dept_forward" onclick="forwardSelect(this)">
+                            Forward To Next Department
+                        </label>
+                </div>
+                
+                <br><br>
+                
+                <select class="form-control-lg" id="email_drop" style="height: 45px;" onchange="enableConfirm(this)">
+                <option value="" disabled selected>Select Employee</option>
+                <!-- <option>01</option>
+                <option>02</option>
+                <option>03</option>
+                <option>04</option> -->
+              </select>
+                
+                
+                <script>
+                    
+                    function enableConfirm(s){
+                        console.log(s.value);
+                        
+                        document.getElementById("confirm_btn").disabled = false;
+                    }
+                    
+                
+                    function forwardSelect(sel){
+                        
+                        console.log(sel.value);
+                        if(sel.value == "emp_forward"){
+                           document.getElementById("email_drop").style.display ="block";
+                            document.getElementById("confirm_btn").disabled = true;
+                        }else{
+                           document.getElementById("email_drop").style.display ="none";
+                             document.getElementById("confirm_btn").disabled = false;
+                        }
+                    }
+                
+                
+                </script>
+        
+                <!--<input name="forward" type="radio" value="same_dept"/>
+                <input name="forward" type="radio" value="next_dept"/>
+                <label for="name"></label>-->
+                
+                  </div>
                     </div>
             
             </div>
@@ -351,13 +463,67 @@ function remarkfunct(){
       </div>
       <div class="modal-footer">
         
-        <button type="button" class="btn btn-outline-primary" data-dismiss="modal" onclick="remarkfunct()">Confirm</button>
+        <button type="button" id="confirm_btn" class="btn btn-outline-primary" data-dismiss="modal" onclick="remarkfunct()" disabled>Confirm</button>
         <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
 </div>
 <!--end modal for forward button-->
+    
+    
+    
+    <script>
+    
+    
+/* ------------------------------- load Department email Id's---------------------*/
+ 
+var dept_id = {{session.get(email[:-10]+'_dept_id')}}; 
+        
+        
+    
+function load_emp_email(){
+
+  var dropdown=document.getElementById("email_drop");
+  $.get("{{url_for('backendapp.get_dept_employees')}}",{dept_id:'0'+dept_id},
+                
+                function(response){
+                  //check if what response is 
+                     
+                  var employees = response["employees"];
+                
+
+                     for(var i = 0;i < employees.length;i++)
+                     {
+                         var opt = employees[i]['email_id'];
+                         var el = document.createElement("option");
+                         el.textContent = opt;
+                         el.value =employees[i]['email_id'];
+                         dropdown.appendChild(el);
+                     }
+
+                    
+                    //alert(response);
+                
+              },"json");
+
+    
+}    
+ 
+load_emp_email();
+               
+
+        
+    
+/* ------------------------------- load Department email Id's---------------------*/ 
+     
+    
+    
+    
+    
+    
+    
+    </script>    
 
 
 <!-- Modal for Scan File-->

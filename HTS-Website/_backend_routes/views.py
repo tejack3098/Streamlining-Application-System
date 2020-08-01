@@ -797,11 +797,12 @@ def same_dept_forward():
             remark = postData["remark"]
             nextEmp = postData["nextEmp"]
         # print("fid : {}".format(fid))
+        print("-----"+ nextEmp)
         d = datetime.now()
         result = files.find_one({"fid": fid})
         #dept_id = result["currDept"]
         fileStageList = result["stageList"]
-        # print("Filestage : {} ".format(fileStageList))
+        #print("Filestage : {} ".format(fileStageList))
         #applicationType = result["applicationType"]
         #applications_query_result = applications.find_one({"appid": applicationType})
         #appStageList = applications_query_result["stageList"]
