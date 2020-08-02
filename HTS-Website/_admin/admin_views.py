@@ -118,6 +118,10 @@ def employeeRatings(email):
     else:
         return redirect(url_for("adminapp.adminlogin"))
 
+@adminapp.route('/employeesearch/<email>')
+def employeesearch(email):
+    return render_template("admin_employee_search.html")
+
 @adminapp.route('/calender/<email>')
 def calender(email):
     if email in session:
