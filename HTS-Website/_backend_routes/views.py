@@ -324,9 +324,14 @@ def generate_barcode():
 
         file_expected = {}
         total = 0
-        dept_emps=[]
+        dept_emps= {}
         for i in app_stagelist:
             emps = emp_data.find({"dept_id":i["dept_id"]})
+            if emps == None:
+                emp_list = []
+            else:
+                emp_list = list(emps)
+            dept_emps[i["dept_id"]]=emp_list
             file_expected[i["dept_id"]] = date_by_adding_business_days(d, total + int(i["no_of_days"]))
             total += int(i["no_of_days"])
 
@@ -348,7 +353,8 @@ def generate_barcode():
             emp_result = emp_stats.find_one_and_update({"email_id":emp},{"$set":{"incomingFiles":emp_incoming_files},"$inc":{"count":1}})
 
             data = base64.b64encode(bcode_image.read()).decode("utf-8")
-            response = {"status": "1", "message": "Success","code_string":bcode_string ,"image": data}
+            response = {"status": "1", "message": "Success","code_string":bcode_string ,"image": data,
+                        "stageList":app_stagelist,"dept_emps":dept_emps}
             print("response")
             return jsonify(response)
         except:
@@ -388,7 +394,14 @@ def generate_qrcode():
 
         file_expected = {}
         total = 0
+        dept_emps = {}
         for i in app_stagelist:
+            emps = emp_data.find({"dept_id": i["dept_id"]})
+            if emps == None:
+                emp_list = []
+            else:
+                emp_list = list(emps)
+            dept_emps[i["dept_id"]] = emp_list
             file_expected[i["dept_id"]] = date_by_adding_business_days(d, total + int(i["no_of_days"]))
             total += int(i["no_of_days"])
 
@@ -414,7 +427,8 @@ def generate_qrcode():
                                                         "$inc": {"count": 1}})
 
             data = base64.b64encode(bcode_image.read()).decode("utf-8")
-            response = {"status": "1", "message": "Success", "code_string": bcode_string, "image": data}
+            response = {"status": "1", "message": "Success", "code_string": bcode_string, "image": data,
+                        "stageList": app_stagelist, "dept_emps": dept_emps}
             print("response")
             return jsonify(response)
         except:
