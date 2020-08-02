@@ -139,9 +139,9 @@ var language =
         profile : "प्रोफ़ाइल",
         edit : "संपादित करें",
         save : "संचय",
-        
+        alert : "चेतावनी",
         ent_appl_id : "एप्लिकेशन आईडी दर्ज करें",
-        search : "खोजी गर्नुहोस्",
+        search : "खोज",
         or : "या",
         scan_file : "फाइल स्क्यान गर्नुहोस्",
         curr_dept : "वर्तमान विभाग",
@@ -166,6 +166,12 @@ var language =
         delay_days : "देरी के दिन",
         prev_dept : "पिछला विभाग",
         last_scan : "अंतिम स्कैन समय",
+        emp_search : "कर्मचारी खोज",
+        lang : "भाषा",
+        account : "खाता",
+        en : "अंग्रेज़ी",
+        hi : "हिन्दी",
+
         
         
     }

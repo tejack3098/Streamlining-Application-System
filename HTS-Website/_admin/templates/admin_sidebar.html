@@ -249,24 +249,24 @@
       <li class="cd-nav__item cd-nav__item--has-children cd-nav__item--account js-cd-item--has-children">
         <a href="{{url_for('adminapp.adminalert',email=email)}}">
           <img src="{{ url_for('static',filename='img/notif_small.png')}}" alt="avatar">
-          <span>Alert</span>
+          <span id="alt">Alert</span>
         </a>
       </li>
       <li class="cd-nav__item cd-nav__item--has-children cd-nav__item--account js-cd-item--has-children">
         <a href="#0">
           <img src="{{ url_for('static',filename='img/translation2.png')}}" alt="avatar">
-          <span>Language</span>
+          <span id="lag">Language</span>
         </a>
     
         <ul class="cd-nav__sub-list">
-          <li class="cd-nav__sub-item"><a href="#0" onclick="change_to_enlish()">English</a></li>
-          <li class="cd-nav__sub-item"><a href="#0" onclick="change_to_nepali()" >Hindi</a></li>
+          <li class="cd-nav__sub-item"><a id="en" href="#0" onclick="change_to_enlish()">English</a></li>
+          <li class="cd-nav__sub-item"><a id="hi" href="#0" onclick="change_to_nepali()" >Hindi</a></li>
         </ul>
       </li>
       <li class="cd-nav__item cd-nav__item--has-children cd-nav__item--account js-cd-item--has-children">
         <a href="#0">
           <img src="{{ url_for('static',filename='img/cd-avatar.svg')}}" alt="avatar">
-          <span>Account</span>
+          <span id="acc">Account</span>
         </a>
     
         <ul class="cd-nav__sub-list">
@@ -398,12 +398,17 @@
            AddFile.innerHTML = '<i class="fas fa-file-alt">&nbsp;&nbsp;</i>'+language.nep.add_file;
            EmpStat.innerHTML = '<i class="fas fa-chart-bar">&nbsp;&nbsp;</i>'+language.nep.emp_stats;
            Calender.innerHTML = '<i class="fas fa-calendar-alt">&nbsp;&nbsp;</i>'+language.nep.calender;
+           EmpSearch.innerHTML = '<i class="fas fa-search-plus">&nbsp;&nbsp;</i>'+language.nep.emp_search;
            SeachFile.textContent = language.nep.search_file;
            ProFiles.textContent = language.nep.process_files;
            DelayFiles.textContent = language.nep.delay_files;
            ComFiles.textContent = language.nep.comp_files;
            Files.textContent = language.nep.files;
-           
+           alt.innerHTML = language.nep.alert;
+           lag.innerHTML = language.nep.lang;
+           acc.innerHTML = language.nep.account;
+           en.innerHTML = language.nep.en;
+           hi.innerHTML = language.nep.hi;
 
 
            //change_lang1();

@@ -21,6 +21,7 @@
             	</div>
         </div>
 
+
 <div class="container shadow-lg justify-content-md-center" id="mainbox" style="background-color: white; width:80%;display: none">
         <div class="row justify-content-md-center">
         <img src="{{url_for('static' ,filename='img/avatar.png')}}" width="100" height="100" style="margin:10px">
@@ -97,5 +98,24 @@
 
 	}
 </script>
+
+
+
+<script src="{{ url_for('adminapp.static',filename='js/change_language.js')}}"></script>
+ <script type="text/javascript">
+      var lang = sessionStorage.getItem("lang");
+      if(lang === "nepali"){
+                change_lang();
+                }
+      function change_lang(){
+          srch.innerHTML = language.nep.search;
+          s_file.innerHTML = language.nep.emp_search;
+          
+          
+          
+          
+          
+      }
+ </script>
 
 {% endblock %}
