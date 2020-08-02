@@ -145,7 +145,7 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                <input type="text" class="form-control no_of_days" placeholder="Number of Days" name = "no_of_days[]" value="" onkeyup="enable_add()" required/>
+                                <input type="text" id="sih_no_of_days" class="form-control no_of_days" placeholder="Number of Days" name = "no_of_days[]" value="" onkeyup="enable_add()" required/>
                                 </div>
                             </div>
                             <div class="col-md-3 text-center">
@@ -546,7 +546,10 @@ function enable_add(){
            create_app.innerHTML = language.nep.create_app;
            create_n.innerHTML = language.nep.create_new_app;
            add.innerHTML = language.nep.create_app;
-          
+           sih_no_of_days.placeholder = "दिनों की संख्या";
+           appid.placeholder =  "एप्लिकेशन आईडी";
+           appname.placeholder = "एप्लिकेशन नाम";
+          choose_dept.innerHTML = "विभाग चुनें";
       }
  </script>
 

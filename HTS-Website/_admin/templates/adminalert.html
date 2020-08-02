@@ -81,10 +81,10 @@
     
 <ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item ">
-    <a class="nav-link active" id="notattended-tab" data-toggle="tab" href="#notattended" role="tab" aria-controls="home" aria-selected="true" onclick="loadalerts()" style="text-decoration: none;">Unattended</a>
+    <a class="nav-link active" id="notattended-tab" data-toggle="tab" href="#notattended" role="tab" aria-controls="home" aria-selected="true" onclick="loadalerts()" style="text-decoration: none;"><span id="unat">Unattended </span></a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="attended-tab" data-toggle="tab" href="#attended" role="tab" aria-controls="profile" aria-selected="false" style="text-decoration: none;">Attended</a>
+    <a class="nav-link" id="attended-tab" data-toggle="tab" href="#attended" role="tab" aria-controls="profile" aria-selected="false" style="text-decoration: none;"><span id="at">Attended</span></a>
   </li>
 
 </ul>
@@ -98,10 +98,10 @@
       <table class="table" id="notattendedtable" style="font-size: 18px; text-align: center " >
       <thead >
         <tr>
-          <th scope="col"><i class="fas fa-envelope"> Email</i></th>
-          <th scope="col"><i class="fas fa-clock"> Time</i></th>
-          <th scope="col"><i class="fas fa-comment-alt"> Message</i> </th>
-          <th scope="col"><i class="fas fa-marker" title="Mark Attended"> Mark</i></th>
+          <th scope="col"><i class="fas fa-envelope" id="emm"> Email</i></th>
+          <th scope="col"><i class="fas fa-clock" id="tii"> Time</i></th>
+          <th scope="col"><i class="fas fa-comment-alt" id="mee"> Message</i> </th>
+          <th scope="col"><i class="fas fa-marker" title="Mark Attended" id="maa"> Mark</i></th>
          <!-- Not Attended table head--------------------------------------------------------------->
         </tr>
       </thead>
@@ -122,10 +122,10 @@
       <table class="table" id="attendedtable" style="font-size: 18px; text-align: center" >
       <thead >
         <tr>
-          <th scope="col"><i class="fas fa-envelope"> Email</i></th>
-          <th scope="col"><i class="fas fa-clock"> Time Arrived</i></th>
-          <th scope="col"><i class="fas fa-info-circle "> Details</i></th>
-          <th scope="col"><i class="fas fa-clock"> Time Attended</i></th>
+          <th scope="col"><i class="fas fa-envelope" id="eaa"> Email</i></th>
+          <th scope="col"><i class="fas fa-clock" id="tir"> Time Arrived</i></th>
+          <th scope="col"><i class="fas fa-info-circle " id="dee"> Details</i></th>
+          <th scope="col"><i class="fas fa-clock" id="tia"> Time Attended</i></th>
          <!-- Attended table head--------------------------------------------------------------->
         </tr>
       </thead>
@@ -187,8 +187,15 @@
                         {
                             var row = attendedtable.insertRow(0);
                             var cell1 = row.insertCell(0);
+                            if(lang === "nepali")
+                            {
+                              cell1.innerHTML = "अभी तक कोई शिकायत नहीं आई";
+                            }
+                            else
+                            {
                             cell1.innerHTML = "No complaints attended yet";
                         }
+                      }
                     else
                         {
                             for (i = 0; i < attendedlist.length; i++) {
@@ -215,7 +222,15 @@
                         {
                             var row = notattendedtable.insertRow(0);
                             var cell1 = row.insertCell(0);
-                            cell1.innerHTML = "No complaints ! You are all catched up !!!";
+                            if (lang === "nepali")
+                            {
+                            cell1.innerHTML = "कोई शिकायत नहीं ! आपने सारा काम कर दिया है !!";
+                            }
+
+                            else
+                            {
+                              cell1.innerHTML = "  No complaints ! You are all catched up !!!";
+                            }
                         }
                     else
                         {
@@ -284,7 +299,33 @@
 
    
       
-  
+ <script src="{{ url_for('adminapp.static',filename='js/change_language.js')}}"></script>
+ <script type="text/javascript">
+      var lang = sessionStorage.getItem("lang");
+      if(lang === "nepali"){
+                change_lang();
+                }
+      function change_lang(){
+          unat.innerHTML = language.nep.unat;
+          at.innerHTML = language.nep.at;
+          emm.innerHTML = language.nep.email;
+          eaa.innerHTML = language.nep.email;
+          tii.innerHTML = language.nep.time;
+          mee.innerHTML = language.nep.msg;
+          maa.innerHTML = language.nep.mark;
+          tir.innerHTML = language.nep.time_arrived;
+          dee.innerHTML = language.nep.details;
+          tia.innerHTML = language.nep.time_attended;
+
+
+
+          
+          
+          
+          
+          
+      }
+ </script> 
 
 
 

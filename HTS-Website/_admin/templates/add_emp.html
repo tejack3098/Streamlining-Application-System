@@ -23,7 +23,7 @@
                             <div class="form-group">
                                 <!--<input type="text" class="form-control" placeholder="Department ID" name = "dept_id" id = "dept_id" value="" onkeyup="enable_add()" required/>-->
                                 <select class="form-control" id="dept_id" onchange="" style="height: 45px" required>
-                                    <option value="" disabled selected>Select Department</option>
+                                    <option value="" disabled selected id="selec">Select Department</option>
                                     <!--    <option>01</option>
                                             <option>02</option>
                                             <option>03</option>
@@ -196,6 +196,14 @@
       function change_lang(){
           add_emp.innerHTML = language.nep.add_emp;
           add.innerHTML = language.nep.add_emp;
+          fname.placeholder = "पहला नाम";
+          lname.placeholder = "सरनेम";
+          pword.placeholder = "पासवर्ड";
+          conPass.placeholder = "पासवर्ड की पुष्टि करें";
+          mno.placeholder = "मोबाइल नंबर";
+          txtEmail.placeholder = "ईमेल आईडी";
+          selec.innerHTML = language.nep.sih_select_dept;
+
           
           
           
