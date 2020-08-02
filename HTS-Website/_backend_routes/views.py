@@ -324,7 +324,14 @@ def generate_barcode():
 
         file_expected = {}
         total = 0
+        dept_emps= {}
         for i in app_stagelist:
+            emps = emp_data.find({"dept_id":i["dept_id"]},{"email_id":True,"fname":True,"lname":True,"mno":True,"_id":False})
+            if emps == None:
+                emp_list = []
+            else:
+                emp_list = list(emps)
+            dept_emps[i["dept_id"]]=emp_list
             file_expected[i["dept_id"]] = date_by_adding_business_days(d, total + int(i["no_of_days"]))
             total += int(i["no_of_days"])
 
@@ -346,7 +353,8 @@ def generate_barcode():
             emp_result = emp_stats.find_one_and_update({"email_id":emp},{"$set":{"incomingFiles":emp_incoming_files},"$inc":{"count":1}})
 
             data = base64.b64encode(bcode_image.read()).decode("utf-8")
-            response = {"status": "1", "message": "Success","code_string":bcode_string ,"image": data}
+            response = {"status": "1", "message": "Success","code_string":bcode_string ,"image": data,
+                        "stageList":app_stagelist,"dept_emps":dept_emps}
             print("response")
             return jsonify(response)
         except:
@@ -386,26 +394,41 @@ def generate_qrcode():
 
         file_expected = {}
         total = 0
+        dept_emps = {}
         for i in app_stagelist:
+            emps = emp_data.find({"dept_id":i["dept_id"]},{"email_id":True,"fname":True,"lname":True,"mno":True,"_id":False})
+            if emps == None:
+                emp_list = []
+            else:
+                emp_list = list(emps)
+            dept_emps[i["dept_id"]] = emp_list
             file_expected[i["dept_id"]] = date_by_adding_business_days(d, total + int(i["no_of_days"]))
             total += int(i["no_of_days"])
 
         try:
             emp = least_file_emp(firstDept)
+            currEmpDeptName = emp_data.find_one({"email_id": emp}, {"dept_name": True, "_id": False})["dept_name"]
             result = files.insert_one({"fid": bcode_string, "applicationType": appid, "timeCreated": d, \
-                                       "fileDone": False, "currDept": firstDept, "currEmp": emp,"prevDept":None,"prevEmp":None,"scanned":False, "delayed": False, \
+                                       "fileDone": False, "currDept": firstDept, "currDeptName": currEmpDeptName, \
+                                       "currEmp": emp, "prevDept": None, "prevDeptName": None, "prevEmp": None,
+                                       "scanned": False, "delayed": False, \
                                        "delayedDays": 0, "expectedTimeline": file_expected,
                                        "expectedTimelineDuplicate": file_expected, \
-                                       "stageList": [],"firstDept":firstDept,"lastDept":lastDept, "delayNotificationSent": None, "lastScanTime": "Not Scanned yet."})
+                                       "stageList": [], "firstDept": firstDept, "lastDept": lastDept,
+                                       "delayNotificationSent": None, "lastScanTime": "Not Scanned yet."})
 
-            emp_stats_result = emp_stats.find_one({"email_id":emp},{"incomingFiles":True,"_id":False})
-            emp_incoming_files=emp_stats_result["incomingFiles"]
-            emp_incoming_files[bcode_string]={"time":d,"from":"Barcode Generation Dept","remark":"","alert":False}
+            emp_stats_result = emp_stats.find_one({"email_id": emp}, {"incomingFiles": True, "_id": False})
+            emp_incoming_files = emp_stats_result["incomingFiles"]
+            emp_incoming_files[bcode_string] = {"time": d, "from": "Barcode Generation Dept",
+                                                "fromDeptName": "Barcode Generation Dept", "remark": "", "alert": False}
 
-            emp_result = emp_stats.find_one_and_update({"email_id":emp},{"$set":{"incomingFiles":emp_incoming_files},"$inc":{"count":1}})
+            emp_result = emp_stats.find_one_and_update({"email_id": emp},
+                                                       {"$set": {"incomingFiles": emp_incoming_files},
+                                                        "$inc": {"count": 1}})
 
             data = base64.b64encode(bcode_image.read()).decode("utf-8")
-            response = {"status": "1", "message": "Success","code_string":bcode_string, "image": data}
+            response = {"status": "1", "message": "Success", "code_string": bcode_string, "image": data,
+                        "stageList": app_stagelist, "dept_emps": dept_emps}
             print("response")
             return jsonify(response)
         except:
@@ -734,7 +757,17 @@ def get_file_complaints():
     else:
         return "POST not allowed"
 
-    
+@backendapp.route("/get_admin_alert_count",methods=["GET","POST"])
+def get_admin_alert_count():
+    if request.method == "GET":
+        try:
+            new_alert_count = adminInbox.find({'read':False}).count()
+            response = {"status": "1", "count": new_alert_count}
+        except:
+            response = {"status": "0", "Message": "Some Error Ocurred (:"}
+        return jsonify(response)
+    else:
+        return "POST not allowed"
     
 @backendapp.route("/update_file_complaint_notification",methods=["GET","POST"])
 def update_file_complaint_notification():
