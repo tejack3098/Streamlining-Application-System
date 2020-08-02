@@ -54,10 +54,10 @@
 
 <ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item">
-    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" style="text-decoration: none">Overall Stats</a>
+    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" style="text-decoration: none"><span id="sih_overall_stats">Overall Stats </span></a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" style="text-decoration: none">Filters</a>
+    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" style="text-decoration: none"><span id="sih_filters">Filters</span></a>
   </li>
   <!--
   <li class="nav-item">
@@ -86,9 +86,9 @@
           <table class="table" id="worktable">
             <thead class="thead-dark">
            <tr>           
-           <th>Completed Files</th>
-           <th>Files Processed on Time</th>
-           <th>Delayed Files</th> 
+           <th id="sih_completed_files">Completed Files</th>
+           <th id="sih_processed_on_time">Files Processed on Time</th>
+           <th id="sih_delayed_files">Delayed Files</th> 
          </tr>
         </thead>
 
@@ -122,7 +122,7 @@
 
 
       <div class="row justify-content-md-center" >
-        <p align='center' style='font-size:24px;font-weight:bold;top:20px;position:relative'>Overall Performance of All Departments.</p>
+        <p id="sih_overall_performance" align='center' style='font-size:24px;font-weight:bold;top:20px;position:relative'>Overall Performance of All Departments.</p>
       </div>
       <div class="row justify-content-md-center shadow-sm p-2 mb-5 bg-white rounded font-weight-light" style="margin-top: 20px" >
 
@@ -155,7 +155,7 @@
 
   <div class="row justify-content-md-center shadow-sm p-3 mb-5 bg-white rounded font-weight-light" style="font-style:Andale ; font-size: 30px;" >
         <select class="form-control" id="sel1" onchange="myFunction()" style="height: 45px">
-          <option value="" disabled selected>Select Department</option>
+          <option  value="" disabled selected id="sih__dept">Select Department</option>
                 <!-- <option>01</option>
                 <option>02</option>
                 <option>03</option>
@@ -163,7 +163,7 @@
               </select>
 </div>
 
-<p align="center" id="show_error_for_department">No Records to Show</p>
+<p id="sih_no_record" align="center" id="show_error_for_department">No Records to Show</p>
 
 <div class="row shadow-sm p-3 mb-5 bg-white rounded" >
 
@@ -177,9 +177,9 @@
           <table class="table" id="worktable">
             <thead class="thead-dark">
            <tr>           
-           <th>Total Files</th>
-           <th>Files Processed on Time</th>
-           <th>Delayed Files</th> 
+           <th id="sih_total_files">Total Files</th>
+           <th id="sih_processed_time">Files Processed on Time</th>
+           <th id="sih_delayed_files1">Delayed Files</th> 
          </tr>
         </thead>
 
@@ -200,10 +200,10 @@
           <div class="row">
             <div class="col-sm">
             <select class="form-control" id="drop" onchange="select_dropdown()" style="height: 45px">
-            <option   selected>Current Month</option>
-                <option >Quarter</option>
-                <option>Year</option>
-                <option>Select Date Range</option>
+            <option  id="sih_current_month" selected>Current Month</option>
+                <option class="sih_select_quarter">Quarter</option>
+                <option class="sih_select_year2">Year</option>
+                <option class="sih_select_date">Select Date Range</option>
               </select>
             </div>
 
@@ -211,17 +211,17 @@
               
                 <div class="col-sm" id="quarter_range_box">
                   <select class="form-control" id="quarter_range_select" onchange="filter_quarter_stats_graph()" style="height: 45px">
-                <option value="" disabled selected>Select Quarter</option>
-                <option>First Quarter</option>
-                <option>Second Quarter</option>
-                <option>Third Quarter</option>
-                <option>Fourth Quarter</option>
+                <option value="" disabled selected class="sih_select_quarter1">  Select Quarter  </option>
+                <option class="sih_firstq">First Quarter </option>
+                <option class="sih_secondq">  Second Quarter </option>
+                <option class="sih_thirdq"> Third Quarter  </option>
+                <option class="sig_fouthq"> Fourth Quarter </option>
               </select>
                 </div>
 
                 <div class="col-sm" id="year_range_box">
                   <select class="form-control" id="year_range_select" onchange="filter_year_stats_graph()" style="height: 45px">
-                <option value="" disabled selected>Select Year</option>
+                <option value="" disabled selected class="sih_select_year"> Select Year  </option>
                 <option>2020</option>
                 <option>2019</option>
                 <option>2018</option>
@@ -232,7 +232,7 @@
                   
                   <input type="text" id='dateRangeDatePickerInputParent' data-toggle='modal' data-target='#dateRangeModal' name="daterange" value="" style="width: 300px;border-radius: 3px;border-color: #d6d6c2">
                     <br><br>
-                   <button class="btn btn-primary" onclick="filter_daterange_stats_graph()">Apply</button>
+                   <button id="sih_apply" class="btn btn-primary" onclick="filter_daterange_stats_graph()">Apply</button>
                 </div>
                 
                
@@ -444,25 +444,25 @@ function select_dropdown(){
   var year =document.getElementById("year_range_box");
   var date =document.getElementById("date_range_box");
 
-       if (drop == "Quarter"){
+       if (drop == "Quarter" || drop == "तिमाही का चयन करें"){
         date.style.display="none";
         year.style.display="none";
         quarter.style.display="block";
        }
-       else if(drop == "Year"){
+       else if(drop == "Year" || drop == "वर्ष का चयन करें"){
         date.style.display="none";
         quarter.style.display="none";
         year.style.display="block";
         
 
        }
-       else if(drop=="Select Date Range"){
+       else if(drop=="Select Date Range" || drop == "तारीख़ चुनें"){
         date.style.display="block";
         year.style.display="none";
         quarter.style.display="none";
 
        }
-       else if(drop=="Current Month"){
+       else if(drop=="Current Month" || drop == "वर्तमान माह"){
         date.style.display="none";
         year.style.display="none";
         quarter.style.display="none";
@@ -499,16 +499,16 @@ function filter_quarter_stats_graph(){
   console.log("department selected:"+sel.value);
   quarter_select=document.getElementById("quarter_range_select").value;
   
-  if (quarter_select == "First Quarter"){
+  if (quarter_select == "First Quarter" || quarter_select == "पहली तिमाही"){
       option=1;
   } 
-  else if(quarter_select == "Second Quarter"){
+  else if(quarter_select == "Second Quarter" || quarter_select == "द्वितीय तिमाही"){
       option=2;
   }
-  else if(quarter_select == "Third Quarter"){
+  else if(quarter_select == "Third Quarter" || quarter_select == "तीसरी तिमाही"){
       option=3;
   }
-  else if(quarter_select == "Fourth Quarter"){
+  else if(quarter_select == "Fourth Quarter" || quarter_select == "चौथी तिमाही"){
       option=4;
   }
   console.log("selected option: "+option);
@@ -850,14 +850,25 @@ function function_for_applications_graph(applicationslist,processcnt,delayedcnt,
     };
 
 var data = [trace1, trace2, trace3];
-
+if(lang === "nepali")
+{
 var layout = {title:{
+            text:'<b>आवेदन विवरण चार्ट</b>',
+            
+            font: {
+            size: 20
+            },
+            },barmode: 'stack'};
+}
+else
+{
+  var layout = {title:{
             text:'<b>Application Details Chart</b>',
             font: {
             size: 20
             },
             },barmode: 'stack'};
-
+}
 Plotly.newPlot('applications_chart', data, layout);
     
 /*    document.getElementsByClassName('modebar-container')[1].innerHTML="<p align='center' style='font-size:22px;font-weight:bold;top:50px;position:relative'>Overall Applications Bar Graph</p>";*/
@@ -870,10 +881,12 @@ function function_for_applications_count(applicationslist,countlist){
         labels: applicationslist,
         type: 'pie'
     }];
-
+    if (lang === "nepali")
+    {
     var layout = {
         title:{
-            text:'<b>Applications Type Count</b>',
+                text:'<b>अनुप्रयोग प्रकार गणना</b>',
+                   
             font:{
                 size:20
             }
@@ -881,6 +894,20 @@ function function_for_applications_count(applicationslist,countlist){
         height: 400,
         width: 500
     };
+  }
+  else
+  {
+    var layout = {
+        title:{
+             text:'<b>Applications Type Count</b>',
+            font:{
+                size:20
+            }
+        } ,
+        height: 400,
+        width: 500
+    };
+  }
 
 Plotly.newPlot('applications_cnt_pie', data, layout);
    
@@ -938,6 +965,57 @@ $('#dateRangeDatePickerInputParent').on('click',openModal);
 </script>
 <script src="{{ url_for('static',filename='js/bootstrap.min.js')}}"></script>
 <!-- -->
+
+<script src="{{ url_for('adminapp.static',filename='js/change_language.js')}}"></script>
+ <script type="text/javascript">
+      var lang = sessionStorage.getItem("lang");
+      if(lang === "nepali"){
+                change_lang();
+                }
+      function change_lang(){
+
+
+          sih_overall_stats.innerHTML = language.nep.over_stats;
+          sih_filters.innerHTML = language.nep.filter;
+          sih_delayed_files.innerHTML = language.nep.delay_files;
+          sih_processed_time.innerHTML = language.nep.sih_processed_time;
+          sih_processed_on_time.innerHTML = language.nep.sih_processed_on_time;
+          sih_overall_performance.innerHTML = language.nep.sih_overall_performance;
+          sih_completed_files.innerHTML = language.nep.comp_files;
+          document.getElementsByClassName("sih_select_quarter")[0].innerHTML = language.nep.sih_select_quarter;
+          document.getElementsByClassName("sih_select_quarter1")[0].innerHTML = language.nep.sih_select_quarter;
+          sih_apply.innerHTML =language.nep.sih_apply;
+          sih_delayed_files1.innerHTML = language.nep.delay_files;
+          sih__dept.innerHTML = language.nep.sih_select_dept;
+          sih_total_files.innerHTML = language.nep.total_files;
+          sih_no_record.innerHTML = language.nep.no_r;
+          sih_current_month.innerHTML = language.nep.sih_current_month;
+          document.getElementsByClassName("sih_select_date")[0].innerHTML =language.nep.sih_select_date;
+          
+          
+          document.getElementsByClassName("sih_secondq")[0].innerHTML = language.nep.sih_secondq;
+          document.getElementsByClassName("sih_firstq")[0].innerHTML = language.nep.sih_firstq;
+          document.getElementsByClassName("sig_fouthq")[0].innerHTML =language.nep.sig_fouthq;
+          document.getElementsByClassName("sih_thirdq")[0].innerHTML = language.nep.sih_thirdq;
+          document.getElementsByClassName("sih_select_year")[0].innerHTML = language.nep.sih_select_year;
+          document.getElementsByClassName("sih_select_year2")[0].innerHTML = language.nep.sih_select_year;
+          
+          
+          
+          sih_overall_performance.innerHTML = language.nep.sih_overall_performance;
+          sih_completed_files.innerHTML = language.nep.comp_files;
+          
+
+
+          
+          
+          
+          
+          
+      }
+ </script>
+
+
 {% endblock %}
 
 <!--

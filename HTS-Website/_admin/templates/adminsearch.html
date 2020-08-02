@@ -24,7 +24,7 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group" style="">
-                                <button type="button" class="btn btn-primary"  onclick="myfunctinp()"><i class="fas fa-search" title="Search File" id="srch"> Search</i></button>
+                                <button type="button" class="btn btn-primary"  onclick="myfunctinp()"><i class="fas fa-search" title="Search File" id="sih_search"> Search</i></button>
                             </div>    
                         </div>
                         <div class="col-md-2">
@@ -34,7 +34,7 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group" style="">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-qrcode" title="Scan File" id="sc_file"> Scan File</i></button>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-qrcode" title="Scan File" id="sih_sc_file"> Scan File</i></button>
 
                             </div>
                             
@@ -396,7 +396,10 @@ window.onclick = function(event) {
           d_by.innerHTML =language.nep.delayed_by;
           t_details.innerHTML = language.nep.track_details;
           e_date.innerHTML = language.nep.est_date;
-        
+          apidin.placeholder = "फ़ाइल आईडी दर्ज करें";
+          sih_search.innerHTML = language.nep.sih_search;
+          sih_sc_file.innerHTML = language.nep.sih_sc_file;
+
           
           
           
