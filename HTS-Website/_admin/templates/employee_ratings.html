@@ -156,7 +156,7 @@ function move(m) {
 
                 	<label for="sel1"><b id="dept_l">Department List</b></label>
       <select class="form-control" id="sel1" onchange ="Employee()" style="height: 50px;">
-      	<option value="">Choose Department</option>
+      	<option value="" id="selc">Choose Department</option>
         <!-- <option>01</option>
         <option>02</option>
         <option>03</option>
@@ -438,6 +438,7 @@ loadDropDown();
           emp_n.innerHTML = language.nep.emp_name;
           emp_p.innerHTML = language.nep.emp_profile;
           dept_l.innerHTML = language.nep.dept_list;
+          selc.innerHTML = language.nep.sih_select_dept;
           
           
           
