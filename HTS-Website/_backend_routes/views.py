@@ -405,8 +405,9 @@ def generate_qrcode():
         app_stagelist = applications.find_one({"appid": appid})["stageList"]
 
         firstDept= app_stagelist[0]["dept_id"]
+        firstDeptName = dept.find_one({"dept_id": firstDept}, {"dept_name": True, "_id": False})["dept_name"]
         lastDept = app_stagelist[len(app_stagelist) - 1]["dept_id"]
-
+        lastDeptName = dept.find_one({"dept_id": lastDept}, {"dept_name": True, "_id": False})["dept_name"]
         file_expected = {}
         total = 0
         dept_emps = {}
@@ -423,13 +424,14 @@ def generate_qrcode():
         try:
             emp = least_file_emp(firstDept)
             currEmpDeptName = emp_data.find_one({"email_id": emp}, {"dept_name": True, "_id": False})["dept_name"]
-            result = files.insert_one({"fid": bcode_string, "applicationType": appid, "timeCreated": d, \
-                                       "fileDone": False, "currDept": firstDept, "currDeptName": currEmpDeptName, \
-                                       "currEmp": emp, "prevDept": None, "prevDeptName": None, "prevEmp": None,
+
+            result = files.insert_one({"fid": bcode_string, "applicationType": appid,"altered":False ,"timeCreated": d, \
+                                       "fileDone": False, "currDept": firstDept, "currDeptName": firstDeptName, \
+                                       "currEmp": "NOT ASSIGNED", "prevDept": None, "prevDeptName": None, "prevEmp": None,
                                        "scanned": False, "delayed": False, \
                                        "delayedDays": 0, "expectedTimeline": file_expected,
                                        "expectedTimelineDuplicate": file_expected, \
-                                       "stageList": [], "firstDept": firstDept, "lastDept": lastDept,
+                                       "stageList": [], "firstDept": firstDept, "lastDept": lastDept,"lastDeptName": lastDeptName,
                                        "delayNotificationSent": None, "lastScanTime": "Not Scanned yet."})
 
             emp_stats_result = emp_stats.find_one({"email_id": emp}, {"incomingFiles": True, "_id": False})
@@ -453,6 +455,30 @@ def generate_qrcode():
     else:
         return "POST method not allowed"
 '''                 Codes Generation Barcode QRcode             '''
+
+'''                 Update Timeline                             '''
+@backendapp.route("/update_stagelist",methods=["GET","POST"])
+def update_stagelist():
+    if request.method=="POST":
+        if "application/x-www-form-urlencoded" in request.headers["Content-Type"]:
+            postData = request.form
+        else:
+            postData = request.get_json()
+        print(postData)
+        fid = postData["fid"]
+        altered = postData["altered"]
+        if altered == "0":
+            altered_boolean = False
+        else:
+            altered_boolean = True
+        result = files.find_one_and_update({"fid": fid}, {"$set": {"altered":altered_boolean,\
+                                                                   "currEmp": "emp",
+                                                                   "expectedTimeline": "file_expected",
+                                                                   "expectedTimelineDuplicate": "file_expected"}})
+        #result = files.insert_one({})
+    else:
+        return "GET method not allowed"
+'''                 Update Timeline                             '''
 
 @backendapp.route("/chk_email", methods=["GET"])
 def chk_email():
