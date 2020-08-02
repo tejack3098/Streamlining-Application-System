@@ -31,6 +31,10 @@ quarterDetails = {"1":[1,3],"2":[4,6],"3":[7,9],"4":[10,12]}
 file_complain_message="{} has not received File: {} sent from {} at {} !"
 '''FILE COMPLAIN MESSAGE'''
 
+'''FILE NOT RECEIVED IN NEXT DEPT MESSAGE'''
+file_complain_message_to_sender = "The File ID : {} forwarded from your desk has not been yet recieved by reciever!"
+'''FILE NOT RECEIVED IN NEXT DEPT MESSAGE'''
+
 try:
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 except:
@@ -683,11 +687,17 @@ def file_not_arrived_complain():
         print("notificationID : {}".format(notificationID))
         print("email : {}".format(email))
         print("fromEmail : {}".format(fromEmail))
-        print("time : {}".format(fromEmail))
+        print("time : {}".format(time))
         message= file_complain_message.format(email,file,fromEmail,time)
         print(message)
+        d = datetime.now()
+        t = d.timestamp() #for emp notification
         try:
-            adminInbox.insert_one({"notificationID":notificationID,"emp_id":email,"message":message,"timeCreated":datetime.now(),"read":False,"timeAttended":None})
+            adminInbox.insert_one({"notificationID":notificationID,"emp_id":email,"message":message,"timeCreated":d,"read":False,"timeAttended":None})
+
+            notifications.insert_one(
+                {"notificationID": fromEmail.split("@")[0] + str(t).split('.')[0], "email_id": fromEmail,
+                 "message": file_complain_message_to_sender.format(file), "timeCreated": d, "read": False})
             incomingFiles = emp_stats.find_one({"email_id":email},{"incomingFiles":1,"_id":0})
             print(incomingFiles)
             incomingFiles['incomingFiles'][file]["alert"] = True
