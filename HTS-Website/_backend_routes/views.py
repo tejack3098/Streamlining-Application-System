@@ -743,7 +743,17 @@ def get_file_complaints():
     else:
         return "POST not allowed"
 
-    
+@backendapp.route("/get_admin_alert_count",methods=["GET","POST"])
+def get_admin_alert_count():
+    if request.method == "GET":
+        try:
+            new_alert_count = adminInbox.find({'read':False}).count()
+            response = {"status": "1", "count": new_alert_count}
+        except:
+            response = {"status": "0", "Message": "Some Error Ocurred (:"}
+        return jsonify(response)
+    else:
+        return "POST not allowed"
     
 @backendapp.route("/update_file_complaint_notification",methods=["GET","POST"])
 def update_file_complaint_notification():
