@@ -266,7 +266,22 @@ def get_dept_ids():
     return jsonify(response)
 
 #ADD HOLIDAY IN COUNTING
-
+def date_by_subtracting_business_days(from_date, add_days):
+    business_days_to_add = add_days
+    current_date = from_date
+    l = list(holidays.find({}, {"dateDay": True, "_id": False}))
+    hh = [datetime.strptime(d['dateDay'], "%Y-%m-%d").date() for d in l]
+    #print(hh)
+    while business_days_to_add > 0:
+        current_date -= timedelta(days=1)
+        weekday = current_date.weekday()
+        if current_date.date() in hh:
+            #print("In HH")
+            continue
+        if weekday >= 5:  # sunday = 6
+            continue
+        business_days_to_add -= 1
+    return current_date
 
 
 def date_by_adding_business_days(from_date, add_days):
@@ -1791,3 +1806,5 @@ def get_applications_stats():
 
 
 #--------------------------------------------Back-End End----------------------------------------
+print("check while subtracting..................")
+print(date_by_subtracting_business_days(datetime.now(), 5))
