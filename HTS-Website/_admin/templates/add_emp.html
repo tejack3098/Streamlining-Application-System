@@ -22,7 +22,7 @@
                             </div>
                             <div class="form-group">
                                 <!--<input type="text" class="form-control" placeholder="Department ID" name = "dept_id" id = "dept_id" value="" onkeyup="enable_add()" required/>-->
-                                <select class="form-control" id="dept_id" onchange="" style="height: 45px">
+                                <select class="form-control" id="dept_id" onchange="" style="height: 45px" required>
                                     <option value="" disabled selected>Select Department</option>
                                     <!--    <option>01</option>
                                             <option>02</option>
@@ -47,7 +47,7 @@
                         
                          <div class="col-md-6">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Mobile Number" value="" name = "mno" id = "mno" onkeyup="enable_add()" required/>
+                                <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="form-control" placeholder="Mobile Number" value="" name = "mno" id = "mno" onkeyup="enable_add()" required/>
                             </div>
                         </div>
                         <div class="col-md-6">

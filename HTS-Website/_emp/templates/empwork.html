@@ -489,7 +489,7 @@ var dept_id = "{{session.get(email[:-10]+'_dept_id')}}";
 function load_emp_email(){
 
   var dropdown=document.getElementById("email_drop");
-  
+
   var emp_email = "{{session.get(email)}}"
   $.get("{{url_for('backendapp.get_dept_employees')}}",{dept_id:dept_id},
                 
