@@ -429,7 +429,7 @@ def generate_qrcode():
                                        "fileDone": False, "currDept": firstDept, "currDeptName": firstDeptName, \
                                        "currEmp": "NOT ASSIGNED", "prevDept": None, "prevDeptName": None, "prevEmp": None,
                                        "scanned": False, "delayed": False, \
-                                       "delayedDays": 0, "expectedTimeline": file_expected,
+                                       "delayedDays": 0,"alteredTimeline":[] ,"expectedTimeline": file_expected,
                                        "expectedTimelineDuplicate": file_expected, \
                                        "stageList": [], "firstDept": firstDept, "lastDept": lastDept,"lastDeptName": lastDeptName,
                                        "delayNotificationSent": None, "lastScanTime": "Not Scanned yet."})
@@ -460,21 +460,31 @@ def generate_qrcode():
 @backendapp.route("/update_stagelist",methods=["GET","POST"])
 def update_stagelist():
     if request.method=="POST":
-        if "application/x-www-form-urlencoded" in request.headers["Content-Type"]:
-            postData = request.form
-        else:
-            postData = request.get_json()
-        print(postData)
-        fid = postData["fid"]
-        altered = postData["altered"]
+        fid = request.form["fid"]
+        altered = request.form["altered"]
+        print("Fid : {}".format(fid))
+        print("Altered : {}".format(altered))
+        print("Fid : {}".format(fid))
+        try:
+            file_result = files.find_one({"fid":fid},{"_id":False})
+        except:
+            return jsonify({"status":0,"message":"File not found (:"})
+        currDept = file_result["currDept"]
         if altered == "0":
             altered_boolean = False
+            emp = least_file_emp(currDept)
+            expectedTimeLine = []
         else:
             altered_boolean = True
+            alteredStageList  = request.form.getlist("details")
+            print("alteredStageList : {}".format(alteredStageList))
+            expectedTimeLine = []
+            for i in alteredStageList:
+                expectedTimeLine.append({i["dept_id"]:i["email_id"]})
+            if(expectedTimeLine[currDept]==""):
+                emp = least_file_emp(currDept)
         result = files.find_one_and_update({"fid": fid}, {"$set": {"altered":altered_boolean,\
-                                                                   "currEmp": "emp",
-                                                                   "expectedTimeline": "file_expected",
-                                                                   "expectedTimelineDuplicate": "file_expected"}})
+                                                                   "currEmp": emp}})
         #result = files.insert_one({})
     else:
         return "GET method not allowed"
