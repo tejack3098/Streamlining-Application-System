@@ -96,48 +96,44 @@
       <ul class="cd-side__list js-cd-side__list">
         <li class="cd-side__label"><span>Main</span></li>
           
-        <!--<li class="cd-side__item cd-side__item--has-children cd-side__item--overview js-cd-item--has-children">
-          <a href="{{ url_for('empapp.empDash', email = email)}}">Overview</a>
+          <li class="cd-side__item cd-side__item--has-children cd-side__item--overview " id="Overview">
+          <a href="{{ url_for('empapp.empDash', email = email)}}" >Overview</a>
           
-          <ul class="cd-side__sub-list">
+          <!--<ul class="cd-side__sub-list">
             <li class="cd-side__sub-item"><a href="#0">All Data</a></li>
             <li class="cd-side__sub-item"><a href="#0">Category 1</a></li>
             <li class="cd-side__sub-item"><a href="#0">Category 2</a></li>
-          </ul>
-        </li>-->
+          </ul>-->
+        </li>
 
-        <li class="cd-side__item cd-side__item--has-children cd-side__item--notifications cd-side__item--selected js-cd-item--has-children">
+        <li class="cd-side__item cd-side__item--has-children  " id="workstatus">
           <!--<a href="#0">Notifications<span class="cd-count">3</span></a>-->
           
-          <ul class="cd-side__sub-list">
-           <!-- <li class="cd-side__sub-item"><a aria-current="page" href="#0">All Notifications</a></li>-->
-            
-              
-            <li class="cd-side__sub-item cd-side__item--selected" onclick="selected(this)" ><a href="{{ url_for('empapp.empworkStatus', email = email)}}">
+    
+            <a href="{{ url_for('empapp.empworkStatus', email = email)}}">
                 <i class="fas fa-stream">&nbsp;&nbsp;</i>Work Status</a></li>
-              
-            <li class="cd-side__sub-item" onclick="selected(this)" ><a href="{{ url_for('empapp.empDash', email = email)}}">
-                <i class="fas fa-chart-pie">&nbsp;&nbsp;</i>OverView</a></li>
-              
             <!--<li class="cd-side__sub-item"><a href="#0">Other</a></li>-->
-          </ul>
-            
-            <script>
-            
-            function selected(s){
-                
-                s.classList.toggle("cd-side__item--selected",true);
-                
-            }
-            
-            
-            
-            </script>
-            
-            
-            
-            
         </li>
+
+        
+        <script type="text/javascript">
+          function change(){
+            var st =window.location.href;
+            st =st.split('/');
+            console.log(st)
+            
+            if (st[4] == "Dashboard"){
+              document.getElementById("Overview").setAttribute("class"," cd-side__item cd-side__item--has-children cd-side__item--overview cd-side__item--selected")
+            }
+            else{
+              document.getElementById("workstatus").setAttribute("class"," cd-side__item cd-side__item--has-children  cd-side__item--selected")
+            }
+
+
+          }
+          change();
+          
+        </script>
     
        <!-- <li class="cd-side__item cd-side__item--has-children cd-side__item--comments js-cd-item--has-children">
           <a href="#0">Comments</a>
