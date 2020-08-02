@@ -1715,7 +1715,8 @@ def update_calendar():
         for i,j in postData.items():
             print("{}  {}".format(i,j))
         #holidaysUpdate = postData.getlist("hh[]")
-        holidays.delete_many({})
+        holidays.remove()
+        #holidays.delete_many({})
         for date, description in sorted(postData.items()):
             #print("{}  {}".format(date, name))
             holidays.insert_one({"dateDay":date,"description":description})
