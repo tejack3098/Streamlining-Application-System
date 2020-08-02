@@ -379,7 +379,6 @@
     
         function loadAlertCnt(){
                     
-                    console.log("-------COUNT---------");
                     $.get("{{url_for('backendapp.get_admin_alert_count')}}",
                 
                           
@@ -388,15 +387,18 @@
                         console.log(" Alert Count Retrieved");
                         
                         var alertcnt = response["count"];
-                        console.log("----------");
-                        console.log(response);
-                        console.log(alertcnt);
-                        if(alertcnt == 0){
+                        console.log(alertcnt );
+                        if(alertcnt === 0){
                             alertcntlabel.style.display="none";
-                            console.log("");
+                            console.log("alert count zero00000000000000000000000");
                         }
-                        alertcntlabel.style.display ="block";
-                        alertcntlabel.innerText = alertcnt;
+                        else{
+                             alertcntlabel.style.display ="block";
+                             alertcntlabel.innerText = alertcnt;
+                            
+                            
+                        }
+                       
                        
                 }
 

@@ -65,15 +65,12 @@
                     </div>
                     
                     <div class="row"  style="text-align: center; margin-top: 20px">
-                    <div class="col-md-4 align-self-center"></div>
-                    <div class="col-md-2 text-center" style="vertical-align: middle; text-align: center">
+                        <div class="col-md-5 align-self-center"></div>
+                        <div class="col-md-2 text-center" style="vertical-align: middle; text-align: center">
              
                         <button id="printbtn" type="button"class="btn btn-primary" onclick="printDiv()" style="display: none"><i class="fas fa-print" id="prit"> Print</i></button>
-                    </div>
-                    <div class="col-md-2 text-center" style="vertical-align: middle; text-align: center">
-             
-                        
-                    </div>
+                        </div>
+                        <div class="col-md-5 text-center" style="vertical-align: middle; text-align: center">  </div>
                         
                     <div class="col-md-4 align-self-center"></div>    
                 </div>
@@ -144,8 +141,9 @@
 
 
 <script>
-    
  
+ 
+var codeString;
 
 function update_Stage_details(a){
     
@@ -153,6 +151,9 @@ function update_Stage_details(a){
     var dataString;
     var selectedEmps = document.getElementsByClassName("select_emp");
     var changed = a.getAttribute("changes");
+    
+    console.log("*******");
+    console.log(codeString);
     
     if(changed == "1"){
         
@@ -174,28 +175,31 @@ function update_Stage_details(a){
        
         }
         
-        finaljson = {"altered":changed,"details":info};
+        
+        finaljson = {fid:codeString,"altered":changed,"details":info};
         console.log(finaljson);
            
      }
      else{
         
-        finaljson = {"altered":changed};
+        finaljson = {fid:codeString,"altered":changed,"details":""};
         console.log(finaljson);
         
      }
     
-    /*$.post("",
-                
+/*    $.post("",{updateStage:finaljson},*/
+           
+        $.post("{{url_for('backendapp.update_stagelist')}}",{fid:finaljson["fid"],altered:finaljson["altered"],details:JSON.stringify(finaljson["details"])},            
             function(response){
                 
                 if(response["status"]==="1"){
                     
                     document.getElementById("filesend").innerHTML="File Assigned Successfully!";
+                    console.log("file assigned successfully");  
                 }
     
     
-              },"json");*/
+              },"json");
        
 
 }
@@ -207,6 +211,11 @@ function update_Stage_details(a){
 <!-------------------------Modal for Update stage details----------------->
   		
 <script type="text/javascript">
+    
+
+
+    
+    
     function get_barcode() {
             var xmlhttp = new XMLHttpRequest();
             var application = document.getElementById('appid');
@@ -245,8 +254,11 @@ function update_Stage_details(a){
                         
                         //for generation of barcode update stage btn will be displayed 
                         document.getElementById("update_stage_btn").style.display ="block";
-                         document.getElementById("auto_asign").style.display ="block";
+                        document.getElementById("auto_asign").style.display ="block";
                         load_stage_details(response);
+                        
+                           codeString = response["code_string"];
+                        console.log(codeString);
 
                     }
                     
@@ -297,6 +309,8 @@ function update_Stage_details(a){
                         document.getElementById("update_stage_btn").style.display ="block";
                          document.getElementById("auto_asign").style.display ="block";
                         load_stage_details(response);
+                        
+                        
 
                     }
                     

@@ -107,12 +107,18 @@ function loadfiles(){
                         var cell2 = row.insertCell(1);
                         var cell3 = row.insertCell(2);
                         var cell4 = row.insertCell(3);
+                        var cell5 = row.insertCell(4);
+                        var cell6 = row.insertCell(5);
+                        var cell7 = row.insertCell(6);
       
                         
-                       cell1.innerHTML = prevFiles[i]['fid'];
+                        cell1.innerHTML = prevFiles[i]['fid'];
                         cell2.innerHTML = prevFiles[i]['timeArrived'];
                         cell3.innerHTML = prevFiles[i]['timeCompleted'];
-                        cell4.innerHTML = prevFiles[i]['delay']; 
+                        cell4.innerHTML = prevFiles[i]['remark']; 
+                        cell5.innerHTML = prevFiles[i]['nextDeptName']; 
+                        cell6.innerHTML = prevFiles[i]['to']; 
+                        cell7.innerHTML = prevFiles[i]['delay']; 
                     }
                   }
                     
@@ -138,20 +144,34 @@ function loadfiles(){
                         var cell2 = row.insertCell(1);
                         var cell3 = row.insertCell(2);
                         var cell4 = row.insertCell(3);
+                        var cell5 = row.insertCell(4);
+                        var cell6 = row.insertCell(5);
+                        var cell7 = row.insertCell(6);
       
                         
                        cell1.innerHTML = key;
-                       cell2.innerHTML = arrfiles[key]["time"];
-                       cell3.innerHTML = '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Scan File</button>';
+                       cell2.innerHTML =arrfiles[key]["from"];
+                       if(arrfiles[key]["from"]=="Barcode Generation Dept")
+                           {
+                               cell3.innerHTML = "-";
+                           }
+                        else{
+                           
+                            cell3.innerHTML = arrfiles[key]["fromDeptName"];     
+                        }
+
+                       cell4.innerHTML = arrfiles[key]["remark"]; 
+                       cell5.innerHTML = arrfiles[key]["time"];
+                       cell6.innerHTML = '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Scan File</button>';
                        if(arrfiles[key]['alert']===false)
                            {
-                               cell4.innerHTML = '<button type="button" class="btn btn-primary"'+ 'onclick=alertAdmin(this,"'+key+email+'","'+email+'","'+key+'","'+from+'","'+time+'")>Send Alert</button>';
+                               cell7.innerHTML = '<button type="button" class="btn btn-primary"'+ 'onclick=alertAdmin(this,"'+key+email+'","'+email+'","'+key+'","'+from+'","'+time+'")>Send Alert</button>';
                                //cell4.addEventListener('click',alertAdmin());
                            
                            }
                        else
                            {
-                               cell4.innerHTML = '<i class="fas fa-check-square "> Alerted</i>';
+                               cell7.innerHTML = '<i class="fas fa-check-square "> Alerted</i>';
                            }
                          
                     }
@@ -294,6 +314,9 @@ function remarkfunct(){
       <thead id="arrthead">
         <tr>
           <th scope="col"><i class="fas fa-file-alt" > File ID</i></th>
+          <th scope="col"><i class="fas fa-file-alt" > From</i></th>
+          <th scope="col"><i class="fas fa-file-alt" >  From Department</i></th>
+          <th scope="col"><i class="fas fa-file-alt" >  Remark</i></th>
           <th scope="col"><i class="fas fa-clock" > Arrival Time</i></th>
           <th scope="col"><i class="fas fa-qrcode" > Scan File</i></th>
           <th scope="col"><i class="fas fa-exclamation-triangle"> Not Received</i></th>
@@ -358,6 +381,9 @@ function remarkfunct(){
           <th scope="col"><i class="fas fa-file-alt" > File ID</i></th>
           <th scope="col"><i class="fas fa-clock" > Arrival Time</i></th>
           <th scope="col"><i class="fas fa-hourglass-end" > Time Completed</i></th>
+          <th scope="col"><i class="fas fa-hourglass-end" > Remark</i></th>
+          <th scope="col"><i class="fas fa-hourglass-end" > Next Department</i></th>
+          <th scope="col"><i class="fas fa-hourglass-end" >  Forwarded To</i></th> 
           <th scope="col"><i class="fas fa-clock" > Delay</i></th>
 
         </tr>
