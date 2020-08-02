@@ -330,8 +330,10 @@ def generate_barcode():
 
         try:
             emp = least_file_emp(firstDept)
+            currEmpDeptName = emp_data.find_one({"email_id":emp},{"dept_name":True,"_id":False})["dept_name"]
             result = files.insert_one({"fid": bcode_string, "applicationType": appid, "timeCreated": d, \
-                                       "fileDone": False, "currDept": firstDept, "currEmp": emp,"prevDept":None,"prevEmp":None,"scanned":False, "delayed": False, \
+                                       "fileDone": False, "currDept": firstDept, "currDeptName":currEmpDeptName,\
+                                       "currEmp": emp,"prevDept":None,"prevDeptName":None,"prevEmp":None,"scanned":False, "delayed": False, \
                                        "delayedDays": 0, "expectedTimeline": file_expected,
                                        "expectedTimelineDuplicate": file_expected, \
                                        "stageList": [],"firstDept":firstDept,"lastDept":lastDept, "delayNotificationSent": None, "lastScanTime": "Not Scanned yet."})
@@ -823,7 +825,8 @@ def forward():
             fileDone = True
             files.find_one_and_update({"fid": fid},{
                 "$set": {"expectedTimelineDuplicate": expectedTimelineDuplicate,"stageList":fileStageList,
-                         "currDept": None,"currEmp":None,"prevDept":currDept,"prevEmp":email_id,
+                         "currDept": None,"currEmp":None,"currDeptName":"FILE COMPLETED",
+                         "prevDept":currDept,"prevDeptName":currDeptName,"prevEmp":email_id,
                          "delayed":False,"delayedDays":0,"fileDone": fileDone,"scanned":False}})
 
 
@@ -849,7 +852,8 @@ def forward():
             emp = least_file_emp(nextDept)
             files.find_one_and_update({"fid": fid}, {
                 "$set": {"expectedTimelineDuplicate": expectedTimelineDuplicate,"stageList":fileStageList,
-                         "currDept": nextDept,"currEmp":emp,"prevDept":currDept,"prevEmp":email_id,
+                         "currDept": nextDept,"currDeptName":nextDeptName,"currEmp":emp,
+                         "prevDept":currDept,"prevDeptName":currDeptName,"prevEmp":email_id,
                          "delayed":False,"delayedDays":0,"scanned":False}})
 
             prevFiles.append({"fid": fid, "delay": delay[0], "timeArrived": currFiles[index_in_curr_file]["timeArrived"],
@@ -952,7 +956,7 @@ def same_dept_forward():
 
         files.find_one_and_update({"fid": fid}, {
             "$set": {"stageList": fileStageList,
-                     "currEmp": nextEmp, "prevDept": currDept, "prevEmp": email_id,
+                     "currEmp": nextEmp, "prevDept": currDept,"prevDeptName":currDeptName ,"prevEmp": email_id,
                      "delayed": delayed, "delayedDays": delay[0], "scanned": False}})
 
         prevFiles.append(
