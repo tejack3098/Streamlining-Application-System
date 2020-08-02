@@ -1606,7 +1606,7 @@ def get_emp_data_for_rating():
 
 @backendapp.route("/get_dept_employees",methods=["GET","POST"])
 def get_dept_employees():
-    if request.method == "GET":
+    if request.method == "POST":
         dept_id = request.args.get('dept_id')
         employees = emp_stats.find({"dept_id":dept_id},{"email_id":True,"_id":False})
         employees_list = list(employees)
