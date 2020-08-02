@@ -196,6 +196,9 @@ var language =
         sih_overall_performance : "सभी विभाग का समग्र प्रदर्शन",
         sih_search : "खोज",
         sih_sc_file : "फ़ाइल स्कैन करें",
+        sih_c_app_id : "एप्लिकेशन आईडी चुनें",
+        sih_qr : "QR कोड बनाएं और सेव करें",
+        sih_barcode : "बारकोड बनाएं और सेव करें",
 
         
         

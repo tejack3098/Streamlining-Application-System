@@ -33,7 +33,7 @@
                         <div class="col-md-6 align-self-center">
                             <div class="form-group">
                                 <select type="text" class="form-control" placeholder="Application ID" id="appid" value="" required style="height: 48px;" >
-                                <option>Choose Application ID</option>
+                                <option id="sih_choose_app_id">Choose Application ID</option>
                                 </select>
                                 
                             </div>
@@ -43,11 +43,11 @@
                       <div class="row" style="margin-top: 20px">  
                         <div class="col-md-6 text-center">
                           <!-- <button type="button" class="btnSubmit" style="width: auto; padding: 0.5rem;" onclick="get_barcode();">Generate Barcode &  Save</button>-->
-                            <button type="button"class="btn btn-primary" id="gen_code" onclick="get_qrcode();">Generate Qrcode &  Save</button>
+                            <button type="button"class="btn btn-primary" class="sih_qr_code" id="gen_code2" onclick="get_qrcode();">Generate Qrcode &  Save</button>
                         </div>
                           <div class="col-md-6 text-center">
                           <!-- <button type="button" class="btnSubmit" style="width: auto; padding: 0.5rem;" onclick="get_barcode();">Generate Barcode &  Save</button>-->
-                            <button type="button"class="btn btn-primary" id="gen_code" onclick="get_barcode();">Generate Barcode &  Save</button>
+                            <button type="button"class="btn btn-primary" class="sih_bar_code" id="gen_code1" onclick="get_barcode();">Generate Barcode &  Save</button>
                         </div>
                     </div>
                     
@@ -408,8 +408,12 @@ function loaddepts(){
                 }
       function change_lang(){
           add_file.innerHTML = language.nep.add_file;
-          gen_code.innerHTML = language.nep.generate_bcode_save;
+          gen_code1.innerHTML = language.nep.sih_barcode;
           prit.innerHTML = language.nep.print;
+          sih_choose_app_id.innerHTML = language.nep.sih_c_app_id;
+          gen_code2.innerHTML = language.nep.sih_qr;
+          
+
           
           
           
