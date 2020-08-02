@@ -9,7 +9,7 @@ from barcode.writer import ImageWriter
 import qrcode
 from qrcode.image.pure import PymagingImage
 from . import backendapp
-
+import json
 iwriter = ImageWriter()
 
 
@@ -334,12 +334,19 @@ def generate_barcode():
 
         app_stagelist = applications.find_one({"appid": appid})["stageList"]
 
-        firstDept= app_stagelist[0]["dept_id"]
+        firstDept = app_stagelist[0]["dept_id"]
+        firstDeptName = dept.find_one({"dept_id": firstDept}, {"dept_name": True, "_id": False})["dept_name"]
         lastDept = app_stagelist[len(app_stagelist) - 1]["dept_id"]
-
+        lastDeptName = dept.find_one({"dept_id": lastDept}, {"dept_name": True, "_id": False})["dept_name"]
         file_expected = {}
         total = 0
         dept_emps= {}
+        '''
+        emp_of_dept = emp_data.find({},{"dept_id":True,"email_id":True,"fname":True,"lname":True,"mno":True,"_id":False})
+        emp_of_dept_list = list(emp_of_dept)
+        for i in emp_of_dept_list:
+            dept_emps[i["dept_id"]]=[i["email_id"]]
+        '''
         for i in app_stagelist:
             emps = emp_data.find({"dept_id":i["dept_id"]},{"email_id":True,"fname":True,"lname":True,"mno":True,"_id":False})
             if emps == None:
@@ -347,29 +354,27 @@ def generate_barcode():
             else:
                 emp_list = list(emps)
             dept_emps[i["dept_id"]]=emp_list
+
             file_expected[i["dept_id"]] = date_by_adding_business_days(d, total + int(i["no_of_days"]))
             total += int(i["no_of_days"])
 
         try:
             emp = least_file_emp(firstDept)
-            currEmpDeptName = emp_data.find_one({"email_id":emp},{"dept_name":True,"_id":False})["dept_name"]
-            result = files.insert_one({"fid": bcode_string, "applicationType": appid, "timeCreated": d, \
-                                       "fileDone": False, "currDept": firstDept, "currDeptName":currEmpDeptName,\
-                                       "currEmp": emp,"prevDept":None,"prevDeptName":None,"prevEmp":None,"scanned":False, "delayed": False, \
-                                       "delayedDays": 0, "expectedTimeline": file_expected,
-                                       "expectedTimelineDuplicate": file_expected, \
-                                       "stageList": [],"firstDept":firstDept,"lastDept":lastDept, "delayNotificationSent": None, "lastScanTime": "Not Scanned yet."})
+            currEmpDeptName = emp_data.find_one({"email_id": emp}, {"dept_name": True, "_id": False})["dept_name"]
 
-            emp_stats_result = emp_stats.find_one({"email_id":emp},{"incomingFiles":True,"_id":False})
-            emp_incoming_files=emp_stats_result["incomingFiles"]
-            emp_incoming_files[bcode_string]={"time":d,"from":"Barcode Generation Dept",
-            "fromDeptName":"Barcode Generation Dept","remark":"","alert":False}
-
-            emp_result = emp_stats.find_one_and_update({"email_id":emp},{"$set":{"incomingFiles":emp_incoming_files},"$inc":{"count":1}})
+            result = files.insert_one(
+                {"fid": bcode_string, "applicationType": appid, "altered": False, "timeCreated": d, \
+                 "fileDone": False, "currDept": firstDept, "currDeptName": firstDeptName, \
+                 "currEmp": "NOT ASSIGNED", "prevDept": None, "prevDeptName": None, "prevEmp": None,
+                 "scanned": False, "delayed": False, \
+                 "delayedDays": 0, "alteredTimeline": {}, "expectedTimeline": file_expected,
+                 "expectedTimelineDuplicate": file_expected, \
+                 "stageList": [], "firstDept": firstDept, "lastDept": lastDept, "lastDeptName": lastDeptName,
+                 "delayNotificationSent": None, "lastScanTime": "Not Scanned yet."})
 
             data = base64.b64encode(bcode_image.read()).decode("utf-8")
-            response = {"status": "1", "message": "Success","code_string":bcode_string ,"image": data,
-                        "stageList":app_stagelist,"dept_emps":dept_emps}
+            response = {"status": "1", "message": "Success", "code_string": bcode_string, "image": data,
+                        "stageList": app_stagelist, "dept_emps": dept_emps}
             print("response")
             return jsonify(response)
         except:
@@ -429,19 +434,12 @@ def generate_qrcode():
                                        "fileDone": False, "currDept": firstDept, "currDeptName": firstDeptName, \
                                        "currEmp": "NOT ASSIGNED", "prevDept": None, "prevDeptName": None, "prevEmp": None,
                                        "scanned": False, "delayed": False, \
-                                       "delayedDays": 0,"alteredTimeline":[] ,"expectedTimeline": file_expected,
+                                       "delayedDays": 0,"alteredTimeline":{} ,"expectedTimeline": file_expected,
                                        "expectedTimelineDuplicate": file_expected, \
                                        "stageList": [], "firstDept": firstDept, "lastDept": lastDept,"lastDeptName": lastDeptName,
                                        "delayNotificationSent": None, "lastScanTime": "Not Scanned yet."})
 
-            emp_stats_result = emp_stats.find_one({"email_id": emp}, {"incomingFiles": True, "_id": False})
-            emp_incoming_files = emp_stats_result["incomingFiles"]
-            emp_incoming_files[bcode_string] = {"time": d, "from": "Barcode Generation Dept",
-                                                "fromDeptName": "Barcode Generation Dept", "remark": "", "alert": False}
 
-            emp_result = emp_stats.find_one_and_update({"email_id": emp},
-                                                       {"$set": {"incomingFiles": emp_incoming_files},
-                                                        "$inc": {"count": 1}})
 
             data = base64.b64encode(bcode_image.read()).decode("utf-8")
             response = {"status": "1", "message": "Success", "code_string": bcode_string, "image": data,
@@ -470,22 +468,53 @@ def update_stagelist():
         except:
             return jsonify({"status":0,"message":"File not found (:"})
         currDept = file_result["currDept"]
+        print("CurrDept : {}".format(currDept))
         if altered == "0":
+            print("Altered 0!")
             altered_boolean = False
             emp = least_file_emp(currDept)
-            expectedTimeLine = []
+            print("Emp selected : {}".format(emp))
+            expectedTimeLine = {}
         else:
+            print("Altered 1!")
             altered_boolean = True
-            alteredStageList  = request.form.getlist("details")
+            alteredStageList  = json.loads(request.form.getlist("details")[0])
             print("alteredStageList : {}".format(alteredStageList))
-            expectedTimeLine = []
+            print("Type alteredStageList : {}".format(type(alteredStageList)))
+            expectedTimeLine = {}
+            print("Appstage loop")
             for i in alteredStageList:
-                expectedTimeLine.append({i["dept_id"]:i["email_id"]})
+                print(i)
+                print(type(i))
+                expectedTimeLine[i["dept_id"]]=i["email_id"]
             if(expectedTimeLine[currDept]==""):
                 emp = least_file_emp(currDept)
-        result = files.find_one_and_update({"fid": fid}, {"$set": {"altered":altered_boolean,\
+                print("Emp selected : {}".format(emp))
+            else:
+                emp = expectedTimeLine[currDept]
+                print("Emp selected : {}".format(emp))
+        try:
+            result = files.find_one_and_update({"fid": fid}, {"$set": {"altered":altered_boolean,
+                                                                   "alteredTimeline":expectedTimeLine,                                                                   \
                                                                    "currEmp": emp}})
+        except:
+            raise
+            return jsonify({"status":0,"message":"File update failed"})
+
+        try:
+
+            emp_stats_result = emp_stats.find_one({"email_id": emp}, {"incomingFiles": True, "_id": False})
+            emp_incoming_files = emp_stats_result["incomingFiles"]
+            emp_incoming_files[fid] = {"time": datetime.now(), "from": "Barcode Generation Dept",
+                                                "fromDeptName": "Barcode Generation Dept", "remark": "", "alert": False}
+
+            emp_result = emp_stats.find_one_and_update({"email_id": emp},
+                                                       {"$set": {"incomingFiles": emp_incoming_files},
+                                                        "$inc": {"count": 1}})
+        except:
+            return jsonify({"status":0,"message":"Employee update failed"})
         #result = files.insert_one({})
+        return jsonify({"status": 1, "message": "Update Done","sentTo":emp})
     else:
         return "GET method not allowed"
 '''                 Update Timeline                             '''
@@ -852,6 +881,8 @@ def forward():
         #print("fid : {}".format(fid))
         d = datetime.now()
         result = files.find_one({"fid": fid})
+        altered = result["altered"]
+        alteredTimeline = result["alteredTimeline"]
         dept_id = result["currDept"]
         fileStageList = result["stageList"]
         #print("Filestage : {} ".format(fileStageList))
@@ -933,7 +964,16 @@ def forward():
         else:
             #FileNotDone
             #UpdateCurrdept
-            emp = least_file_emp(nextDept)
+            if(not altered):
+                emp = least_file_emp(nextDept)
+                print("In not altered -> emp : {} ".format(emp))
+            else:
+                print("In altered ")
+                emp = alteredTimeline[nextDept]
+                if(emp==""):
+                    print(" Email not defined in alteredtimeline. Emp : {}    .".format(emp))
+                    emp = least_file_emp(nextDept)
+                print(" In alerted. Emp Selected : {}    .".format(emp))
             files.find_one_and_update({"fid": fid}, {
                 "$set": {"expectedTimelineDuplicate": expectedTimelineDuplicate,"stageList":fileStageList,
                          "currDept": nextDept,"currDeptName":nextDeptName,"currEmp":emp,
