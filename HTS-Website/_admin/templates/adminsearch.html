@@ -48,7 +48,7 @@
 		  <thead>
 		    <tr>
 		      <th scope="col"><i class="fas fa-file-alt" id="f_id"> File ID</i></th>
-		      <th scope="col"><i class="fas fa-building" id="c_dept"> Current Dept</i></th>
+		      <th scope="col"><i class="fas fa-building" id="c_dept"> Current Department</i></th>
 		      <th scope="col"><i class="fas fa-clock" id="d_by"> Delayed By</i></th>
 		      <th scope="col"><i class="fas fa-stream" id="t_details"> Track Details</i></th>
           <th scope="col"><i class="fas fa-calendar-day" id="e_date"> Estimated Date</i></th>
@@ -140,7 +140,7 @@
                         }
                         else
                         {
-                            cell2.innerHTML = response['currDept'];//['list'][i-1]
+                            cell2.innerHTML = response['currDeptName']+' ('+response['currDept']+')';//['list'][i-1]
                             cell5.innerHTML=response['estimate_date']
                         }
 
@@ -156,27 +156,32 @@
         //var not_scaned = response["lastScanTime"]
         
         
-       
+       //dept_name
             for (var i = 0; i < response['list'].length; i++) {
               if(i%2==0)
                     {
-                      codeblock = codeblock+'<div class="containert leftt"><div class="contentt"><p><b>Employee ID:'+response['list'][i]['empID']+'</b></p><p><b>Department ID: </b>'+response['list'][i]['deptID']+'</p><p><b>Remark: </b>'+response['list'][i]["remark"]+'</p></div></div>';
+                      codeblock = codeblock+'<div class="containert leftt"><div class="contentt"><p><b>Employee ID:'+response['list'][i]['empID']+'</b></p><p><b>Department ID: </b>'+response['list'][i]['deptID']+'</p><p><b>Department Name: </b>'+response['list'][i]['dept_name']+'</p><p><b>Remark: </b>'+response['list'][i]["remark"]+'</p></div></div>';
                   }
                 else
                   {
-                  codeblock = codeblock+'<div class="containert rightt"><div class="contentt"><p><b>Employee ID:'+response['list'][i]['empID']+'</b></p><p><b>Department ID: </b>'+response['list'][i]['deptID']+'</p><p><b>Remark: </b>'+response['list'][i]["remark"]+'</p></div></div>';
+                  codeblock = codeblock+'<div class="containert rightt"><div class="contentt"><p><b>Employee ID:'+response['list'][i]['empID']+'</b></p><p><b>Department ID: </b>'+response['list'][i]['deptID']+'</p><p><b>Department Name: </b>'+response['list'][i]['dept_name']+'</p><p><b>Remark: </b>'+response['list'][i]["remark"]+'</p></div></div>';
                  }
                   
               }
         
         if (scaned == false){
                         console.log(currEmp);
+                        currDeptName = response['currDeptName'];
+                        /*if(!response['currDept']){
+                            currDeptName="-";
+                        }*/
+                        console.log(" CurrDeptName : ",currDeptName);
             if(i%2==0)
                     {
-                      codeblock = codeblock+'<div class="containert leftt" ><div class="contentt" style = "border-style: dashed;"><p><b>Employee ID:'+currEmp+'</b></p><p><b>Department ID: </b>'+currDept+'</p><br><b style = "color:red;">Not Yet Scanned.</b></div></div>';
+                      codeblock = codeblock+'<div class="containert leftt" ><div class="contentt" style = "border-style: dashed;"><p><b>Employee ID:'+currEmp+'</b></p><p><b>Department ID: </b>'+currDept+'</p><p><b>Department Name: </b>'+currDeptName+'</p><br><b style = "color:red;">Not Yet Scanned.</b></div></div>';
                         }
             else{
-                codeblock = codeblock+'<div class="containert rightt"><div class="contentt"><p><b>Employee ID:'+currEmp+'</b></p><p><b>Department ID: </b>'+currDept+'</p><br><b style = "color:red;">Not Yet Scanned.</b></div></div>';
+                codeblock = codeblock+'<div class="containert rightt"><div class="contentt"><p><b>Employee ID:'+currEmp+'</b></p><p><b>Department ID: </b>'+currDept+'</p><p><b>Department Name: </b>'+currDeptName+'</p><br><b style = "color:red;">Not Yet Scanned.</b></div></div>';
             }
         
         

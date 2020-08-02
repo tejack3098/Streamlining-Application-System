@@ -1018,6 +1018,14 @@ def get_file_path():
         else:
             applicationType = result["applicationType"]
             currDept = result["currDept"]
+            try:
+                currDeptName = result["currDeptName"]
+            except:
+                currDeptName = '-'
+            try:
+                prevDeptName = result["prevDeptName"]
+            except:
+                prevDeptName = '-'
             currEmp = result["currEmp"]
             delay = chk_delayed(fid)
             print("appType : {} + currDept : {}".format(applicationType,currDept))
@@ -1037,13 +1045,13 @@ def get_file_path():
                                                              mlModel.predict([[deptToNumber[currDept], delay[0],
                                                                                appToNumber[applicationType]]])[0])
 
-                response = {"status":"1","delay":"1","delayedBy":delay[0],"currDept":currDept,"currEmp":currEmp,"estimate_date":estimate_date,"lastScanTime":lastScanTime,"list":lst,"scanned":scanned,"fileDone":fileDone}
+                response = {"status":"1","delay":"1","delayedBy":delay[0],"currDept":currDept,"currDeptName":currDeptName,"prevDeptName":prevDeptName,"currEmp":currEmp,"estimate_date":estimate_date,"lastScanTime":lastScanTime,"list":lst,"scanned":scanned,"fileDone":fileDone}
             else:
                 estimate_date = date_by_adding_business_days(datetime.now(),
                                                              mlModel.predict([[deptToNumber[currDept], 0,
                                                                                appToNumber[applicationType]]])[0])
 
-                response = {"status":"1","delay":"0","delayedBy":0,"currDept":currDept,"currEmp":currEmp,"estimate_date":estimate_date,"lastScanTime":lastScanTime,"list":lst,"scanned":scanned,"fileDone":fileDone}
+                response = {"status":"1","delay":"0","delayedBy":0,"currDept":currDept,"currDeptName":currDeptName,"prevDeptName":prevDeptName,"currEmp":currEmp,"estimate_date":estimate_date,"lastScanTime":lastScanTime,"list":lst,"scanned":scanned,"fileDone":fileDone}
         print(response)
         return jsonify(response)
     else:
