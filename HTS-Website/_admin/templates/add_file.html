@@ -65,12 +65,17 @@
                     </div>
                     
                     <div class="row"  style="text-align: center; margin-top: 20px">
-                    <div class="col-md-5 align-self-center"></div>
+                    <div class="col-md-4 align-self-center"></div>
                     <div class="col-md-2 text-center" style="vertical-align: middle; text-align: center">
              
                         <button id="printbtn" type="button"class="btn btn-primary" onclick="printDiv()" style="display: none"><i class="fas fa-print" id="prit"> Print</i></button>
                     </div>
-                    <div class="col-md-5 align-self-center"></div>    
+                    <div class="col-md-2 text-center" style="vertical-align: middle; text-align: center">
+             
+                        
+                    </div>
+                        
+                    <div class="col-md-4 align-self-center"></div>    
                 </div>
                     </div>
                 </form>
@@ -78,6 +83,128 @@
            
         </div>
 
+<div class="row">
+    <div class="col-md-3 align-self-center"></div>  
+  <div class="col-md-3 justify-content-center">
+  <!-- Add direct assign button-->
+      <button id="auto_asign" changes="0" type="button" class="btn btn-primary"onclick="update_Stage_details(this)" style="display: none">Auto Assign Employee</button>
+  </div>
+  <div class="col-md-3 justify-content-center">
+  <!-- Paste Modal button -->
+      <button id="update_stage_btn" type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="" style="display: none">Update Stage Details </button>
+  </div>
+     <div class="col-md-3 align-self-center"></div> 
+</div>
+
+<div class="row">
+     <div class="col-md-12 align-self-center" id="filesend"></div> 
+</div>
+
+
+<!-------------------------Modal for Update stage details----------------->
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+    
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Update Stage Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          
+          <table class="table" id="stageDetailstable" style="font-size: 18px;">
+              <thead>
+                  <tr>
+                      <th scope="col"><i class="fas fa-stream" title="Stage No."> Stage No.</i></th>
+                      <th scope="col"><i class="fas fa-building" title="Department ID"> Dept ID</i></th>
+                      <th scope="col"><i class="fas fa-building" title="Department Name"> Dept Name</i></th>
+                      <th scope="col"><i class="fas fa-clock" title="Number of Days to complete"> No. of Days</i></th>
+
+                </tr>
+              </thead>
+              <tbody id='stageTablebody'>
+        
+              </tbody>
+        </table>
+          
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" changes="1" onclick="update_Stage_details(this)">Update changes</button>
+      </div>
+  
+    </div>
+  </div>
+</div>
+
+<!--  update stage function-->
+
+
+<script>
+    
+ 
+
+function update_Stage_details(a){
+    
+    var finaljson;
+    var dataString;
+    var selectedEmps = document.getElementsByClassName("select_emp");
+    var changed = a.getAttribute("changes");
+    
+    if(changed == "1"){
+        
+        var info =[];
+        
+        for(var i=0; i<selectedEmps.length; i++){
+        
+            console.log("===============");
+            if(selectedEmps[i].value !="Select Employee"){
+            
+                dataString={"email_id":selectedEmps[i].value,"dept_id":selectedEmps[i].getAttribute("departmentName")}; 
+            
+            }else{
+            
+                dataString={"email_id":"","dept_id":selectedEmps[i].getAttribute("departmentName")};
+            
+            }     
+            info.push(dataString);    
+       
+        }
+        
+        finaljson = {"altered":changed,"details":info};
+        console.log(finaljson);
+           
+     }
+     else{
+        
+        finaljson = {"altered":changed};
+        console.log(finaljson);
+        
+     }
+    
+    /*$.post("",
+                
+            function(response){
+                
+                if(response["status"]==="1"){
+                    
+                    document.getElementById("filesend").innerHTML="File Assigned Successfully!";
+                }
+    
+    
+              },"json");*/
+       
+
+}
+
+</script>
+
+<!--  update stage function-->
+
+<!-------------------------Modal for Update stage details----------------->
   		
 <script type="text/javascript">
     function get_barcode() {
@@ -115,6 +242,11 @@
                         document.getElementById("barcodeID").style.display ="none";
                         var printbtn =document.getElementById("printbtn");
                         printbtn.style.display="block";
+                        
+                        //for generation of barcode update stage btn will be displayed 
+                        document.getElementById("update_stage_btn").style.display ="block";
+                         document.getElementById("auto_asign").style.display ="block";
+                        load_stage_details(response);
 
                     }
                     
@@ -161,6 +293,10 @@
                         document.getElementById("barcodeID").innerHTML = response["code_string"];
                         
                         document.getElementById("printbtn").style.display ="block";
+                        //for generation of barcode update stage btn will be displayed 
+                        document.getElementById("update_stage_btn").style.display ="block";
+                         document.getElementById("auto_asign").style.display ="block";
+                        load_stage_details(response);
 
                     }
                     
@@ -170,6 +306,53 @@
             
                 
             }
+    
+    
+function load_stage_details(data){
+
+    console.log("load stage function called");
+    console.log(data["stageList"]);
+    
+    var stageTable = document.getElementById("stageTablebody");
+    var html = "";
+    
+    for(var i=0;i<data["stageList"].length;i++){
+        
+        var di = "0"+(i+1).toString();
+        
+        var emps = '<select departmentName='+ di +' class="form-control select_emp" style="height: 45px" ><option selected disabled>Select Employee</option>';
+        
+        for(var j=0; j<data["dept_emps"][di].length;j++){
+            
+          emps = emps + '<option value='+data["dept_emps"][di][j]["email_id"]+'>'+data["dept_emps"][di][j]["email_id"]+'</option>';
+            
+        }
+        
+        emps = emps + '</select>';
+        
+        
+        
+       html = html + '<tr>\
+                        <td>'+(i+1)+'</td>\
+                        <td>'+data["stageList"][i]["dept_id"]+'</td>\
+                        <td>'+data["stageList"][i]["dept_name"]+'</td>\
+                        <td>'+emps+'</td>\
+                        </tr>'; 
+        
+        
+        
+    }
+    
+    stageTable.innerHTML= html;
+
+
+}  
+    
+    
+    
+    
+    
+    
         
 </script>
 
@@ -214,9 +397,8 @@ function loaddepts(){
     
     loaddepts();
 
-
-
 </script>
+
 
 <script src="{{ url_for('adminapp.static',filename='js/change_language.js')}}"></script>
  <script type="text/javascript">

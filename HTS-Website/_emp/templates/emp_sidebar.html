@@ -111,30 +111,11 @@
           
     
             <a href="{{ url_for('empapp.empworkStatus', email = email)}}">
-                <i class="fas fa-stream">&nbsp;&nbsp;</i>Work Status</a></li>
+                <i class="fas fa-stream">&nbsp;&nbsp;</i>Work Status</a>
             <!--<li class="cd-side__sub-item"><a href="#0">Other</a></li>-->
         </li>
 
-        
-        <script type="text/javascript">
-          function change(){
-            var st =window.location.href;
-            st =st.split('/');
-            console.log(st)
-            
-            if (st[4] == "Dashboard"){
-              document.getElementById("Overview").setAttribute("class"," cd-side__item cd-side__item--has-children cd-side__item--overview cd-side__item--selected")
-            }
-            else{
-              document.getElementById("workstatus").setAttribute("class"," cd-side__item cd-side__item--has-children  cd-side__item--selected")
-            }
 
-
-          }
-          change();
-          
-        </script>
-    
        <!-- <li class="cd-side__item cd-side__item--has-children cd-side__item--comments js-cd-item--has-children">
           <a href="#0">Comments</a>
           
@@ -422,6 +403,30 @@
         
         
     </script> 
+    
+    
+     <script type="text/javascript">
+            
+            
+          function change(){
+            var st =window.location.href;
+               console.log("===========================");
+             console.log(st)  
+            st =st.split('/');
+            console.log(st)
+            
+            if (st[4] == "Dashboard"){
+              document.getElementById("Overview").setAttribute("class"," cd-side__item cd-side__item--has-children cd-side__item--overview cd-side__item--selected")
+            }
+            else{
+              document.getElementById("workstatus").setAttribute("class"," cd-side__item cd-side__item--has-children  cd-side__item--selected")
+            }
+
+
+          }
+         change();
+          
+        </script>
     
 </body>
 </html>

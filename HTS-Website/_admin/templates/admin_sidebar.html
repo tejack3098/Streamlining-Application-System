@@ -249,7 +249,7 @@
       <li class="cd-nav__item cd-nav__item--has-children cd-nav__item--account js-cd-item--has-children">
         <a href="{{url_for('adminapp.adminalert',email=email)}}">
           <img src="{{ url_for('static',filename='img/notif_small.png')}}" alt="avatar">
-          <span id="alt">Alert</span>
+          <span id="alt">Alert</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cd-count" id="alertcnt" style=""></span>
         </a>
       </li>
       <li class="cd-nav__item cd-nav__item--has-children cd-nav__item--account js-cd-item--has-children">
@@ -369,6 +369,50 @@
   <script src="{{ url_for('static',filename='js/menu-aim.js')}}"></script>
   <script src="{{ url_for('static',filename='js/main.js')}}"></script>
     
+    
+    <!------------------------ Script for the alerts count ---------------------------------->
+    
+    <script>
+    
+         var alertcntlabel= document.getElementById("alertcnt");
+    
+    
+        function loadAlertCnt(){
+                    
+                    console.log("-------COUNT---------");
+                    $.get("{{url_for('backendapp.get_admin_alert_count')}}",
+                
+                          
+                    function(response){
+                    if(response["status"]=="1"){   
+                        console.log(" Alert Count Retrieved");
+                        
+                        var alertcnt = response["count"];
+                        console.log("----------");
+                        console.log(response);
+                        console.log(alertcnt);
+                        if(alertcnt == 0){
+                            alertcntlabel.style.display="none";
+                            console.log("");
+                        }
+                        alertcntlabel.style.display ="block";
+                        alertcntlabel.innerText = alertcnt;
+                       
+                }
+
+  
+              },"json");  
+        }
+
+    
+        loadAlertCnt();
+    
+    
+    
+    
+    </script>
+    
+    <!------------------------ Script for the alerts count ---------------------------------->
     
     <script src="{{ url_for('adminapp.static',filename='js/change_language.js')}}"></script>
     <script>
