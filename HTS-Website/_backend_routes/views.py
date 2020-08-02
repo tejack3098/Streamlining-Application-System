@@ -442,8 +442,9 @@ def emp_create():
         lname = postData["lname"]
         mno = postData["mno"]
         dept_id = postData["dept_id"]
-        result1=emp_data.insert_one({"email_id":email,"password":password,"fname":fname,"lname":lname,"mno":mno,"dept_id":dept_id,"date_created":datetime.now()})
-        result2=emp_stats.insert_one({"email_id":email,"mno":mno,"dept_id":dept_id,"count":0,"incomingFiles":{},"outgoingFiles":{},"currFiles":[],"prevFiles":[]})
+        dept_name = dept.find_one({"dept_id":dept_id},{"dept_name":True})["dept_name"]
+        result1=emp_data.insert_one({"email_id":email,"password":password,"fname":fname,"lname":lname,"mno":mno,"dept_id":dept_id,"dept_name":dept_name,"date_created":datetime.now()})
+        result2=emp_stats.insert_one({"email_id":email,"mno":mno,"dept_id":dept_id,"dept_name":dept_name,"count":0,"incomingFiles":{},"outgoingFiles":{},"currFiles":[],"prevFiles":[]})
         if result1!=None and result2 !=None:
             return "1"
         else:
@@ -451,7 +452,18 @@ def emp_create():
     else:
         return "GET method is not allowed"
 
-    
+@backendapp.route("/emp_search",methods=["GET","POST"])
+def emp_search():
+    if request.method == "GET":
+        email_id = request.args.get('q')
+        emp_result = emp_data.find_one({"email_id":email_id},{"_id":False})
+        #print(emp_result)
+        if emp_result!= None:
+            return jsonify({"status":1,"details":emp_result})
+        else:
+            return jsonify({"status":0,"message":"Employee not found with this email ID!"})
+    else:
+        return "POST method not allowed"
     
 @backendapp.route("/emp_login",methods=["POST","GET"])
 def emp_login():
