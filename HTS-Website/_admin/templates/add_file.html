@@ -310,7 +310,8 @@ function update_Stage_details(a){
                          document.getElementById("auto_asign").style.display ="block";
                         load_stage_details(response);
                         
-                        
+                        codeString = response["code_string"];
+                        console.log(codeString);
 
                     }
                     
@@ -332,7 +333,7 @@ function load_stage_details(data){
     
     for(var i=0;i<data["stageList"].length;i++){
         
-        var di = "0"+(i+1).toString();
+        var di = data["stageList"][i]["dept_id"];
         
         var emps = '<select departmentName='+ di +' class="form-control select_emp" style="height: 45px" ><option selected disabled>Select Employee</option>';
         
