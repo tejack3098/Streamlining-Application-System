@@ -326,7 +326,7 @@ def generate_barcode():
         total = 0
         dept_emps= {}
         for i in app_stagelist:
-            emps = emp_data.find({"dept_id":i["dept_id"]},{"_id":False})
+            emps = emp_data.find({"dept_id":i["dept_id"]},{"email_id":True,"fname":True,"lname":True,"mno":True,"_id":False})
             if emps == None:
                 emp_list = []
             else:
@@ -396,7 +396,7 @@ def generate_qrcode():
         total = 0
         dept_emps = {}
         for i in app_stagelist:
-            emps = emp_data.find({"dept_id": i["dept_id"]},{"_id":False})
+            emps = emp_data.find({"dept_id":i["dept_id"]},{"email_id":True,"fname":True,"lname":True,"mno":True,"_id":False})
             if emps == None:
                 emp_list = []
             else:
