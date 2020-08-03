@@ -115,7 +115,14 @@ function loadfiles(){
                         cell1.innerHTML = prevFiles[i]['fid'];
                         cell2.innerHTML = prevFiles[i]['timeArrived'];
                         cell3.innerHTML = prevFiles[i]['timeCompleted'];
-                        cell4.innerHTML = prevFiles[i]['remark']; 
+                        if(prevFiles[i]['remark']==""){
+                           cell4.innerHTML = "-";
+                           
+                        } 
+                        else{
+                           cell4.innerHTML = prevFiles[i]['remark'];
+                        }
+                        //cell4.innerHTML = prevFiles[i]['remark']; 
                         cell5.innerHTML = prevFiles[i]['nextDeptName']; 
                         cell6.innerHTML = prevFiles[i]['to']; 
                         cell7.innerHTML = prevFiles[i]['delay']; 
@@ -159,8 +166,15 @@ function loadfiles(){
                            
                             cell3.innerHTML = arrfiles[key]["fromDeptName"];     
                         }
-
-                       cell4.innerHTML = arrfiles[key]["remark"]; 
+                        
+                        if(arrfiles[key]["remark"]=="")
+                           {
+                               cell4.innerHTML = "-";
+                           }
+                        else{
+                           
+                            cell4.innerHTML = arrfiles[key]["remark"];     
+                        }
                        cell5.innerHTML = arrfiles[key]["time"];
                        cell6.innerHTML = '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Scan File</button>';
                        if(arrfiles[key]['alert']===false)
@@ -314,9 +328,9 @@ function remarkfunct(){
       <thead id="arrthead">
         <tr>
           <th scope="col"><i class="fas fa-file-alt" > File ID</i></th>
-          <th scope="col"><i class="fas fa-file-alt" > From</i></th>
-          <th scope="col"><i class="fas fa-file-alt" >  From Department</i></th>
-          <th scope="col"><i class="fas fa-file-alt" >  Remark</i></th>
+          <th scope="col"><i class="fas fa-user-tie" > From</i></th>
+          <th scope="col"><i class="fas fa-building" >  From Department</i></th>
+          <th scope="col"><i class="fas fa-sticky-note" >  Remark</i></th>
           <th scope="col"><i class="fas fa-clock" > Arrival Time</i></th>
           <th scope="col"><i class="fas fa-qrcode" > Scan File</i></th>
           <th scope="col"><i class="fas fa-exclamation-triangle"> Not Received</i></th>
@@ -381,9 +395,9 @@ function remarkfunct(){
           <th scope="col"><i class="fas fa-file-alt" > File ID</i></th>
           <th scope="col"><i class="fas fa-clock" > Arrival Time</i></th>
           <th scope="col"><i class="fas fa-hourglass-end" > Time Completed</i></th>
-          <th scope="col"><i class="fas fa-hourglass-end" > Remark</i></th>
-          <th scope="col"><i class="fas fa-hourglass-end" > Next Department</i></th>
-          <th scope="col"><i class="fas fa-hourglass-end" >  Forwarded To</i></th> 
+          <th scope="col"><i class="fas fa-sticky-note" > Remark</i></th>
+          <th scope="col"><i class="fas fa-building" > Next Department</i></th>
+          <th scope="col"><i class="fas fa-user-tie" >  Forwarded To</i></th> 
           <th scope="col"><i class="fas fa-clock" > Delay</i></th>
 
         </tr>
