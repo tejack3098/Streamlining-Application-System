@@ -102,7 +102,7 @@
                         
                         cell1.innerHTML = delaycnt[i]['fid'];
                         cell2.innerHTML = delaycnt[i]["timeCreated"];
-                        cell3.innerHTML = delaycnt[i]["lastDept"];
+                        cell3.innerHTML = '('+delaycnt[i]["lastDept"]+') '+ delaycnt[i]["lastDeptName"];
                         cell4.innerHTML = delaycnt[i]["lastScanTime"];
                         cell5.innerHTML = delaycnt[i]["delayedDays"];
 
