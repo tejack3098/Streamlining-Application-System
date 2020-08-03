@@ -12,17 +12,68 @@
     		<p align="center" style="margin: auto;"><b>Department Reports</b></p>
     	</div>
 
-    	<div class="col-sm-6" style="margin-top:10px;">
+    	<div class="col-sm-3" style="margin-top:10px;">
     		<div class="form-group">
                 <select class="form-control" id="dept_id" onchange="enablebutton(this)" style="height: 45px" required>
                     <option value="" disabled selected id="selec">Select Department</option>
                 </select> 
             </div>
     	</div>
-    	<div class="col-sm" style="margin-top:10px;">
+    	<div class="col-sm-3" style="margin-top:10px;">
+    		<div class="form-group">
+                <select class="form-control" id="which_file" onchange="enablebutton(this)" style="height: 45px" required>
+                    <option value="" disabled selected id="selec">Select which File</option>
+                    <option value="all_completed_on_time_files">all completed on time files</option>
+                    <option value="all_completed_on_delay_files">all completed on delay files</option>
+                </select> 
+            </div>
+    	</div>
+    	<div class="col-sm-3" style="margin-top:10px;">
     		<button type="submit"class="btn btn-primary" role="button" aria-disabled="true" id="add" onclick="department_reports()"><i class="fas fa-plus" title="Add"> Generate</i></button> 
     	</div>
     </div>
+
+    <table class="table table-borderd bg-light">
+    	<thead>
+    		<tr>
+    			<th>Department Name</th>
+    			<th>Total Files</th>
+    			<th>On Time Files </th>
+    			<th>Delayed Files</th>
+    		</tr>
+    		<tbody id="result">
+    			
+    		</tbody>
+
+    	</thead>
+    </table>
+
+    <table id ="table1" class="table table-borderd bg-light justify-content-center" align="center">
+    	<thead>
+    		<tr style="text-align: center"><th colspan="2"><b>On time Files</b></th></tr>
+    		<tr>
+    			<th>Sr.No</th>
+    			<th>File ID</th>
+    		</tr>
+    		<tbody id="result1">
+    			
+    		</tbody>
+
+    	</thead>
+    </table>
+    <table id="table2" class="table table-borderd bg-light" align="center">
+    	<thead>
+    		<tr style="text-align: center"><th colspan="2"><b> Delayed Files<b></th></tr>
+    		<tr>
+    			<th>Sr.No</th>
+    			<th>File ID</th>
+    		</tr>
+    		<tbody id="result2">
+    			
+    		</tbody>
+
+    	</thead>
+    </table>
                 
                 
 </div>
@@ -32,25 +83,92 @@
 
 
 <script type="text/javascript">
-	var sel = document.getElementById('dept_id').value;
+	
+	
+
 	function department_reports(){
+		var html="";
+	var html1="";
+	var html2="";
+		document.getElementById("result").innerHTML='';
+		document.getElementById("result1").innerHTML='';
+		document.getElementById("result2").innerHTML='';
+var final_result=[];
+		var sel = document.getElementById('dept_id').value;
+		var sel2 = document.getElementById('which_file').value;
+		console.log(sel)
 		$.get("{{url_for('backendapp.get_all_dept_stats')}}",
                 
                 function(response){
                   //check if what response is 
            		console.log(response);
-           		var sorted= response['details'].sort(function(a, b) {
+      
+           		console.log(response["details"])
 
-					    return a.totalCount - b.totalCount;
-					});
-           		console.log("sorted")
-           		console.log(sorted);
+           	
+           	 for(var i=0;i<response['details'].length;i++){
+           	 if (response["details"][i]["dept_name"] == sel){
+           	 		 html = html + '<tr>\
+           	 		 <td><b>'+response["details"][i]["dept_name"]+'</b></td>\
+           	 		 <td><b>'+response["details"][i]["totalCount"]+'</b></td>\
+           	 		 <td><b>'+response["details"][i]["onTimeCount"]+'</b></td>\
+           	 		 <td><b>'+response["details"][i]["delayedCount"]+'</b></td>\
+           	 		 </tr>'
+
+
+           	 if(sel2 == "all_completed_on_time_files"){
+           	 	final_result = response['details'][i]["all_completed_on_time_files"]
+
+           	 		 for(var j=0;j<response['details'][i]["all_completed_on_time_files"].length;j++){
+
+           	 		 html1 = html1 + '<tr>\
+           	 		 <td><b>'+(j+1)+'</b></td>\
+           	 		 <td><b>'+response['details'][i]["all_completed_on_time_files"][j]+'</b></td>\
+           	 		 </tr>'
+
+		           	 }
+		           	 document.getElementById('result1').innerHTML=html1;
+		           	 document.getElementById('table2').style.display="none";
+		           	 document.getElementById('table1').style.display="block";
+		       }//end if
+
+		       if(sel2 == "all_completed_on_delay_files"){
+		       	final_result = response['details'][i]["all_completed_on_delay_files"]
+
+
+		           	 for(var k=0;k<response['details'][i]["all_completed_on_delay_files"].length;k++){
+
+           	 		 html1 = html1 + '<tr>\
+           	 		 <td><b>'+(j+1)+'</b></td>\
+           	 		 <td><b>'+response['details'][i]["all_completed_on_delay_files"][j]+'</b></td>\
+           	 		 </tr>'
+
+		           	 }
+		           	 document.getElementById('result2').innerHTML=html1;
+		           	 document.getElementById('table1').style.display="none";
+		           	 document.getElementById('table2').style.display="block";
+		          }
+
+		     }//if end
+
+
+
+           	 }
+           	 document.getElementById('result').innerHTML=html;
+
+           	 
+           	 console.log(final_result)
+
+           	 //sendTobackend(final_result)
+
+
+         
                     
                 
                 
               },"json");
 	}
-	department_reports();
+	//department_reports();
 </script>
 
 
@@ -93,7 +211,7 @@ function enablebutton(x){
                          var opt = details[i]['dept_name']+' ('+details[i]['dept_id']+')';
                          var el = document.createElement("option");
                          el.textContent = opt;
-                         el.value =details[i]['dept_id'];
+                         el.value =details[i]['dept_name'];
                          dropdown.appendChild(el);
                      }
 
