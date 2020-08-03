@@ -12,7 +12,7 @@ from . import backendapp
 import json
 import pandas as pd
 import csv
-from flask import send_from_directory
+from flask import send_from_directory,send_file
 iwriter = ImageWriter()
 
 
@@ -1951,9 +1951,11 @@ def generate_csv():
             for i in data:
                 writer.writerow(i)
 
-        return send_from_directory(directory="report/", filename="test.csv", as_attachment=True,cache_timeout=0)
+        return jsonify({"status":"1"})
 
-
+@backendapp.route("/download",methods=["GET","POST"])
+def download():
+    return send_file("report/test.csv", as_attachment=True, cache_timeout=0)
 #--------------------------------------------Back-End End----------------------------------------
 print("check while subtracting..................")
 print(date_by_subtracting_business_days(datetime.now(), 5))

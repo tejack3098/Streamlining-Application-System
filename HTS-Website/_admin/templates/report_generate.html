@@ -163,7 +163,10 @@ var final_result=[];
 	           	 $.get("{{url_for('backendapp.generate_csv')}}",{f_id:JSON.stringify(final_result)},
 	                
 	                function(response){
-	                
+	                var loc ='http://' + document.domain + ':' + location.port+'/download'
+	                console.log("loc");
+    				window.open(loc, "_blank");
+
 	                
 	              },"json");
 
