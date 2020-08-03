@@ -11,6 +11,8 @@ from qrcode.image.pure import PymagingImage
 from . import backendapp
 import json
 import pandas as pd
+import csv
+from flask import send_from_directory
 iwriter = ImageWriter()
 
 
@@ -1923,11 +1925,15 @@ def get_applications_stats():
 @backendapp.route("/generate_csv",methods=["GET","POST"])
 def generate_csv():
     if request.method == "GET":
-        f_id = request.args.get('f_id')
-        dept = int(request.args.get('dept_id'))
+        f_id = json.loads(request.args.get('f_id'))
+        print(f_id)
+        print(type(f_id))
+        print(json.loads(request.args.get('f_id')))
+        print(type(json.loads(request.args.get('f_id'))))
+        #dept = int(request.args.get('dept_id'))
 
         result = files.find({'fid': {'$in': f_id}})
-        fileName = "test.csv"
+        fileName = "report/test.csv"
         headers = ["File ID","Application Type", "Time Created", "Delayed Days"]
         data = []
         eachFile = []
@@ -1944,6 +1950,8 @@ def generate_csv():
             writer.writerow(headers)
             for i in data:
                 writer.writerow(i)
+
+        return send_from_directory(directory="report/", filename="test.csv", as_attachment=True,cache_timeout=0)
 
 
 #--------------------------------------------Back-End End----------------------------------------

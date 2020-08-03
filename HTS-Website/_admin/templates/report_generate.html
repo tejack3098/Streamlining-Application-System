@@ -160,6 +160,14 @@ var final_result=[];
            	 console.log(final_result)
 
            	 //sendTobackend(final_result)
+	           	 $.get("{{url_for('backendapp.generate_csv')}}",{f_id:JSON.stringify(final_result)},
+	                
+	                function(response){
+	                
+	                
+	              },"json");
+
+
 
 
          
