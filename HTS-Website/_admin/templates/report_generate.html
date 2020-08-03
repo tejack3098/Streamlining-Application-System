@@ -1,0 +1,107 @@
+{% extends "admin_sidebar.html" %}
+{% block body %}
+<div class="container register-form">
+            
+    <div class="note">
+        <p id="add_file">GENERATE REPORTS</p>
+    </div>
+
+    <div class="row shadow" style="margin-top:20px;background: white;">
+    
+    	<div class="col-sm-3" style="margin-top:10px;">
+    		<p align="center" style="margin: auto;"><b>Department Reports</b></p>
+    	</div>
+
+    	<div class="col-sm-6" style="margin-top:10px;">
+    		<div class="form-group">
+                <select class="form-control" id="dept_id" onchange="enablebutton(this)" style="height: 45px" required>
+                    <option value="" disabled selected id="selec">Select Department</option>
+                </select> 
+            </div>
+    	</div>
+    	<div class="col-sm" style="margin-top:10px;">
+    		<button type="submit"class="btn btn-primary" role="button" aria-disabled="true" id="add" onclick="department_reports()"><i class="fas fa-plus" title="Add"> Generate</i></button> 
+    	</div>
+    </div>
+                
+                
+</div>
+           
+</div>
+
+
+
+<script type="text/javascript">
+	var sel = document.getElementById('dept_id').value;
+	function department_reports(){
+		$.get("{{url_for('backendapp.get_all_dept_stats')}}",
+                
+                function(response){
+                  //check if what response is 
+           		console.log(response);
+           		var sorted= response['details'].sort(function(a, b) {
+
+					    return a.totalCount - b.totalCount;
+					});
+           		console.log("sorted")
+           		console.log(sorted);
+                    
+                
+                
+              },"json");
+	}
+	department_reports();
+</script>
+
+
+
+<script type="text/javascript">
+
+
+function enablebutton(x){
+	if (x.value != "Select Department"){
+		document.getElementById('add').disabled = false;
+	}
+	else{
+		document.getElementById('add').disabled = true;
+	}
+}
+
+
+
+
+
+
+	function loadDropDown()
+{
+    
+  var dropdown=document.getElementById("dept_id");
+  $.post("{{url_for('backendapp.get_dept_ids')}}",
+                
+                function(response){
+                  //check if what response is 
+           
+                    
+                var details = response["dept_ids"];
+                
+                    //console.log(details);
+                
+                    
+ 
+                     for(var i = 0;i < details.length;i++)
+                     {
+                         var opt = details[i]['dept_name']+' ('+details[i]['dept_id']+')';
+                         var el = document.createElement("option");
+                         el.textContent = opt;
+                         el.value =details[i]['dept_id'];
+                         dropdown.appendChild(el);
+                     }
+
+                    
+                    //alert(response);
+                
+              },"json");
+}
+loadDropDown();
+</script>
+{% endblock %}

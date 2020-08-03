@@ -298,6 +298,8 @@
           <ul class="cd-side__sub-list">
            <!-- <li class="cd-side__sub-item"><a aria-current="page" href="#0">All Notifications</a></li>-->
 
+           <li class="cd-side__sub-item"><a href="{{ url_for('adminapp.generateReport',email=email)}}" id="generateReport"><i class="fas fa-file-alt">&nbsp;&nbsp;</i>Generate Report</a></li>
+
             <li class="cd-side__sub-item"><a href="{{ url_for('adminapp.adminDash_add_dept',email=email)}}" id="Dept"><i class="fas fa-building">&nbsp;&nbsp;</i>Departments</a></li>
 
             <li class="cd-side__sub-item"><a href="{{ url_for('adminapp.adminDash_addapplication',email=email)}}" id="Appl"><i class="fas fa-envelope">&nbsp;&nbsp;</i>Applications</a></li>

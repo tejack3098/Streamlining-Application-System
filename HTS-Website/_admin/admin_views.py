@@ -45,6 +45,13 @@ def adminDash(email):
     else:
         return redirect(url_for("adminapp.adminlogin"))
 
+@adminapp.route('/generateReport/<email>',methods=['GET','POST'])
+def generateReport(email):
+    if email in session:
+        return render_template("report_generate.html",email=email)
+    else:
+        return redirect(url_for("adminapp.adminlogin"))
+
 @adminapp.route("/logout/<email>")
 def adminlogout(email):
     session.pop(email, None)
