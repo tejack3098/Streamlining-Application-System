@@ -364,7 +364,7 @@ def generate_barcode():
 
             result = files.insert_one(
                 {"fid": bcode_string, "applicationType": appid, "altered": False, "timeCreated": d, \
-                 "fileDone": False, "currDept": firstDept, "currDeptName": firstDeptName, \
+                 "fileDone": False, "fileDoneTime":None,"currDept": firstDept, "currDeptName": firstDeptName, \
                  "currEmp": "NOT ASSIGNED", "prevDept": None, "prevDeptName": None, "prevEmp": None,
                  "scanned": False, "delayed": False, \
                  "delayedDays": 0, "alteredTimeline": {}, "expectedTimeline": file_expected,
@@ -431,7 +431,7 @@ def generate_qrcode():
             currEmpDeptName = emp_data.find_one({"email_id": emp}, {"dept_name": True, "_id": False})["dept_name"]
 
             result = files.insert_one({"fid": bcode_string, "applicationType": appid,"altered":False ,"timeCreated": d, \
-                                       "fileDone": False, "currDept": firstDept, "currDeptName": firstDeptName, \
+                                       "fileDone": False, "fileDoneTime":None,"currDept": firstDept, "currDeptName": firstDeptName, \
                                        "currEmp": "NOT ASSIGNED", "prevDept": None, "prevDeptName": None, "prevEmp": None,
                                        "scanned": False, "delayed": False, \
                                        "delayedDays": 0,"alteredTimeline":{} ,"expectedTimeline": file_expected,
@@ -942,7 +942,7 @@ def forward():
                 "$set": {"expectedTimelineDuplicate": expectedTimelineDuplicate,"stageList":fileStageList,
                          "currDept": None,"currEmp":None,"currDeptName":"FILE COMPLETED",
                          "prevDept":currDept,"prevDeptName":currDeptName,"prevEmp":email_id,
-                         "delayed":False,"delayedDays":0,"fileDone": fileDone,"scanned":False}})
+                         "delayed":False,"delayedDays":0,"fileDone": fileDone,"fileDoneTime":d,"scanned":False}})
 
 
             prevFiles.append({"fid": fid, "delay": delay[0],"timeArrived":currFiles[index_in_curr_file]["timeArrived"],
