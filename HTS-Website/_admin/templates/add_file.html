@@ -93,8 +93,9 @@
      <div class="col-md-3 align-self-center"></div> 
 </div>
 
-<div class="row">
-     <div class="col-md-12 align-self-center" id="filesend"></div> 
+<div class="row" style="margin-top: 25px; margin-bottom: 25px; text-align: center; font-size: 20px;font-weight: bold">
+     <div class="col-md-6 justify-content-center" id="filesend_success"></div> 
+     <div class="col-md-6 justify-content-center" id="filesend_to"></div> 
 </div>
 
 
@@ -130,7 +131,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" changes="1" onclick="update_Stage_details(this)">Update changes</button>
+        <button type="button" class="btn btn-primary" changes="1" data-dismiss="modal" onclick="update_Stage_details(this)">Update changes</button>
       </div>
   
     </div>
@@ -192,9 +193,15 @@ function update_Stage_details(a){
         $.post("{{url_for('backendapp.update_stagelist')}}",{fid:finaljson["fid"],altered:finaljson["altered"],details:JSON.stringify(finaljson["details"])},            
             function(response){
                 
-                if(response["status"]==="1"){
+                if(response["status"]=="1"){
                     
-                    document.getElementById("filesend").innerHTML="File Assigned Successfully!";
+                    console.log(response);
+                    
+                    document.getElementById("filesend_to").innerHTML = "File Assigned to: "+response["sentTo"];
+                    document.getElementById("filesend_to").style.color= "green";
+                    
+                    document.getElementById("filesend_success").innerHTML="File Assigned Successfully!";
+                    document.getElementById("filesend_success").style.color = "green";
                     console.log("file assigned successfully");  
                 }
     
@@ -259,6 +266,9 @@ function update_Stage_details(a){
                         
                            codeString = response["code_string"];
                         console.log(codeString);
+                        
+                        document.getElementById("filesend_to").innerHTML= "";
+                        document.getElementById("filesend_success").innerHTML = "";
 
                     }
                     
@@ -312,6 +322,9 @@ function update_Stage_details(a){
                         
                         codeString = response["code_string"];
                         console.log(codeString);
+                        
+                        document.getElementById("filesend_to").innerHTML= "";
+                        document.getElementById("filesend_success").innerHTML = "";
 
                     }
                     
