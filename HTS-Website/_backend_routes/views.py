@@ -1918,7 +1918,32 @@ def get_applications_stats():
 
 
 
+#generate report--------------------------------------------------------------------------------------------
 
+@backendapp.route("/generate_csv",methods=["GET","POST"])
+def generate_csv():
+    if request.method == "GET":
+        f_id = request.args.get('f_id')
+        dept = int(request.args.get('dept_id'))
+
+        result = files.find({'fid': {'$in': f_id}})
+        fileName = "test.csv"
+        headers = ["File ID","Application Type", "Time Created", "Delayed Days"]
+        data = []
+        eachFile = []
+        for i in result:
+            eachFile.append(i["fid"])
+            eachFile.append(i["applicationType"])
+            eachFile.append(i["timeCreated"])
+            eachFile.append(i["delayedDays"])
+            data.append(eachFile)
+            eachFile = []
+            #print(data)
+        with open(fileName, 'w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow(headers)
+            for i in data:
+                writer.writerow(i)
 
 
 #--------------------------------------------Back-End End----------------------------------------
