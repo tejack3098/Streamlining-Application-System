@@ -10,6 +10,7 @@ import qrcode
 from qrcode.image.pure import PymagingImage
 from . import backendapp
 import json
+import pandas as pd
 iwriter = ImageWriter()
 
 
@@ -1274,8 +1275,47 @@ def get_dept_stats():
     else:
         return ("Post method not allowed")
 
-    
-    
+'''                     FOR REPORTS         GET ALL DEPT STATS WITH FIDs        '''
+@backendapp.route("/get_all_dept_stats",methods=["GET","POST"])
+def get_all_dept_stats():
+    if request.method == "GET":
+        #dept_id = request.args.get('dept_id')
+        result = dept.find({},{"_id":False})
+        if result == None:
+            return jsonify({"status":"0","message":"Zero Departments returned."})
+        else:
+            result_list = list(result)
+        details=[]
+        for department in result_list:
+            dept_details = {"dept_id":department["dept_id"],"dept_name":department["dept_name"]}
+            prevFiles = department["prevFiles"]
+            delayedCount = 0
+            all_completed_files =  []
+            all_completed_on_time_files =  []
+            all_completed_on_delay_files =  []
+            for i in prevFiles:
+                all_completed_files.append(i["fid"])
+                if i["delay"] != 0:
+                    delayedCount += 1
+                    all_completed_on_delay_files.append(i["fid"])
+                else:
+                    all_completed_on_time_files.append(i["fid"])
+            dept_details["totalCount"]= department["completedCount"]
+            dept_details["delayedCount"]= delayedCount
+            dept_details["onTimeCount"] = len(all_completed_on_time_files)
+            dept_details["all_completed_files"]=all_completed_files
+            dept_details["all_completed_on_time_files"]=all_completed_on_time_files
+            dept_details["all_completed_on_delay_files"]=all_completed_on_delay_files
+            details.append(dept_details)
+
+        #details= {"totalCount":result["completedCount"],"delayedCount":delayedCount}
+        response = {"status":"1","details":details}
+        return jsonify(response)
+    else:
+        return ("Post method not allowed")
+'''                     FOR REPORTS         GET ALL DEPT STATS WITH FIDs        '''
+
+
 @backendapp.route("/get_dept_stats_current_month",methods=["GET","POST"])
 def get_dept_stats_current_month():
     if request.method=="GET":
