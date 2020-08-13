@@ -157,7 +157,7 @@
         
         
        //dept_name
-            for (var i = 0; i < response['list'].length; i++) {
+            for (var i = 0; i < response['list'].length-1; i++) {
               if(i%2==0)
                     {
                       codeblock = codeblock+'<div class="containert leftt"><div class="contentt"><p><b>Employee ID:'+response['list'][i]['empID']+'</b></p><p><b>Department ID: </b>'+response['list'][i]['deptID']+'</p><p><b>Department Name: </b>'+response['list'][i]['dept_name']+'</p><p style = "color:red"><b>Delayed By: </b>'+response['list'][i]['delay']+' Day(s)</p><br><p><b>Remark: </b>'+response['list'][i]["remark"]+'</p></div></div>';
@@ -168,15 +168,42 @@
                  }
                   
               }
+        //last element--------------------------------------------------------
+        if (response['fileDone']){
+            if(i%2==0)
+                        {
+                          codeblock = codeblock+'<div class="containert leftt"><div class="contentt"><p><b>Employee ID:'+response['list'][i]['empID']+'</b></p><p><b>Department ID: </b>'+response['list'][i]['deptID']+'</p><p><b>Department Name: </b>'+response['list'][i]['dept_name']+'</p><p style = "color:red"><b>Delayed By: </b>'+response['list'][i]['delay']+' Day(s)</p><br><p><b>Remark: </b>'+response['list'][i]["remark"]+'</p></div></div>';
+                      }
+                    else
+                      {
+                      codeblock = codeblock+'<div class="containert rightt"><div class="contentt"><p><b>Employee ID:'+response['list'][i]['empID']+'</b></p><p><b>Department ID: </b>'+response['list'][i]['deptID']+'</p><p><b>Department Name: </b>'+response['list'][i]['dept_name']+'</p><p style = "color:red"><b>Delayed By: </b>'+response['list'][i]['delay']+' Day(s)</p><br><p><b>Remark: </b>'+response['list'][i]["remark"]+'</p></div></div>';
+                     }
+        }
+        
+        else{
+            if (scaned == true){
+                if(i%2==0)
+                            {
+                              codeblock = codeblock+'<div class="containert leftt"><div class="contentt"><p><b>Employee ID:'+response['currEmp']+'</b></p><p><b>Department ID: </b>'+response['currDept']+'</p><p><b>Department Name: </b>'+response['currDeptName']+'</p><p style = "color:red"><b>Delayed By: </b>'+response['delayedBy']+' Day(s)</p><br></div></div>';
+                          }
+                        else
+                          {
+                          codeblock = codeblock+'<div class="containert rightt"><div class="contentt"><p><b>Employee ID:'+response['currEmp']+'</b></p><p><b>Department ID: </b>'+response['currDept']+'</p><p><b>Department Name: </b>'+['currDeptName']+'</p><p style = "color:red"><b>Delayed By: </b>'+response['delayedBy']+' Day(s)</p><br></div></div>';
+                     }
+                }
+        }
+        //last element-------------------------------------------------------------
         
         if (scaned == false){
                         console.log(currEmp);
                         var currDeptName = response['currDeptName'];
-                        var currDelay = response['delay'];
+                        var currDelay = response['delayedBy'];
                         /*if(!response['currDept']){
                             currDeptName="-";
                         }*/
                         console.log(" CurrDeptName : ",currDeptName);
+                        console.log("-----------------------");
+                        console.log(currDelay);
             if(i%2==0)
                     {
                       codeblock = codeblock+'<div class="containert leftt" ><div class="contentt" style = "border-style: dashed;"><p><b>Employee ID:'+currEmp+'</b></p><p><b>Department ID: </b>'+currDept+'</p><p><b>Department Name: </b>'+currDeptName+'</p><p style = "color:red"><b>Delayed By: </b>'+currDelay+' Day(s)</p><br><b style = "color:red;">Not Yet Scanned.</b></div></div>';
