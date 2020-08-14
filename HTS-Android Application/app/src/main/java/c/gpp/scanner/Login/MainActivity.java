@@ -39,7 +39,8 @@ public class MainActivity extends AppCompatActivity {
     public static String email;
     private SharedPreferences saved;
     private SharedPreferences.Editor saved_edit;
-    public static String postUrl = "http://84a35fb1.ngrok.io";
+    public static String postUrl = "https://839d7a147768.ngrok.io";
+    public static String const_posturl = "839d7a147768.ngrok.io";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

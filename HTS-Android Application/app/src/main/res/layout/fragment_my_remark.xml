@@ -6,7 +6,9 @@
     tools:context=".CurrentFiles.MyRemarkFragment">
 
     <!-- TODO: Update blank fragment layout -->
-
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
     <EditText
         android:id="@+id/remark"
         android:layout_width="match_parent"
@@ -14,5 +16,41 @@
         android:inputType="text"
         android:textColor="#1c92d2"
         android:imeOptions="actionDone" />
+
+    <RadioGroup
+        android:layout_marginTop="50dp"
+        android:id="@+id/forward_radio"
+        android:layout_marginLeft="10dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <!-- In RadioGroup create the 1 Radio Button-->
+        <!-- like this we will add some more Radio Button-->
+        <RadioButton
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/emp_forward"
+            android:text="Forward to Employee"
+            android:textSize="20dp"/>
+
+        <RadioButton
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/dept_forward"
+            android:text="Forward To next Department"
+            android:textSize="20dp"
+            />
+
+
+    </RadioGroup>
+
+    <Spinner
+        android:layout_below="@+id/forward_radio"
+        android:id="@+id/emp_email_spinner"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    </RelativeLayout>
 
 </FrameLayout>
