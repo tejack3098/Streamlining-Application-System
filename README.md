@@ -1,4 +1,4 @@
-# Transparency-and-Safeguard-Measures in HR Management
+# Streamlining Institution Application Processes with Innovative Tracking and Estimation System
 # Smart India Hackathon 2020 Winning Project
 
 - In collaboration with a team of 6 members, I have successfully developed a comprehensive solution to streamline the application process for an institution. Our solution includes an innovative application tracking system that enables users to monitor the progress of each application through every stage of the process.
